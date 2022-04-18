@@ -1,0 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display-swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+:root {
+    --azul: #287bff;
+    --branco: #fff;
+    --cinza: #f5f5f5;
+    --preto1: #222;
+    --preto2: #999;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.navigation {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: var(--azul);
+    border-left: 10px solid var(--azul);
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.navigation.active {
+    width: 80px;
+}
+
+.navigation ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.navigation ul li:hover,
+.navigation ul li.hovered {
+    background-color: var(--branco);
+}
+
+.navigation ul li:nth-child(1) {
+    margin-bottom: 40px;
+    pointer-events: none;
+}
+
+.navigation ul li a {
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: var(--branco);
+}
+
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+    color: var(--azul);
+}
+
+.navigation ul li a .icon {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 1.75em;
+}
+
+.navigation ul li a .title {
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+
+/*
+curve outside
+*/
+
+.navigation ul li:hover a::before,
+.navigation ul li.hovered a::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px var(--branco);
+}
+
+.navigation ul li:hover a::after,
+.navigation ul li.hovered a::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px var(--branco);
+    pointer-events: none;
+}
+
+
+/* Main */
+
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: var(--branco);
+    transition: 0.5s;
+}
+
+.main.active {
+    width: calc(100% - 80px);
+    left: 80px;
+}
+
+.topbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.toggle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    cursor: pointer;
+}
+
+.user {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.user img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main iframe {
+    position: relative;
+    width: 96%;
+    margin: 20px;
+    height: 500px;
+}
+
+
+/* Container Pai */
+
+.containerCards {
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+}
+
+.containerCards input,
+textarea {
+    border: none;
+    font-size: 1.2em;
+    border-bottom: 1px solid var(--preto2);
+}
+
+
+/* Usuário */
+
+.containerUsuario {
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
+}
+
+.cardUsuario {
+    display: grid;
+    grid-template-rows: 5vh 20vh 10vh;
+}
+
+.topUsuario {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
+.topUsuario h2 {
+    font-weight: 600;
+    color: var(--azul);
+}
+
+.topUsuario button {
+    margin-left: 35px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--azul);
+    color: var(--branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topUsuario button:hover {
+    background-color: var(--branco);
+    color: var(--azul);
+    border: 1px solid var(--azul);
+    cursor: pointer;
+}
+
+.topUsuario ion-icon {
+    font-size: 1.7em;
+}
+
+.bodyUsuario {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    justify-items: end;
+    justify-content: center;
+    align-items: center;
+}
+
+.rodapeUsuario {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+
+/* Material */
+
+.containerMaterial {
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
+}
+
+.topMaterial {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
+.topMaterial h2 {
+    font-weight: 600;
+    color: var(--azul);
+}
+
+.topMaterial ion-icon {
+    font-size: 1.7em;
+}
+
+.topMaterial button {
+    margin-left: 35px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--azul);
+    color: var(--branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topMaterial button:hover {
+    background-color: var(--branco);
+    color: var(--azul);
+    border: 1px solid var(--azul);
+    cursor: pointer;
+}
+
+.bodyMaterial {
+    display: grid;
+    grid-template-rows: repeat(7, 1fr);
+    justify-items: end;
+    justify-content: center;
+    align-items: center;
+}
+
+.bodyMaterial input#criacaoMaterial {
+    width: 260px;
+}
+
+.rodapeMaterial {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+
+/* Reponsive */
+
+@media (max-width: 991px) {
+    .navigation {
+        left: -300px;
+    }
+    .navigation.active {
+        width: 300px;
+        left: 0;
+    }
+    .main {
+        width: 100%;
+        left: 0;
+    }
+    .main.active {
+        left: 300px;
+    }
+    .cardBox {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .details {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .recentOrders {
+        overflow-x: auto;
+    }
+    .status.aprovar {
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .cardBox {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .cardHeader h2 {
+        font-size: 20px;
+    }
+    .user {
+        min-width: 40px;
+    }
+    .navigation {
+        width: 100%;
+        left: -100%;
+        z-index: 1000;
+    }
+    .navigation.active {
+        width: 100%;
+        left: 0;
+    }
+    .toggle {
+        z-index: 10001;
+    }
+    .main.active .toggle {
+        position: fixed;
+        right: 0;
+        left: initial;
+        color: var(--branco);
+    }
+}

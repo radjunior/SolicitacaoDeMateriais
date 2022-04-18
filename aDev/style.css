@@ -1,0 +1,12 @@
+body {
+    background-color: azure;
+}
+
+.container {
+    position: relative;
+    top: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
