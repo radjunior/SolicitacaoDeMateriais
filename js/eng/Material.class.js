@@ -25,7 +25,7 @@ class SolicitacaoMaterial {
 
     lerDados() {
         let arrSolic = {};
-
+        
         //Automáticos
         arrSolic.id = this.id;
         arrSolic.statusSolic = this.sttAprovar;
@@ -189,6 +189,7 @@ class SolicitacaoMaterial {
             let td_qtdeMaterial = tr.insertCell();
             let td_valorUnit = tr.insertCell();
             let td_valorReal = tr.insertCell();
+            let td_aplicacao = tr.insertCell();
             let td_solicitante = tr.insertCell();
             let td_acoes = tr.insertCell();
             td_id.innerText = this.arrSolicitacao[i].id;
@@ -197,7 +198,7 @@ class SolicitacaoMaterial {
             td_valorUnit.innerText = "R$ " + this.arrSolicitacao[i].valorUnit;
             td_valorReal.innerText = this.arrSolicitacao[i].valorReal;
             td_solicitante.innerText = this.arrSolicitacao[i].solicitante;
-
+            td_aplicacao.innerText = this.arrSolicitacao[i].aplicacao;
 
             let imgEdit = document.createElement('img');
             imgEdit.src = '../../images/icons/edit.png';
@@ -209,7 +210,6 @@ class SolicitacaoMaterial {
 
             td_acoes.appendChild(imgEdit);
             td_acoes.appendChild(imgLixo);
-            console.log(this.arrSolicitacao);
         }
     }
     calcularTotalReal() {
@@ -276,7 +276,8 @@ class SolicitacaoMaterial {
                 if (retorno.queryString == null) {
                     alert("Erro ao efetuar a solicitação do Material:\n" + retorno.errorInfo[2]);
                 } else {
-                    alert("Material solicitado com sucesso");
+                    confirm("Material solicitado com sucesso");
+                    location.reload();
                 }
             }, "json");
         }

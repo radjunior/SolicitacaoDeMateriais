@@ -27,7 +27,7 @@ $stmtValorTotal = $conn->query($queryTotal);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Automação</title>
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/eng/style.css">
     <link rel="stylesheet" type="text/css" href="../../css/datatable/datatable.css">
 </head>
 
@@ -99,11 +99,10 @@ $stmtValorTotal = $conn->query($queryTotal);
         <div class="cardBox">
             <div class="carde">
                 <div>
-                    <div class="numbers">R$
-                        <?php foreach ($stmtValorTotal as $item) {
-                            echo $item['totalValorTotal'];
-                        } ?></div>
-                    <div class="cardName">Compras</div>
+                    <div class="numbersComprasTotal">
+                        <?php foreach($stmtValorTotal as $item){echo $item['totalValorTotal'];}?>
+                    </div>
+                    <div class="cardName">Compras (R$)</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="cart-outline"></ion-icon>
@@ -157,21 +156,23 @@ $stmtValorTotal = $conn->query($queryTotal);
                     <thead>
                         <tr>
                             <td scope="col">Descrição</td>
-                            <td scope="col">Qthe</td>
+                            <td scope="col">Qtde</td>
                             <td scope="col">Valor Unit.</td>
                             <td scope="col">Valor Total</td>
                             <td scope="col">Solicitante</td>
+                            <td scope="col">Aplicação</td>
                             <td scope="col">Status</td>
                         </tr>
                     </thead>
-                    <tbody id="tBody">
+                    <tbody>
                         <?php foreach ($stmt as $item) { ?>
-                            <tr>
+                            <tr id="tBody">
                                 <td><?php echo $item['DESCRICAO'] ?></td>
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
-                                <td><?php echo $item['REAL_UNITARIO'] ?></td>
-                                <td><?php echo $item['REAL_TOTAL'] ?></td>
+                                <td class="itemTableValorUnitario"><?php echo $item['REAL_UNITARIO'] ?></td>
+                                <td class="itemTableValorReal"><?php echo $item['REAL_TOTAL'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
+                                <td><?php echo $item['APLICACAO'] ?></td>
                                 <td><?php echo $item['STATUS_SOLIC'] ?></td>
                             </tr>
                         <?php } ?>
@@ -183,8 +184,10 @@ $stmtValorTotal = $conn->query($queryTotal);
     <script type="text/javascript" src="../../js/google.api/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>
     <script type="text/javascript" src="../../js/eng/home.js"></script>
+    <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
     <script type="text/javascript" src="../../js/datatable/datatable.js"></script>
     <script type="text/javascript" src="../../js/datatable/jquery-3-5-1.js"></script>
+    <script type="text/javascript" src="../../js/datatable/jquery.validate.min.js"></script>
     <script type="text/javascript" src="../../js/datatable/jquery.dataTables.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

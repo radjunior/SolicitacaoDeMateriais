@@ -83,11 +83,10 @@ $stmtValorTotal = $conn->query($queryTotal);
         <div class="cardBox">
             <div class="carde">
                 <div>
-                    <div class="numbers">R$
-                        <?php foreach ($stmtValorTotal as $item) {
-                            echo $item['totalValorTotal'];
-                        } ?></div>
-                    <div class="cardName">Compras</div>
+                    <div class="numbersComprasTotal">
+                        <?php foreach($stmtValorTotal as $item){echo $item['totalValorTotal'];}?>
+                    </div>
+                    <div class="cardName">Compras (R$)</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="cart-outline"></ion-icon>
@@ -140,9 +139,10 @@ $stmtValorTotal = $conn->query($queryTotal);
                     <thead>
                         <tr>
                             <td scope="col">Descrição</td>
-                            <td scope="col">Quantidade</td>
+                            <td scope="col">Qtde</td>
                             <td scope="col">Valor Unitário</td>
                             <td scope="col">Valor Total</td>
+                            <td scope="col">Aplicação</td>
                             <td scope="col">Solicitante</td>
                             <td scope="col">Status</td>
                         </tr>
@@ -154,8 +154,16 @@ $stmtValorTotal = $conn->query($queryTotal);
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
                                 <td><?php echo 'R$ ' . $item['REAL_UNITARIO'] ?></td>
                                 <td><?php echo 'R$ ' . $item['REAL_TOTAL'] ?></td>
+                                <td><?php echo $item['APLICACAO'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
-                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-materialId="<?php echo $item['ID'] ?>" data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
+                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                data-bs-materialId="<?php echo $item['ID'] ?>" 
+                                data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" 
+                                data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" 
+                                data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" 
+                                data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" 
+                                data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" 
+                                data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -172,11 +180,15 @@ $stmtValorTotal = $conn->query($queryTotal);
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" class="form-control" name="materialId" id="materialId">
-                            <input type="hidden" class="form-control" name="dataHoje" id="dataHoje">
+                            <input type="hidden" placeholder="id" class="form-control" name="materialId" id="materialId">
+                            <input type="hidden" placeholder="data" class="form-control" name="dataAtual" id="dataAtual">
                             <div class="mb-3">
                                 <label for="materialDescricao" class="col-form-label">Descrição</label>
                                 <input type="text" class="form-control" name="materialDescricao" readonly>
+                            </div>
+                            <div class="mb-3">
+                                    <label for="materialAplicacao" class="col-form-label">Aplicação</label>
+                                    <input type="text" class="form-control" name="materialAplicacao" readonly>
                             </div>
                             <div class="centerModal">
                                 <div class="mb-3">
@@ -201,7 +213,8 @@ $stmtValorTotal = $conn->query($queryTotal);
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary">Confirmar Aprovação</button>
+                            <button type="button" class="btn btn-danger" onclick="reprovar()">Reprovar</button>
+                            <button type="submit" class="btn btn-primary">Aprovar</button>
                         </div>
                     </form>
                 </div>
@@ -209,15 +222,16 @@ $stmtValorTotal = $conn->query($queryTotal);
         </div>
         <!-- Fim Modal -->
     </div>
+</body>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="../../js/google.api/jquery-3.6.0.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script type="text/javascript" src="../../js/crd/main.js"></script>
+    <script type="text/javascript" src="../../js/google.api/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>    
+    <script type="text/javascript" src="../../js/crd/home.js"></script>
+    <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
     <script type="text/javascript" src="../../js/datatable/datatable.js"></script>
     <script type="text/javascript" src="../../js/datatable/jquery-3-5-1.js"></script>
     <script type="text/javascript" src="../../js/datatable/jquery.dataTables.min.js"></script>
-</body>
-
 </html>

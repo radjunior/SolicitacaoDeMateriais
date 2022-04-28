@@ -22,3 +22,21 @@ list.forEach((item) =>
 $(document).ready(function() {
     $('#TabelaHome').DataTable();
 });
+
+$('.numbersComprasTotal').mask('##.##0,00',{reverse: true});
+$('#itemTabelaValores').mask('##.##0,00',{reverse: true});
+
+$('#tBody tbody tr').each(function () {
+    // Recuperar todas as colunas da linha percorida
+    var colunas = $(this).children();
+    var pedidos = [];
+    // Criar objeto para armazenar os dados
+    var pedido = {
+        'itemTableValorUnitario': $(colunas[0]).text(), // valor da coluna Produto
+        'itemTableValorReal': $(colunas[1]).text() // Valor da coluna Quantidade
+    };
+
+    // Adicionar o objeto pedido no array
+    pedidos.push(pedido);
+    console.log(pedidos);
+});

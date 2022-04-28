@@ -45,7 +45,6 @@ $(function() {
                 $("textarea[name='descricaoMaterial']").val(retorno.material);
                 $("input[name='unidadeMaterial']").val(retorno.unidade);
             }, "json");
-
             document.addEventListener('keydown', function(event) {
                 var code = event.keyCode || event.which;
                 if (code === 9) {
@@ -61,14 +60,11 @@ $(function() {
     $('#codigoCCusto').keydown(pesquisaCentroCusto);
 
     function pesquisaCentroCusto() {
-
         var pesquisa = $(this).val();
-
         if (pesquisa != '') {
             dados = {
                 palavra: pesquisa
             }
-
             $.post('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
                 $("input[name='descricaoCCusto']").val(retorno.descricao);
                 $("input[name='responsavelCCusto']").val(retorno.responsavel);

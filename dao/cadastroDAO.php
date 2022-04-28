@@ -1,0 +1,92 @@
+<?php
+require_once "conexao.php";
+
+// Materiais
+$codMaterial = filter_input(INPUT_POST, 'codigoMaterial');
+$unidadeMaterial = filter_input(INPUT_POST, 'unidadeMaterial');
+$qtdeMaterial = filter_input(INPUT_POST, 'qtdeMaterial');
+$valorUnit = filter_input(INPUT_POST, 'valorUnit');
+$valorReal = filter_input(INPUT_POST, 'valorReal');
+$valorRealReplace = str_replace('R$ ', '', $valorReal);
+$descricaoMaterial = filter_input(INPUT_POST, 'descricaoMaterial');
+//  Centro de Custo
+$codigoCCusto = filter_input(INPUT_POST, 'codigoCCusto');
+$descricaoCCusto = filter_input(INPUT_POST, 'descricaoCCusto');
+//  Aplicação
+$prioridade = filter_input(INPUT_POST, 'prioridade');
+$proposta = filter_input(INPUT_POST, 'proposta');
+$aplicacao = filter_input(INPUT_POST, 'aplicacao');
+//  Externo
+$fornecedor = filter_input(INPUT_POST, 'fornecedor');
+$requisicao = filter_input(INPUT_POST, 'requisicao');
+$itemRequisicao = filter_input(INPUT_POST, 'itemRequisicao');
+//  Datas
+$mesAprov = filter_input(INPUT_POST, 'mesAprov');
+$dataInsert = filter_input(INPUT_POST, 'dataInsert');
+// Dados preenchidos automaticamente
+$solicitante = filter_input(INPUT_POST, 'solicitante');
+$statusSolic = filter_input(INPUT_POST, 'statusSolic');
+$dataAprovacao = filter_input(INPUT_POST, 'dataAprovacao');
+$dataAutorizacao = filter_input(INPUT_POST, 'dataAutoriz');
+
+echo json_encode($arr);
+try {
+    $conn = ConexaoLocal::getConnection();
+    $query = "INSERT INTO MATERIAIS_SOLICITADOS(MES_APROVACAO, MES_INSERCAO, CODIGO, DESCRICAO, UNIDADE, QUANTIDADE, PROPOSTA, REAL_UNITARIO, REAL_TOTAL, CENTRO_CUSTO, DESCRICAO_CENTRO_CUSTO, FORNECEDOR, REQUISICAO, ITEM_REQUISICAO, SOLICITANTE, STATUS, DATA_APROVACAO, DATA_AUTORIZACAO, PRIORIDADE, APLICACAO) 
+    VALUES (:col01, :col02, :col03, :col04, :col05, :col06, :col07, :col08, :col09, :col10, :col11, :col12, :col13, :col14, :col15, :col16, :col17, :col18, :col19, :col20)";
+    $stmt = $conn->prepare($query);
+    $stmt->execute(array(
+        ':col01' => $mesAprov,
+        ':col02' => $dataInsert,
+        ':col03' => $codMaterial,
+        ':col04' => $descricaoMaterial,
+        ':col05' => $unidadeMaterial,
+        ':col06' => $qtdeMaterial,
+        ':col07' => $proposta,
+        ':col08' => $valorUnit,
+        ':col09' => $valorRealReplace,
+        ':col10' => $codigoCCusto,
+        ':col11' => $descricaoCCusto,
+        ':col12' => $fornecedor,
+        ':col13' => $requisicao,
+        ':col14' => $itemRequisicao,
+        ':col15' => $solicitante,
+        ':col16' => $statusSolic,
+        ':col17' => $dataAprovacao,
+        ':col18' => $dataAutorizacao,
+        ':col19' => $prioridade,
+        ':col20' => $aplicacao
+    ));
+} catch (\Throwable $th) {
+    throw $th;
+}
+
+
+header("Location: ../pgs/eng/solicMaterial.php");
+exit();
+
+/* EXIBIÇÃO
+echo "Código Material: ", $codMaterial;
+echo "<br>Unidade: ", $unidadeMaterial;
+echo "<br>Qtde: ", $qtdeMaterial;
+echo "<br>Valor Unit: ", $valorUnit;
+echo "<br>Valor Real: ", $valorRealReplace;
+echo "<br>Descricao: ", $descricaoMaterial;
+echo "<br>Cod Centro: ", $codigoCCusto;
+echo "<br>Desc Centro: ", $descricaoCCusto;
+echo "<br>Prioridade: ", $prioridade;
+echo "<br>Proposta: ", $proposta;
+echo "<br>Aplicavao: ", $aplicacao;
+echo "<br>Fornecedor: ", $fornecedor;
+echo "<br>requisicao: ", $requisicao;
+echo "<br>itemRequisicao: ", $itemRequisicao;
+echo "<br>mesAprov: ", $mesAprov;
+echo "<br>dataInsert: ", $dataInsert;
+echo "<br> ****Dados preenchidos automaticamente****";
+echo "<br>", $solicitante;
+echo "<br>", $statusSolic;
+echo "<br>", $dataAprovacao;
+echo "<br>", $dataAutorizacao;*/
+
+//20 atributos "22/12/2021"
+//20 atributos no Banco + (id) 21 total;

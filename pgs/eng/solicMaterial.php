@@ -204,6 +204,7 @@ require_once "../../dao/session.php";
                             <td scope="col">Quantidade</td>
                             <td scope="col">Valor Unitário</td>
                             <td scope="col">Valor Total</td>
+                            <td scope="col">Aplicação</td>
                             <td scope="col">Solicitante</td>
                             <td scope="col">Config</td>
                         </tr>
@@ -214,7 +215,6 @@ require_once "../../dao/session.php";
             </div>
         </div>
     </div>
-
     <script type="text/javascript" src="../../js/google.api/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>
     <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
@@ -222,7 +222,6 @@ require_once "../../dao/session.php";
     <script type="text/javascript" src="../../js/eng/Material.class.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
 </body>
 
 </html>
