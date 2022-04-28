@@ -1,6 +1,3 @@
-<?php
-require_once "./dao/session.php"
-?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
