@@ -10,3 +10,12 @@ body {
     align-items: center;
     align-content: center;
 }
+.btn{
+    cursor: pointer;
+}
+.hidden {
+    display: none;
+}
+input {
+    display: block;
+}

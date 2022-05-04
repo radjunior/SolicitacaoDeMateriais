@@ -75,3 +75,7 @@ function desautorizar() {
         }
     });
 }
+//DataTable
+$(document).ready(function() {
+    $('#TabelaHome').DataTable();
+});

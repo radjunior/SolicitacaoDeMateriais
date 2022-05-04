@@ -84,9 +84,7 @@ $stmtValorTotal = $conn->query($queryTotal);
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach ($stmtValorTotal as $item) {
-                            echo $item['totalValorTotal'];
-                        } ?>
+                        <?php foreach($stmtValorTotal as $item){echo $item['totalValorTotal'];}?>
                     </div>
                     <div class="cardName">Compras (R$)</div>
                 </div>
@@ -137,7 +135,7 @@ $stmtValorTotal = $conn->query($queryTotal);
                 <div class="cardHeader">
                     <h2>Materiais a Serem Solicitados</h2>
                 </div>
-                <table id="TabelaHome" class="tabelaPrincipal">
+                <table id="TabelaHome" class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <td scope="col">Descrição</td>
@@ -158,7 +156,14 @@ $stmtValorTotal = $conn->query($queryTotal);
                                 <td><?php echo 'R$ ' . $item['REAL_TOTAL'] ?></td>
                                 <td><?php echo $item['APLICACAO'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
-                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-materialId="<?php echo $item['ID'] ?>" data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Autorizar</button></td>
+                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                data-bs-materialId="<?php echo $item['ID'] ?>" 
+                                data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" 
+                                data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" 
+                                data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" 
+                                data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" 
+                                data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" 
+                                data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Autorizar</button></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -182,8 +187,8 @@ $stmtValorTotal = $conn->query($queryTotal);
                                 <input type="text" class="form-control" name="materialDescricao" readonly>
                             </div>
                             <div class="mb-3">
-                                <label for="materialAplicacao" class="col-form-label">Aplicação</label>
-                                <input type="text" class="form-control" name="materialAplicacao" readonly>
+                                    <label for="materialAplicacao" class="col-form-label">Aplicação</label>
+                                    <input type="text" class="form-control" name="materialAplicacao" readonly>
                             </div>
                             <div class="centerModal">
                                 <div class="mb-3">
@@ -227,18 +232,19 @@ $stmtValorTotal = $conn->query($queryTotal);
             </div>
         </div>
         <!-- Fim Modal -->
-
+       
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" src="../../js/google.api/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>  
     <script type="text/javascript" src="../../js/ger/home.js"></script>
     <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
     <script type="text/javascript" src="../../js/datatable/datatable.js"></script>
     <script type="text/javascript" src="../../js/datatable/jquery-3-5-1.js"></script>
+    <script type="text/javascript" src="../../js/datatable/jquery.validate.min.js"></script>
     <script type="text/javascript" src="../../js/datatable/jquery.dataTables.min.js"></script>
 </body>
 

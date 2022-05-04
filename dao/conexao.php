@@ -1,17 +1,13 @@
 <?php
-define('DB_HOST_LOCAL', "SQLCFL\SQLEXPRESS");
+define('DB_HOST_LOCAL', "10.146.200.80\SQLEXPRESS, 1433");
 define('DB_USER_LOCAL', "sa");
 define('DB_PASS_LOCAL', "Coruripe10");
 define('DB_NAME_LOCAL', "USCO");
 define('DB_DRIVER_LOCAL', "sqlsrv");
 
-class ConexaoLocal
-{
-    private function __construct()
-    {
-    }
-    public static function getConnection()
-    {
+class ConexaoLocal {
+    private function __construct() {}
+    public static function getConnection() {
         $pdoConfig = DB_DRIVER_LOCAL . ":" . "Server=" . DB_HOST_LOCAL . ";";
         $pdoConfig .= "Database=" . DB_NAME_LOCAL . ";";
         try {

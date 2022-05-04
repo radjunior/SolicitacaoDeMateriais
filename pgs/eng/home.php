@@ -100,9 +100,7 @@ $stmtValorTotal = $conn->query($queryTotal);
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach ($stmtValorTotal as $item) {
-                            echo $item['totalValorTotal'];
-                        } ?>
+                        <?php foreach($stmtValorTotal as $item){echo $item['totalValorTotal'];}?>
                     </div>
                     <div class="cardName">Compras (R$)</div>
                 </div>
@@ -152,7 +150,6 @@ $stmtValorTotal = $conn->query($queryTotal);
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Solicitações</h2>
-                    <a href="#" class="btn">Ver Todos</a>
                 </div>
                 <table id="TabelaHome" class="tabelaPrincipal">
                     <thead>
@@ -163,6 +160,7 @@ $stmtValorTotal = $conn->query($queryTotal);
                             <td scope="col">Valor Total</td>
                             <td scope="col">Solicitante</td>
                             <td scope="col">Aplicação</td>
+                            <td scope="col">Mês Aprovação</td>
                             <td scope="col">Status</td>
                         </tr>
                     </thead>
@@ -175,6 +173,7 @@ $stmtValorTotal = $conn->query($queryTotal);
                                 <td class="itemTableValorReal"><?php echo $item['REAL_TOTAL'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
                                 <td><?php echo $item['APLICACAO'] ?></td>
+                                <td><?php echo $item['MES_APROVACAO'] ?></td>
                                 <td><?php echo $item['STATUS_SOLIC'] ?></td>
                             </tr>
                         <?php } ?>

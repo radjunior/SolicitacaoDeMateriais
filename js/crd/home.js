@@ -69,3 +69,7 @@ function reprovar() {
         }
     });
 }
+//DataTable
+$(document).ready(function() {
+    $('#TabelaHome').DataTable();
+});
