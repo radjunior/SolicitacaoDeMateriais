@@ -100,7 +100,9 @@ $stmtValorTotal = $conn->query($queryTotal);
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach($stmtValorTotal as $item){echo $item['totalValorTotal'];}?>
+                        <?php foreach ($stmtValorTotal as $item) {
+                            echo $item['totalValorTotal'];
+                        } ?>
                     </div>
                     <div class="cardName">Compras (R$)</div>
                 </div>

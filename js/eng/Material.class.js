@@ -25,7 +25,7 @@ class SolicitacaoMaterial {
 
     lerDados() {
         let arrSolic = {};
-        
+
         //Automáticos
         arrSolic.id = this.id;
         arrSolic.statusSolic = this.sttAprovar;

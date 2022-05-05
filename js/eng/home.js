@@ -23,10 +23,10 @@ $(document).ready(function() {
     $('#TabelaHome').DataTable();
 });
 
-$('.numbersComprasTotal').mask('##.##0,00',{reverse: true});
-$('#itemTabelaValores').mask('##.##0,00',{reverse: true});
+$('.numbersComprasTotal').mask('##.##0,00', { reverse: true });
+$('#itemTabelaValores').mask('##.##0,00', { reverse: true });
 
-$('#tBody tbody tr').each(function () {
+$('#tBody tbody tr').each(function() {
     // Recuperar todas as colunas da linha percorida
     var colunas = $(this).children();
     var pedidos = [];

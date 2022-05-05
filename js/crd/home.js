@@ -20,7 +20,7 @@ list.forEach((item) =>
     item.addEventListener('mouseover', activeLink));
 //Modal
 var exampleModal = document.getElementById('exampleModal')
-    exampleModal.addEventListener('show.bs.modal', function(event) {
+exampleModal.addEventListener('show.bs.modal', function(event) {
     var button = event.relatedTarget
     var materialId = button.getAttribute('data-bs-materialId')
     var materialCodigo = button.getAttribute('data-bs-materialCodigo')
@@ -38,7 +38,7 @@ var exampleModal = document.getElementById('exampleModal')
     document.querySelector("[name='materialAplicacao']").value = `${materialAplicacao}`;
 })
 
-$('.numbersComprasTotal').mask('##.##0,00',{reverse: true});
+$('.numbersComprasTotal').mask('##.##0,00', { reverse: true });
 
 var data = new Date();
 var dia = data.getDate();
@@ -58,9 +58,9 @@ function reprovar() {
     $.ajax({
         url: '../../dao/crd/reprovar.php',
         type: 'POST',
-        data: {codigo: txtCodigo, data: dataHoje},
-        success: function(result){
-            if(result){
+        data: { codigo: txtCodigo, data: dataHoje },
+        success: function(result) {
+            if (result) {
                 location.reload();
             }
         },

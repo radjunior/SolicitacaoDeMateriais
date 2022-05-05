@@ -4,7 +4,7 @@ require_once "../conexao.php";
 $cod = $_POST['codigo'] ?? NULL;
 $data = $_POST['data'] ?? NULL;
 $status = 'NAO_AUTORIZADO';
-echo $cod."\n".$data;
+echo $cod . "\n" . $data;
 if ($cod != NULL && $data != null) {
     try {
         $conn = ConexaoLocal::getConnection();

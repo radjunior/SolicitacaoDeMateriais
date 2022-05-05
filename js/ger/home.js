@@ -31,10 +31,10 @@ exampleModal.addEventListener('show.bs.modal', function(event) {
     var materialRealTotal = button.getAttribute('data-bs-materialRealTotal')
     var materialSolicitante = button.getAttribute('data-bs-materialSolicitante')
     var materialAplicacao = button.getAttribute('data-bs-materialAplicacao');
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
     document.querySelector("[name='materialId']").value = `${materialId}`;
     document.querySelector("[name='materialCodigo']").value = `${materialCodigo}`;
     document.querySelector("[name='materialDescricao']").value = `${materialDescricao}`;
@@ -44,7 +44,7 @@ exampleModal.addEventListener('show.bs.modal', function(event) {
     document.querySelector("[name='materialAplicacao']").value = `${materialAplicacao}`;
 })
 
-$('.numbersComprasTotal').mask('##.##0,00',{reverse: true});
+$('.numbersComprasTotal').mask('##.##0,00', { reverse: true });
 
 // data hoje
 var data = new Date();
@@ -64,9 +64,9 @@ function desautorizar() {
     $.ajax({
         url: '../../dao/ger/desautorizar.php',
         type: 'POST',
-        data: {codigo: txtCodigo, data: dataHoje},
-        success: function(result){
-            if(result){
+        data: { codigo: txtCodigo, data: dataHoje },
+        success: function(result) {
+            if (result) {
                 location.reload();
             }
         },

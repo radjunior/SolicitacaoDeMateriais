@@ -270,16 +270,20 @@ curve outside
     color: var(--branco);
 }
 
+
 /* card */
+
 .numbersComprasTotal {
     position: relative;
     font-weight: 500;
     font-size: 2.5em;
     color: var(--azul);
 }
-.numbersComprasTotal:hover{
+
+.numbersComprasTotal:hover {
     color: var(--branco);
 }
+
 
 /* Tabela */
 
