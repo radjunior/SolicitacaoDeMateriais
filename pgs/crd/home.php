@@ -15,8 +15,15 @@ $stmtAprovar = $conn->query($queryAprovar);
 $queryAutorizado = "SELECT COUNT(STATUS_SOLIC) AS totalAutorizado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
 $stmtAutorizado = $conn->query($queryAutorizado);
 
-$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS";
-$stmtValorTotal = $conn->query($queryTotal);
+
+$queryTotalAprovar = "SELECT SUM(real_total) AS real_total_aprovar FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVAR'";
+$stmtValorTotalAprovar = $conn->query($queryTotalAprovar);
+
+$queryTotalAprovado = "SELECT SUM(real_total) AS real_total_aprovado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVADO'";
+$stmtValorTotalAprovado = $conn->query($queryTotalAprovado);
+
+$queryTotalAutorizado = "SELECT SUM(real_total) AS real_total_autorizado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
+$stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -84,9 +91,11 @@ $stmtValorTotal = $conn->query($queryTotal);
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach($stmtValorTotal as $item){echo $item['totalValorTotal'];}?>
+                        <?php foreach ($stmtValorTotalAprovar as $item) {
+                            echo $item['real_total_aprovar'];
+                        } ?>
                     </div>
-                    <div class="cardName">Compras (R$)</div>
+                    <div class="cardName">R$ Total Solicitado</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="cart-outline"></ion-icon>
@@ -94,11 +103,12 @@ $stmtValorTotal = $conn->query($queryTotal);
             </div>
             <div class="carde">
                 <div>
-                    <div class="numbers">
-                        <?php foreach ($stmtAprovar as $item) {
-                            echo $item['totalAprovar'];
-                        } ?></div>
-                    <div class="cardName">Aprovar</div>
+                    <div class="numbersComprasTotal">
+                        <?php foreach ($stmtValorTotalAprovado as $item) {
+                            echo $item['real_total_aprovado'];
+                        } ?>
+                    </div>
+                    <div class="cardName">R$ Total Aprovado</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="reload-outline"></ion-icon>
@@ -106,11 +116,11 @@ $stmtValorTotal = $conn->query($queryTotal);
             </div>
             <div class="carde">
                 <div>
-                    <div class="numbers">
-                        <?php foreach ($stmtAprovado as $item) {
-                            echo $item['totalAprovado'];
+                    <div class="numbersComprasTotal">
+                        <?php foreach ($stmtValorTotalAutorizado as $item) {
+                            echo $item['real_total_autorizado'];
                         } ?></div>
-                    <div class="cardName">Aprovado</div>
+                    <div class="cardName">R$ Total Autorizado</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="thumbs-up-outline"></ion-icon>
@@ -156,14 +166,7 @@ $stmtValorTotal = $conn->query($queryTotal);
                                 <td><?php echo 'R$ ' . $item['REAL_TOTAL'] ?></td>
                                 <td><?php echo $item['APLICACAO'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
-                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                data-bs-materialId="<?php echo $item['ID'] ?>" 
-                                data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" 
-                                data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" 
-                                data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" 
-                                data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" 
-                                data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" 
-                                data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
+                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-materialId="<?php echo $item['ID'] ?>" data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -187,8 +190,8 @@ $stmtValorTotal = $conn->query($queryTotal);
                                 <input type="text" class="form-control" name="materialDescricao" readonly>
                             </div>
                             <div class="mb-3">
-                                    <label for="materialAplicacao" class="col-form-label">Aplicação</label>
-                                    <input type="text" class="form-control" name="materialAplicacao" readonly>
+                                <label for="materialAplicacao" class="col-form-label">Aplicação</label>
+                                <input type="text" class="form-control" name="materialAplicacao" readonly>
                             </div>
                             <div class="centerModal">
                                 <div class="mb-3">
@@ -223,16 +226,17 @@ $stmtValorTotal = $conn->query($queryTotal);
         <!-- Fim Modal -->
     </div>
 </body>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script type="text/javascript" src="../../js/google.api/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>    
-    <script type="text/javascript" src="../../js/crd/home.js"></script>
-    <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
-    <script type="text/javascript" src="../../js/datatable/datatable.js"></script>
-    <script type="text/javascript" src="../../js/datatable/jquery-3-5-1.js"></script>
-    <script type="text/javascript" src="../../js/datatable/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="../../js/datatable/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script type="text/javascript" src="../../js/google.api/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../../js/crd/home.js"></script>
+<script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
+<script type="text/javascript" src="../../js/datatable/datatable.js"></script>
+<script type="text/javascript" src="../../js/datatable/jquery-3-5-1.js"></script>
+<script type="text/javascript" src="../../js/datatable/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../js/datatable/jquery.dataTables.min.js"></script>
+
 </html>

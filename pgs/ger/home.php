@@ -15,7 +15,7 @@ $stmtAprovar = $conn->query($queryAprovar);
 $queryAutorizado = "SELECT COUNT(STATUS_SOLIC) AS totalAutorizado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
 $stmtAutorizado = $conn->query($queryAutorizado);
 
-$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS";
+$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVADO'";
 $stmtValorTotal = $conn->query($queryTotal);
 ?>
 <!DOCTYPE html>

@@ -15,7 +15,13 @@ $stmtAprovar = $conn->query($queryAprovar);
 $queryAutorizado = "SELECT COUNT(STATUS_SOLIC) AS totalAutorizado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
 $stmtAutorizado = $conn->query($queryAutorizado);
 
-$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS";
+$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
+$stmtValorTotal = $conn->query($queryTotal);
+
+$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
+$stmtValorTotal = $conn->query($queryTotal);
+
+$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
 $stmtValorTotal = $conn->query($queryTotal);
 ?>
 <!DOCTYPE html>
@@ -61,6 +67,14 @@ $stmtValorTotal = $conn->query($queryTotal);
                     </a>
                 </li>
                 <li>
+                    <a href="./acompPedidos.php">
+                        <span class="icon">
+                            <ion-icon name="bar-chart-outline"></ion-icon>
+                        </span>
+                        <span class="title">Acompanhamento</span>
+                    </a>
+                </li>
+                <li>
                     <a href="./cadastroGeral.php">
                         <span class="icon">
                             <ion-icon name="documents-outline"></ion-icon>
@@ -87,7 +101,7 @@ $stmtValorTotal = $conn->query($queryTotal);
             </div>
             <!-- search -->
             <div class="titleTopBar">
-                <h2>Solicitação de Materiais</h2>
+                <h2>Home Page</h2>
             </div>
             <!-- userImg -->
             <div class="user">
