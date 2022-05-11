@@ -1,29 +1,12 @@
 <?php
-require_once "../../dao/conexao.php";
+require_once "../../dao/operacoes.php";
 require_once "../../dao/session.php";
 
-$conn = ConexaoLocal::getConnection();
-$query = "SELECT * FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVAR'";
-$stmt = $conn->query($query);
-
-$queryAprovado = "SELECT COUNT(STATUS_SOLIC) AS totalAprovado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVADO'";
-$stmtAprovado = $conn->query($queryAprovado);
-
-$queryAprovar = "SELECT COUNT(STATUS_SOLIC) AS totalAprovar FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVAR'";
-$stmtAprovar = $conn->query($queryAprovar);
-
-$queryAutorizado = "SELECT COUNT(STATUS_SOLIC) AS totalAutorizado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
-$stmtAutorizado = $conn->query($queryAutorizado);
-
-
-$queryTotalAprovar = "SELECT SUM(real_total) AS real_total_aprovar FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVAR'";
-$stmtValorTotalAprovar = $conn->query($queryTotalAprovar);
-
-$queryTotalAprovado = "SELECT SUM(real_total) AS real_total_aprovado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVADO'";
-$stmtValorTotalAprovado = $conn->query($queryTotalAprovado);
-
-$queryTotalAutorizado = "SELECT SUM(real_total) AS real_total_autorizado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
-$stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
+$stmtAprovar = Material::getMateriaisAprovar();
+$stmtAutorizado = Material::getMateriaisAutorizado();
+$stmtValorTotalAprovar = Material::getSomaMateriaisAprovar();
+$stmtValorTotalAprovado = Material::getSomaMateriaisAprovado();
+$stmtValorTotalAutorizado = Material::getSomaMateriaisAutorizado();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -35,8 +18,10 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../../css/datatable/datatable.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.css" />
 </head>
 
 <body>
@@ -72,19 +57,17 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
     </div>
     <!-- main -->
     <div class="main">
+        <!-- topbar -->
         <div class="topbar">
             <div class="toggle">
                 <ion-icon name="menu-outline"></ion-icon>
             </div>
-            <!-- search -->
             <div class="titleTopBar">
                 <h2>Solicitação de Materiais</h2>
             </div>
-            <!-- userImg -->
             <div class="user">
                 <img src="../../images/user.jpg">
             </div>
-
         </div>
         <!-- cards -->
         <div class="cardBox">
@@ -92,7 +75,11 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
                 <div>
                     <div class="numbersComprasTotal">
                         <?php foreach ($stmtValorTotalAprovar as $item) {
-                            echo $item['real_total_aprovar'];
+                            if ($item['REAL_TOTAL'] == NULL) {
+                                echo "0.00";
+                            } else {
+                                echo $item['REAL_TOTAL'];
+                            }
                         } ?>
                     </div>
                     <div class="cardName">R$ Total Solicitado</div>
@@ -105,32 +92,40 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
                 <div>
                     <div class="numbersComprasTotal">
                         <?php foreach ($stmtValorTotalAprovado as $item) {
-                            echo $item['real_total_aprovado'];
+                            if ($item['REAL_TOTAL'] == NULL) {
+                                echo "0.00";
+                            } else {
+                                echo $item['REAL_TOTAL'];
+                            }
                         } ?>
                     </div>
                     <div class="cardName">R$ Total Aprovado</div>
                 </div>
                 <div class="iconBx">
-                    <ion-icon name="reload-outline"></ion-icon>
+                    <ion-icon name="checkmark-outline"></ion-icon>
                 </div>
             </div>
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
                         <?php foreach ($stmtValorTotalAutorizado as $item) {
-                            echo $item['real_total_autorizado'];
+                            if ($item['REAL_TOTAL'] == NULL) {
+                                echo "0.00";
+                            } else {
+                                echo $item['REAL_TOTAL'];
+                            }
                         } ?></div>
                     <div class="cardName">R$ Total Autorizado</div>
                 </div>
                 <div class="iconBx">
-                    <ion-icon name="thumbs-up-outline"></ion-icon>
+                    <ion-icon name="checkmark-done-outline"></ion-icon>
                 </div>
             </div>
             <div class="carde">
                 <div>
                     <div class="numbers">
                         <?php foreach ($stmtAutorizado as $item) {
-                            echo $item['totalAutorizado'];
+                            echo $item['REAL_TOTAL'];
                         } ?>
                     </div>
                     <div class="cardName">Autorizado</div>
@@ -140,6 +135,7 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
                 </div>
             </div>
         </div>
+        <!-- tabelaPrincipal -->
         <div class="details">
             <div class="recentOrders">
                 <div class="cardHeader">
@@ -158,7 +154,7 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($stmt as $item) { ?>
+                        <?php foreach ($stmtAprovar as $item) { ?>
                             <tr>
                                 <td><?php echo $item['DESCRICAO'] ?></td>
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
@@ -166,7 +162,7 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
                                 <td><?php echo 'R$ ' . $item['REAL_TOTAL'] ?></td>
                                 <td><?php echo $item['APLICACAO'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
-                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-materialId="<?php echo $item['ID'] ?>" data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
+                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-materialId="<?php echo $item['ID'] ?>" data-bs-materialCodigo="<?php echo $item['QUANTIDADE'] ?>" data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -226,17 +222,13 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
         <!-- Fim Modal -->
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
+<script type="text/javascript" src="../../js/crd/home.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<script type="text/javascript" src="../../js/google.api/jquery.min.js"></script>
-<script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>
-<script type="text/javascript" src="../../js/crd/home.js"></script>
-<script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
-<script type="text/javascript" src="../../js/datatable/datatable.js"></script>
-<script type="text/javascript" src="../../js/datatable/jquery-3-5-1.js"></script>
-<script type="text/javascript" src="../../js/datatable/jquery.validate.min.js"></script>
-<script type="text/javascript" src="../../js/datatable/jquery.dataTables.min.js"></script>
 
 </html>

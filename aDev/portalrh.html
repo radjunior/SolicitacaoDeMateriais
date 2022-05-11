@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+        }
+        
+        .card {
+            width: 100%;
+            height: 100px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 460px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .cd1 {
+            background-color: orange;
+        }
+        
+        .cd2 {
+            background-color: blue;
+        }
+        
+        .cd3 {
+            background-color: red;
+        }
+        
+        .cd4 {
+            background-color: green;
+        }
+        
+        .cd5 {
+            background-color: yellow;
+        }
+        
+        .cd6 {
+            background-color: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+        <div class="card cd1"></div>
+        <div class="card cd2"></div>
+        <div class="card cd3"></div>
+        <div class="card cd4"></div>
+        <div class="card cd5"></div>
+        <div class="card cd6"></div>
+    </div>
+</body>
+
+</html>

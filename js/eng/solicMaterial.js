@@ -18,17 +18,18 @@ function activeLink() {
 }
 list.forEach((item) =>
     item.addEventListener('mouseover', activeLink));
+
 //Data de Hoje
 var data = new Date();
 var dia = data.getDate();
 var mes = data.getMonth() + 1;
 var ano = data.getFullYear();
-
 if (mes <= 9) {
     mes = "0" + mes;
 }
 var dataCompleta = dia + "/" + mes + "/" + ano;
 document.getElementById('dataInsert').value = dataCompleta;
+
 // Automação de busca Material por código
 $(function() {
     $('#codigoMaterial').keypress(pesquisaMaterial);
@@ -82,7 +83,8 @@ $(function() {
     }
 
 });
-//Mascara R$
+
+// Máscara R$
 $('#valorUnit').maskMoney({
     prefix: 'R$ ',
     allowNegative: true,
@@ -91,7 +93,7 @@ $('#valorUnit').maskMoney({
     affixesStay: false
 });
 
-//  Pegando valores "addEventListener"
+// Cálculo automatico dos qtde * valor Unitário
 var eventoInput1 = window.document.getElementById('valorUnit');
 var eventoInput2 = window.document.getElementById('qtdeMaterial');
 

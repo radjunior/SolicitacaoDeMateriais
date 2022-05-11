@@ -38,7 +38,7 @@ exampleModal.addEventListener('show.bs.modal', function(event) {
     document.querySelector("[name='materialAplicacao']").value = `${materialAplicacao}`;
 })
 
-$('.numbersComprasTotal').mask('##.##0,00', { reverse: true });
+//$('.numbersComprasTotal').mask('##.##0,00', { reverse: true });
 
 var data = new Date();
 var dia = data.getDate();

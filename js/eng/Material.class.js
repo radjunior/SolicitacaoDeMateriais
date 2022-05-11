@@ -6,8 +6,8 @@ class SolicitacaoMaterial {
         this.editId = null;
         this.sttAprovar = "APROVAR";
         this.dtAguardar = "AGUARDANDO";
-        this.totalReal = 0;
         this.totalQtde = 0;
+        this.totalReal = 0;
     }
 
     salvar() {
@@ -19,6 +19,7 @@ class SolicitacaoMaterial {
                 this.atualizarDados(this.editId, arrSolic);
             }
             this.listaTabela();
+            this.calcularTotalReal();
             this.cancelar();
         }
     }
@@ -179,9 +180,7 @@ class SolicitacaoMaterial {
     listaTabela() {
         let tbody = document.getElementById('tBody');
         tbody.innerText = '';
-        this.totalQtde = this.calcularTotalReal();
         document.getElementById('spnQtde').innerText = this.totalQtde;
-        document.getElementById('spnValorTotal').innerText = this.totalReal;
         for (let i = 0; i < this.arrSolicitacao.length; i++) {
             let tr = tbody.insertRow();
             let td_id = tr.insertCell();
@@ -195,7 +194,7 @@ class SolicitacaoMaterial {
             td_id.innerText = this.arrSolicitacao[i].id;
             td_descricaoMaterial.innerText = this.arrSolicitacao[i].descricaoMaterial;
             td_qtdeMaterial.innerText = this.arrSolicitacao[i].qtdeMaterial;
-            td_valorUnit.innerText = "R$ " + this.arrSolicitacao[i].valorUnit;
+            td_valorUnit.innerText = this.arrSolicitacao[i].valorUnit;
             td_valorReal.innerText = this.arrSolicitacao[i].valorReal;
             td_solicitante.innerText = this.arrSolicitacao[i].solicitante;
             td_aplicacao.innerText = this.arrSolicitacao[i].aplicacao;
@@ -214,12 +213,13 @@ class SolicitacaoMaterial {
     }
     calcularTotalReal() {
         for (let i = 0; i < this.arrSolicitacao.length; i++) {
-            let valor = this.arrSolicitacao[i].valorReal;
-            valor = valor.substr(4, 0);
-            let valorInt = Number(valor);
-            this.totalReal += valorInt;
+            var valor = this.arrSolicitacao[i].valorReal;
+            console.log("Antes: " + valor);
+            valor = valor.substring(3, 10);
+
+            console.log("Depois: " + valor);
         }
-        return 0;
+        document.getElementById('spnValorTotal').innerText
     }
     cancelar() {
         this.editId = null;

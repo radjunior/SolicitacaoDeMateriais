@@ -90,7 +90,7 @@ require_once "../../dao/session.php";
             <div class="card">
                 <div class="model">
                     <ion-icon class="icone" name="cart-outline"></ion-icon>
-                    R$<span id="spnValorTotal"></span>
+                    <span id="spnValorTotal"></span>
                 </div>
                 <div class="nameModel">Total</div>
             </div>
@@ -223,8 +223,7 @@ require_once "../../dao/session.php";
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="../../js/google.api/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
     <script type="text/javascript" src="../../js/eng/solicMaterial.js"></script>
     <script type="text/javascript" src="../../js/eng/Material.class.js"></script>
