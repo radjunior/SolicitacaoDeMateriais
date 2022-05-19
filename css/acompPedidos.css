@@ -384,7 +384,13 @@ curve outside
 
 /* Gráfico */
 
-.graficos {
+.graficosTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graficosBody {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -400,6 +406,12 @@ curve outside
     margin: 30px;
     width: 800px;
     height: 400px;
+}
+
+.graficoStatus {
+    margin: 30px;
+    width: 800px;
+    height: 600px;
 }
 
 

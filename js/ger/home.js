@@ -44,7 +44,7 @@ exampleModal.addEventListener('show.bs.modal', function(event) {
     document.querySelector("[name='materialAplicacao']").value = `${materialAplicacao}`;
 })
 
-$('.numbersComprasTotal').mask('##.##0,00', { reverse: true });
+$('.numbersComprasTotal').mask('000.000.000.000.000,00', { reverse: true });
 
 // data hoje
 var data = new Date();

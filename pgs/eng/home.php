@@ -1,28 +1,13 @@
 <?php
 require_once "../../dao/conexao.php";
 require_once "../../dao/session.php";
+require_once "../../dao/operacoes.php";
 
-$conn = ConexaoLocal::getConnection();
-$query = "SELECT * FROM MATERIAIS_SOLICITADOS";
-$stmt = $conn->query($query);
-
-$queryAprovado = "SELECT COUNT(STATUS_SOLIC) AS totalAprovado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVADO'";
-$stmtAprovado = $conn->query($queryAprovado);
-
-$queryAprovar = "SELECT COUNT(STATUS_SOLIC) AS totalAprovar FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVAR'";
-$stmtAprovar = $conn->query($queryAprovar);
-
-$queryAutorizado = "SELECT COUNT(STATUS_SOLIC) AS totalAutorizado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
-$stmtAutorizado = $conn->query($queryAutorizado);
-
-$queryTotalAprovar = "SELECT SUM(real_total) AS real_total_aprovar FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVAR'";
-$stmtValorTotalAprovar = $conn->query($queryTotalAprovar);
-
-$queryTotalAprovado = "SELECT SUM(real_total) AS real_total_aprovado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVADO'";
-$stmtValorTotalAprovado = $conn->query($queryTotalAprovado);
-
-$queryTotalAutorizado = "SELECT SUM(real_total) AS real_total_autorizado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
-$stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
+$stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
+$stmtSomaRealTotal = MaterialDAO::getSomaMateriaisRealTotal();
+$stmtCountAprovar = MaterialDAO::getCountMateriaisAprovar();
+$stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
+$stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -34,11 +19,12 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
     <title>Automação</title>
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../../css/eng/style.css">
-    <link rel="stylesheet" type="text/css" href="../../css/datatable/datatable.css">
+    <link rel="stylesheet" type="text/css" href="../../css/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
 
 <body>
-    <div class="container">
+    <div class="conteiner">
         <div class="navigation">
             <ul>
                 <li>
@@ -114,11 +100,11 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach ($stmtValorTotalAprovar as $item) {
-                            echo $item['real_total_aprovar'];
+                        <?php foreach ($stmtSomaRealTotal as $item) {
+                            echo $item['REAL_TOTAL'];
                         } ?>
                     </div>
-                    <div class="cardName">R$ Total Solicitado</div>
+                    <div class="cardName">Compras (R$)</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="cart-outline"></ion-icon>
@@ -127,11 +113,11 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach ($stmtValorTotalAprovado as $item) {
-                            echo $item['real_total_aprovado'];
+                        <?php foreach ($stmtCountAprovar as $item) {
+                            echo $item['TOTAL_COUNT'];
                         } ?>
                     </div>
-                    <div class="cardName">R$ Total Aprovado</div>
+                    <div class="cardName">Aprovar</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="checkmark-outline"></ion-icon>
@@ -140,10 +126,10 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach ($stmtValorTotalAutorizado as $item) {
-                            echo $item['real_total_autorizado'];
+                        <?php foreach ($stmtCountAprovado as $item) {
+                            echo $item['TOTAL_COUNT'];
                         } ?></div>
-                    <div class="cardName">R$ Total Autorizado</div>
+                    <div class="cardName">Aprovado</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="checkmark-done-outline"></ion-icon>
@@ -152,8 +138,8 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
             <div class="carde">
                 <div>
                     <div class="numbers">
-                        <?php foreach ($stmtAutorizado as $item) {
-                            echo $item['totalAutorizado'];
+                        <?php foreach ($stmtCountAutorizado as $item) {
+                            echo $item['TOTAL_COUNT'];
                         } ?>
                     </div>
                     <div class="cardName">Autorizado</div>
@@ -182,12 +168,12 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($stmt as $item) { ?>
+                        <?php foreach ($stmtMateriaisGeral as $item) { ?>
                             <tr id="tBody">
                                 <td><?php echo $item['DESCRICAO'] ?></td>
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
-                                <td class="itemTableValorUnitario"><?php echo $item['REAL_UNITARIO'] ?></td>
-                                <td class="itemTableValorReal"><?php echo $item['REAL_TOTAL'] ?></td>
+                                <td><?php echo $item['REAL_UNITARIO'] ?></td>
+                                <td><?php echo $item['REAL_TOTAL'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
                                 <td><?php echo $item['APLICACAO'] ?></td>
                                 <td><?php echo $item['MES_APROVACAO'] ?></td>
@@ -200,10 +186,10 @@ $stmtValorTotalAutorizado = $conn->query($queryTotalAutorizado);
         </div>
     </div>
     <script type="text/javascript" src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
+    <script type="text/javascript" src="../../js/jQuery/jquery.mask.js"></script>
+    <script type="text/javascript" src="../../js/datatables/datatables.js"></script>
     <script type="text/javascript" src="../../js/eng/home.js"></script>
-    <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
-    <script type="text/javascript" src="../../js/datatable/datatable.js"></script>
+    <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

@@ -2,11 +2,10 @@
 require_once "../../dao/operacoes.php";
 require_once "../../dao/session.php";
 
-$stmt = Material::getMateriaisAprovado();
-$stmtAprovar = Material::getMateriaisAprovar();
-$stmtAutorizado = Material::getMateriaisAutorizado();
-$stmtAprovado = Material::getCountMateriaisAprovado();
-$stmtValorTotal = Material::getSomaMateriaisAprovado();
+$stmtMateriaisAprovado = MaterialDAO::getMateriaisAprovado();
+$stmtSomaAprovado = MaterialDAO::getSomaMateriaisAprovado();
+$stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
+$stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
 
 ?>
 <!DOCTYPE html>
@@ -19,8 +18,8 @@ $stmtValorTotal = Material::getSomaMateriaisAprovado();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../../css/datatable/datatable.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../css/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
 
 <body>
@@ -75,8 +74,12 @@ $stmtValorTotal = Material::getSomaMateriaisAprovado();
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach ($stmtValorTotal as $item) {
-                            echo $item['totalValorTotal'];
+                        <?php foreach ($stmtSomaAprovado as $item) {
+                            if ($item['REAL_TOTAL'] == NULL) {
+                                echo "0.00";
+                            } else {
+                                echo $item['REAL_TOTAL'];
+                            }
                         } ?>
                     </div>
                     <div class="cardName">Compras (R$)</div>
@@ -88,10 +91,14 @@ $stmtValorTotal = Material::getSomaMateriaisAprovado();
             <div class="carde">
                 <div>
                     <div class="numbers">
-                        <?php foreach ($stmtAprovar as $item) {
-                            echo $item['totalAprovar'];
+                        <?php foreach ($stmtCountAprovado as $item) {
+                            if ($item['TOTAL_COUNT'] == NULL) {
+                                echo "0";
+                            } else {
+                                echo $item['TOTAL_COUNT'];
+                            }
                         } ?></div>
-                    <div class="cardName">Aprovar</div>
+                    <div class="cardName">Aprovado</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="reload-outline"></ion-icon>
@@ -100,26 +107,17 @@ $stmtValorTotal = Material::getSomaMateriaisAprovado();
             <div class="carde">
                 <div>
                     <div class="numbers">
-                        <?php foreach ($stmtAprovado as $item) {
-                            echo $item['totalAprovado'];
+                        <?php foreach ($stmtCountAutorizado as $item) {
+                            if ($item['TOTAL_COUNT'] == NULL) {
+                                echo "0";
+                            } else {
+                                echo $item['TOTAL_COUNT'];
+                            }
                         } ?></div>
-                    <div class="cardName">Aprovado</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="thumbs-up-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="carde">
-                <div>
-                    <div class="numbers">
-                        <?php foreach ($stmtAutorizado as $item) {
-                            echo $item['totalAutorizado'];
-                        } ?>
-                    </div>
                     <div class="cardName">Autorizado</div>
                 </div>
                 <div class="iconBx">
-                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                    <ion-icon name="thumbs-up-outline"></ion-icon>
                 </div>
             </div>
         </div>
@@ -141,7 +139,7 @@ $stmtValorTotal = Material::getSomaMateriaisAprovado();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($stmt as $item) { ?>
+                        <?php foreach ($stmtMateriaisAprovado as $item) { ?>
                             <tr>
                                 <td><?php echo $item['DESCRICAO'] ?></td>
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
@@ -220,18 +218,13 @@ $stmtValorTotal = Material::getSomaMateriaisAprovado();
         <!-- Fim Modal -->
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jQuery/jquery.mask.js"></script>
+    <script type="text/javascript" src="../../js/datatables/datatables.js"></script>
+    <script type="text/javascript" src="../../js/ger/home.js"></script>
+    <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script type="text/javascript" src="../../js/google.api/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/google.api/jquery.mask.min.js"></script>
-    <script type="text/javascript" src="../../js/ger/home.js"></script>
-    <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
-    <script type="text/javascript" src="../../js/datatable/datatable.js"></script>
-    <script type="text/javascript" src="../../js/datatable/jquery-3-5-1.js"></script>
-    <script type="text/javascript" src="../../js/datatable/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="../../js/datatable/jquery.dataTables.min.js"></script>
 </body>
 
 </html>

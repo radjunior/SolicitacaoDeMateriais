@@ -174,7 +174,7 @@ require_once "../../dao/session.php";
                         <input type="number" placeholder="Requisição" id="requisicao" name="requisicao">
                     </div>
                     <div>
-                        <input type="number" placeholder="Item de Requisição" id="itemRequisicao" name="itemRequisicao">
+                        <input type="file" placeholder="Item de Requisição" id="itemRequisicao" name="itemRequisicao">
                     </div>
                 </div>
             </div>
@@ -224,7 +224,7 @@ require_once "../../dao/session.php";
         </div>
     </div>
     <script type="text/javascript" src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../../js/eng/jquery.maskMoney.js"></script>
+    <script type="text/javascript" src="../../js/jQuery/jquery.mask.js"></script>
     <script type="text/javascript" src="../../js/eng/solicMaterial.js"></script>
     <script type="text/javascript" src="../../js/eng/Material.class.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

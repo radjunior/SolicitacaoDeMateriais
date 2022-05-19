@@ -20,11 +20,16 @@ list.forEach((item) =>
     item.addEventListener('mouseover', activeLink));
 //DataTable
 $(document).ready(function() {
-    $('#TabelaHome').DataTable();
+    $('#TabelaHome').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
 });
 
-$('.numbersComprasTotal').mask('##.##0,00', { reverse: true });
-$('#itemTabelaValores').mask('##.##0,00', { reverse: true });
+$('.numbersComprasTotal').mask('000.000.000.000.000,00', { reverse: true });
+$('#itemTabelaValores').mask('000.000.000.000.000,00', { reverse: true });
 
 $('#tBody tbody tr').each(function() {
     // Recuperar todas as colunas da linha percorida

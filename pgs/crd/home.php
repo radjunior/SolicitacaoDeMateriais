@@ -2,11 +2,11 @@
 require_once "../../dao/operacoes.php";
 require_once "../../dao/session.php";
 
-$stmtAprovar = Material::getMateriaisAprovar();
-$stmtAutorizado = Material::getMateriaisAutorizado();
-$stmtValorTotalAprovar = Material::getSomaMateriaisAprovar();
-$stmtValorTotalAprovado = Material::getSomaMateriaisAprovado();
-$stmtValorTotalAutorizado = Material::getSomaMateriaisAutorizado();
+$stmtMateriaisAprovar = MaterialDAO::getMateriaisAprovar();
+$stmtSomaRealTotal = MaterialDAO::getSomaMateriaisAprovar();
+$stmtCountAprovar = MaterialDAO::getCountMateriaisAprovar();
+$stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -18,10 +18,8 @@ $stmtValorTotalAutorizado = Material::getSomaMateriaisAutorizado();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
 
 <body>
@@ -74,7 +72,7 @@ $stmtValorTotalAutorizado = Material::getSomaMateriaisAutorizado();
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach ($stmtValorTotalAprovar as $item) {
+                        <?php foreach ($stmtSomaRealTotal as $item) {
                             if ($item['REAL_TOTAL'] == NULL) {
                                 echo "0.00";
                             } else {
@@ -82,7 +80,7 @@ $stmtValorTotalAutorizado = Material::getSomaMateriaisAutorizado();
                             }
                         } ?>
                     </div>
-                    <div class="cardName">R$ Total Solicitado</div>
+                    <div class="cardName">Compras (R$)</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="cart-outline"></ion-icon>
@@ -91,15 +89,15 @@ $stmtValorTotalAutorizado = Material::getSomaMateriaisAutorizado();
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach ($stmtValorTotalAprovado as $item) {
-                            if ($item['REAL_TOTAL'] == NULL) {
-                                echo "0.00";
+                        <?php foreach ($stmtCountAprovar as $item) {
+                            if ($item['TOTAL_COUNT'] == NULL) {
+                                echo "0";
                             } else {
-                                echo $item['REAL_TOTAL'];
+                                echo $item['TOTAL_COUNT'];
                             }
                         } ?>
                     </div>
-                    <div class="cardName">R$ Total Aprovado</div>
+                    <div class="cardName">Aprovar</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="checkmark-outline"></ion-icon>
@@ -108,30 +106,17 @@ $stmtValorTotalAutorizado = Material::getSomaMateriaisAutorizado();
             <div class="carde">
                 <div>
                     <div class="numbersComprasTotal">
-                        <?php foreach ($stmtValorTotalAutorizado as $item) {
-                            if ($item['REAL_TOTAL'] == NULL) {
-                                echo "0.00";
+                        <?php foreach ($stmtCountAprovado as $item) {
+                            if ($item['TOTAL_COUNT'] == NULL) {
+                                echo "0";
                             } else {
-                                echo $item['REAL_TOTAL'];
+                                echo $item['TOTAL_COUNT'];
                             }
                         } ?></div>
-                    <div class="cardName">R$ Total Autorizado</div>
+                    <div class="cardName">Aprovado</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="checkmark-done-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="carde">
-                <div>
-                    <div class="numbers">
-                        <?php foreach ($stmtAutorizado as $item) {
-                            echo $item['REAL_TOTAL'];
-                        } ?>
-                    </div>
-                    <div class="cardName">Autorizado</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="checkmark-circle-outline"></ion-icon>
                 </div>
             </div>
         </div>
@@ -154,7 +139,7 @@ $stmtValorTotalAutorizado = Material::getSomaMateriaisAutorizado();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($stmtAprovar as $item) { ?>
+                        <?php foreach ($stmtMateriaisAprovar as $item) { ?>
                             <tr>
                                 <td><?php echo $item['DESCRICAO'] ?></td>
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
@@ -222,12 +207,11 @@ $stmtValorTotalAutorizado = Material::getSomaMateriaisAutorizado();
         <!-- Fim Modal -->
     </div>
 </body>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
+<script type="text/javascript" src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../../js/jQuery/jquery.mask.js"></script>
+<script type="text/javascript" src="../../js/datatables/datatables.js"></script>
 <script type="text/javascript" src="../../js/crd/home.js"></script>
+<script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 

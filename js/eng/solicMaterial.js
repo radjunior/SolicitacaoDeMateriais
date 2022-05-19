@@ -85,33 +85,33 @@ $(function() {
 });
 
 // Máscara R$
-$('#valorUnit').maskMoney({
-    prefix: 'R$ ',
-    allowNegative: true,
-    thousands: '',
-    decimal: '.',
-    affixesStay: false
-});
+$('#valorUnit').mask('#.##0,00', { reverse: true });
 
-// Cálculo automatico dos qtde * valor Unitário
-var eventoInput1 = window.document.getElementById('valorUnit');
-var eventoInput2 = window.document.getElementById('qtdeMaterial');
 
-eventoInput1.addEventListener('keyup', pegarValor);
-eventoInput1.addEventListener('keydown', pegarValor);
-eventoInput1.addEventListener('keypress', pegarValor);
 
-eventoInput2.addEventListener('keyup', pegarValor);
-eventoInput2.addEventListener('keydown', pegarValor);
-eventoInput2.addEventListener('keypress', pegarValor);
 // Função de cálculo
-function pegarValor() {
-    var unit = window.document.getElementById('valorUnit').value;
-    var qtde = window.document.getElementById('qtdeMaterial').value;
+$(function() {
+    // Cálculo automatico dos qtde * valor Unitário
+    var eventoInput1 = window.document.getElementById('valorUnit');
+    var eventoInput2 = window.document.getElementById('qtdeMaterial');
 
-    var StrUnit = unit.substring(3);
-    var nInput1 = Number(StrUnit);
-    var nInput2 = Number(qtde);
-    var res = nInput1 * nInput2;
-    document.querySelector("[name='valorReal']").value = `R$ ${res.toFixed(2)}`;
-}
+    eventoInput1.addEventListener('keyup', pegarValor);
+    eventoInput1.addEventListener('keydown', pegarValor);
+    eventoInput1.addEventListener('keypress', pegarValor);
+
+    eventoInput2.addEventListener('keyup', pegarValor);
+    eventoInput2.addEventListener('keydown', pegarValor);
+    eventoInput2.addEventListener('keypress', pegarValor);
+
+    function pegarValor() {
+        var unitUnmask = $('#valorUnit').unmask();
+        console.log(unitUnmask);
+        var unit = window.document.getElementById('valorUnit').value;
+        var qtde = window.document.getElementById('qtdeMaterial').value;
+
+        var nInput1 = Number(unit);
+        var nInput2 = Number(qtde);
+        var res = nInput1 * nInput2;
+        document.querySelector("[name='valorReal']").value = `R$ ${res.toFixed(2)}`;
+    }
+});

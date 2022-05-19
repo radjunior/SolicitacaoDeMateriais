@@ -34,7 +34,7 @@ $stmtValorTotal = $conn->query($queryTotal);
     <title>Automação</title>
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../../css/acompPedidos.css">
-    <script type="text/javascript" src="../../js/echarts/echarts.min.js"></script>
+
 </head>
 
 <body>
@@ -108,13 +108,18 @@ $stmtValorTotal = $conn->query($queryTotal);
                 <img src="../../images/user.jpg">
             </div>
         </div>
-        <div class="graficos">
+        <div class="graficosTop">
             <div class="graficoSolic" id="graficoSolic"></div>
             <div class="graficoAreas" id="graficoAreas"></div>
         </div>
+        <div class="graficosBody">
+            <div class="graficoStatus" id="graficoStatus"></div>
+        </div>
 
     </div>
+    <script type="text/javascript" src="../../js/echarts/echarts.min.js"></script>
     <script type="text/javascript">
+        //Gráfico de solicitação de mateirais por ano
         var graficoSolic = echarts.init(document.getElementById('graficoSolic'));
         var solicOption = {
             title: {
@@ -138,64 +143,118 @@ $stmtValorTotal = $conn->query($queryTotal);
         };
         graficoSolic.setOption(solicOption);
 
+        //Gráfico de áreas
         var graficoAreas = document.getElementById('graficoAreas');
         var graficoAreasDom = echarts.init(graficoAreas);
         var areaOption;
 
+        const data = [];
+        for (let i = 0; i < 5; ++i) {
+            data.push(Math.round(Math.random() * 200));
+        }
         areaOption = {
-            title: {
-                text: 'Tempo Gasto / Quantidade',
-                left: "center"
+            xAxis: {
+                max: 'dataMax'
             },
-            legend: {
-                data: ['Tempo', 'Quantidade'],
-                bottom: "bottom"
-            },
-            radar: {
-                // shape: 'circle',
-                indicator: [{
-                        name: 'Engenharia',
-                        max: 6500
-                    },
-                    {
-                        name: 'Instrumentação',
-                        max: 16000
-                    },
-                    {
-                        name: 'Elétrica',
-                        max: 30000
-                    },
-                    {
-                        name: 'Automação',
-                        max: 38000
-                    },
-                    {
-                        name: 'Supervisão',
-                        max: 52000
-                    },
-                    {
-                        name: 'PCM Planejamento',
-                        max: 25000
-                    }
-                ]
+            yAxis: {
+                type: 'category',
+                data: ['Cleber', 'João', 'Vanders', 'Bruno', 'Marcos'],
+                inverse: true,
+                animationDuration: 300,
+                animationDurationUpdate: 300,
+                max: 2 // only the largest 3 bars will be displayed
             },
             series: [{
-                name: 'Tempo vs Quantidade',
-                type: 'radar',
-                data: [{
-                        value: [4200, 3000, 20000, 35000, 50000, 18000],
-                        name: 'Tempo'
-                    },
-                    {
-                        value: [5000, 14000, 28000, 26000, 42000, 21000],
-                        name: 'Quantidade'
-                    }
-                ]
-            }]
+                realtimeSort: true,
+                name: 'Solicitações',
+                type: 'bar',
+                data: data,
+                label: {
+                    show: true,
+                    position: 'right',
+                    valueAnimation: true
+                }
+            }],
+            legend: {
+                show: true
+            },
+            animationDuration: 0,
+            animationDurationUpdate: 3000,
+            animationEasing: 'linear',
+            animationEasingUpdate: 'linear'
         };
 
+        function run() {
+            for (var i = 0; i < data.length; ++i) {
+                if (Math.random() > 0.9) {
+                    data[i] += Math.round(Math.random() * 2000);
+                } else {
+                    data[i] += Math.round(Math.random() * 200);
+                }
+            }
+            graficoAreasDom.setOption({
+                series: [{
+                    type: 'bar',
+                    data
+                }]
+            });
+        }
+        setTimeout(function() {
+            run();
+        }, 0);
+        setInterval(function() {
+            run();
+        }, 3000);
+
         areaOption && graficoAreasDom.setOption(areaOption);
+
+        //gráfico de status;
+        var graficoStatus = document.getElementById('graficoStatus');
+        var myGraficoStatus = echarts.init(graficoStatus);
+        var statusOption;
+        statusOption = {
+            title: {
+                text: 'Status das Solicitações',
+                subtext: '05/2022',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'horizontal',
+                left: 'center',
+                top: 'bottom'
+            },
+            series: [{
+                name: 'Quantidade',
+                type: 'pie',
+                radius: '50%',
+                data: [{
+                        value: 1048,
+                        name: 'Aprovar'
+                    },
+                    {
+                        value: 735,
+                        name: 'Aprovado'
+                    },
+                    {
+                        value: 580,
+                        name: 'Autorizado'
+                    }
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        };
+        statusOption && myGraficoStatus.setOption(statusOption);
     </script>
+
     <script type="text/javascript" src="../../js/eng/acompPedidos.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
