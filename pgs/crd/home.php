@@ -18,7 +18,7 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../../css/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../../scripts/datatables/datatables.css">
     <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
 
@@ -70,16 +70,8 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
         <!-- cards -->
         <div class="cardBox">
             <div class="carde">
-                <div>
-                    <div class="numbersComprasTotal">
-                        <?php foreach ($stmtSomaRealTotal as $item) {
-                            if ($item['REAL_TOTAL'] == NULL) {
-                                echo "0.00";
-                            } else {
-                                echo $item['REAL_TOTAL'];
-                            }
-                        } ?>
-                    </div>
+                <div class="cardDivInput">
+                    <label>R$<input type="text" class="numbersComprasTotal" value="<?php echo $stmtSomaRealTotal ?>"></label>
                     <div class="cardName">Compras (R$)</div>
                 </div>
                 <div class="iconBx">
@@ -87,16 +79,8 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                 </div>
             </div>
             <div class="carde">
-                <div>
-                    <div class="numbersComprasTotal">
-                        <?php foreach ($stmtCountAprovar as $item) {
-                            if ($item['TOTAL_COUNT'] == NULL) {
-                                echo "0";
-                            } else {
-                                echo $item['TOTAL_COUNT'];
-                            }
-                        } ?>
-                    </div>
+                <div class="cardDivInput">
+                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovar ?>">
                     <div class="cardName">Aprovar</div>
                 </div>
                 <div class="iconBx">
@@ -104,15 +88,8 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                 </div>
             </div>
             <div class="carde">
-                <div>
-                    <div class="numbersComprasTotal">
-                        <?php foreach ($stmtCountAprovado as $item) {
-                            if ($item['TOTAL_COUNT'] == NULL) {
-                                echo "0";
-                            } else {
-                                echo $item['TOTAL_COUNT'];
-                            }
-                        } ?></div>
+                <div class="cardDivInput">
+                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovado ?>">
                     <div class="cardName">Aprovado</div>
                 </div>
                 <div class="iconBx">
@@ -125,8 +102,13 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Materiais a Serem Solicitados</h2>
+                    <div>
+                        <input type="month" id="iptFiltroMes">
+                        <button id="btnFiltrar">Filtrar</button>
+                    </div>
                 </div>
-                <table id="TabelaHome" class="table table-striped table-hover">
+                
+                <table id="TabelaHome" class="table table-striped">
                     <thead>
                         <tr>
                             <td scope="col">Descrição</td>
@@ -134,20 +116,31 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                             <td scope="col">Valor Unitário</td>
                             <td scope="col">Valor Total</td>
                             <td scope="col">Aplicação</td>
+                            <td scope="col">Mês Aprovação</td>
                             <td scope="col">Solicitante</td>
                             <td scope="col">Status</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($stmtMateriaisAprovar as $item) { ?>
+                    <?php foreach ($stmtMateriaisAprovar as $item) { ?>
                             <tr>
                                 <td><?php echo $item['DESCRICAO'] ?></td>
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
                                 <td><?php echo 'R$ ' . $item['REAL_UNITARIO'] ?></td>
                                 <td><?php echo 'R$ ' . $item['REAL_TOTAL'] ?></td>
                                 <td><?php echo $item['APLICACAO'] ?></td>
+                                <td><?php echo $item['MES_APROVACAO'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
-                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-materialId="<?php echo $item['ID'] ?>" data-bs-materialCodigo="<?php echo $item['QUANTIDADE'] ?>" data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
+                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                data-bs-solicitacaoId="<?php echo $item['ID'] ?>" 
+                                data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>"
+                                data-bs-materialQuantidade="<?php echo $item['QUANTIDADE'] ?>"
+                                data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" 
+                                data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" 
+                                data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" 
+                                data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" 
+                                data-bs-materialMesAprovacao="<?php echo $item['MES_APROVACAO'] ?>" 
+                                data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -164,8 +157,9 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" placeholder="id" class="form-control" name="materialId" id="materialId">
-                            <input type="hidden" placeholder="data" class="form-control" name="dataAtual" id="dataAtual">
+                            <input type="hidden" name="solicitacaoId" id="solicitacaoId">
+                            <input type="hidden" name="dataAtual" id="dataAtual">
+                            <input type="hidden" name="mesAprov" id="mesAprov">
                             <div class="mb-3">
                                 <label for="materialDescricao" class="col-form-label">Descrição</label>
                                 <input type="text" class="form-control" name="materialDescricao" readonly>
@@ -176,8 +170,8 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                             </div>
                             <div class="centerModal">
                                 <div class="mb-3">
-                                    <label for="materialCodigo" class="col-form-label">Codigo</label>
-                                    <input type="text" class="form-control" name="materialCodigo" readonly>
+                                    <label for="materialQuantidade" class="col-form-label">Quantidade</label>
+                                    <input type="text" class="form-control" name="materialQuantidade">
                                 </div>
                                 <div class="mb-3">
                                     <label for="materialSolicitante" class="col-form-label">Solicitante</label>
@@ -207,12 +201,11 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
         <!-- Fim Modal -->
     </div>
 </body>
-<script type="text/javascript" src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="../../js/jQuery/jquery.mask.js"></script>
-<script type="text/javascript" src="../../js/datatables/datatables.js"></script>
-<script type="text/javascript" src="../../js/crd/home.js"></script>
-<script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+    
+    <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
+    <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
+    <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/crd/home.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </html>

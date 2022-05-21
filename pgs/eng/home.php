@@ -8,6 +8,7 @@ $stmtSomaRealTotal = MaterialDAO::getSomaMateriaisRealTotal();
 $stmtCountAprovar = MaterialDAO::getCountMateriaisAprovar();
 $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
 $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,7 +20,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
     <title>Automação</title>
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../../css/eng/style.css">
-    <link rel="stylesheet" type="text/css" href="../../css/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../../scripts/datatables/datatables.css">
     <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
 
@@ -98,12 +99,8 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
         <!-- cards -->
         <div class="cardBox">
             <div class="carde">
-                <div>
-                    <div class="numbersComprasTotal">
-                        <?php foreach ($stmtSomaRealTotal as $item) {
-                            echo $item['REAL_TOTAL'];
-                        } ?>
-                    </div>
+                <div class="cardDivInput">
+                    <label>R$<input type="text" class="numbersComprasTotal" value="<?php echo $stmtSomaRealTotal ?>"></label>
                     <div class="cardName">Compras (R$)</div>
                 </div>
                 <div class="iconBx">
@@ -111,12 +108,8 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                 </div>
             </div>
             <div class="carde">
-                <div>
-                    <div class="numbersComprasTotal">
-                        <?php foreach ($stmtCountAprovar as $item) {
-                            echo $item['TOTAL_COUNT'];
-                        } ?>
-                    </div>
+                <div class="cardDivInput">
+                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovar ?>">
                     <div class="cardName">Aprovar</div>
                 </div>
                 <div class="iconBx">
@@ -124,11 +117,8 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                 </div>
             </div>
             <div class="carde">
-                <div>
-                    <div class="numbersComprasTotal">
-                        <?php foreach ($stmtCountAprovado as $item) {
-                            echo $item['TOTAL_COUNT'];
-                        } ?></div>
+                <div class="cardDivInput">
+                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovado ?>">
                     <div class="cardName">Aprovado</div>
                 </div>
                 <div class="iconBx">
@@ -136,12 +126,8 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                 </div>
             </div>
             <div class="carde">
-                <div>
-                    <div class="numbers">
-                        <?php foreach ($stmtCountAutorizado as $item) {
-                            echo $item['TOTAL_COUNT'];
-                        } ?>
-                    </div>
+                <div class="cardDivInput">
+                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAutorizado ?>">
                     <div class="cardName">Autorizado</div>
                 </div>
                 <div class="iconBx">
@@ -150,11 +136,16 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
             </div>
         </div>
         <div class="details">
+        
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Solicitações</h2>
+                    <div>
+                        <input type="month" id="iptFiltroMes">
+                        <button id="btnFiltrar">Filtrar</button>
+                    </div>
                 </div>
-                <table id="TabelaHome" class="tabelaPrincipal">
+                <table id="TabelaHome" class="table table-striped">
                     <thead>
                         <tr>
                             <td scope="col">Descrição</td>
@@ -167,31 +158,18 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                             <td scope="col">Status</td>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php foreach ($stmtMateriaisGeral as $item) { ?>
-                            <tr id="tBody">
-                                <td><?php echo $item['DESCRICAO'] ?></td>
-                                <td><?php echo $item['QUANTIDADE'] ?></td>
-                                <td><?php echo $item['REAL_UNITARIO'] ?></td>
-                                <td><?php echo $item['REAL_TOTAL'] ?></td>
-                                <td><?php echo $item['SOLICITANTE'] ?></td>
-                                <td><?php echo $item['APLICACAO'] ?></td>
-                                <td><?php echo $item['MES_APROVACAO'] ?></td>
-                                <td><?php echo $item['STATUS_SOLIC'] ?></td>
-                            </tr>
-                        <?php } ?>
+                    <tbody id="tbodyHome">
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../../js/jQuery/jquery.mask.js"></script>
-    <script type="text/javascript" src="../../js/datatables/datatables.js"></script>
-    <script type="text/javascript" src="../../js/eng/home.js"></script>
+
+</body>
+    <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
+    <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
     <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/eng/home.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</body>
-
 </html>

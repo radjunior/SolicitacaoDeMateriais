@@ -1,3 +1,34 @@
+//DataTable
+$(document).ready(function() {
+    $('#TabelaHome').DataTable({
+        dom: 'Bfrtip',
+        buttons: {
+            dom: {
+                button: {
+                    className: "btn"
+                }
+            },
+            buttons: [{
+                    extend: "excel",
+                    text: "Excel",
+                    className: "btn btn-outline-success",
+                    excelStyles: {
+                        template: "cyan_medium"
+                    }
+                },
+                {
+                    extend: "print",
+                    text: "Imprimir",
+                }
+            ]
+        }
+    });
+});
+//Filtro do mês
+function filtrarTabela() {
+    var mes = document.querySelector("[name='filtroMes']").value;
+    console.log(mes);
+}
 // menu toggle
 let toggle = document.querySelector('.toggle');
 let navigation = document.querySelector('.navigation');
@@ -22,15 +53,20 @@ list.forEach((item) =>
 var exampleModal = document.getElementById('exampleModal')
 exampleModal.addEventListener('show.bs.modal', function(event) {
     var button = event.relatedTarget
-    var materialId = button.getAttribute('data-bs-materialId')
-    var materialCodigo = button.getAttribute('data-bs-materialCodigo')
+    var solicitacaoId = button.getAttribute('data-bs-solicitacaoId')
+        //var materialCodigo = button.getAttribute('data-bs-materialCodigo')
     var materialDescricao = button.getAttribute('data-bs-materialDescricao')
     var materialRealUnit = button.getAttribute('data-bs-materialRealUnit')
     var materialRealTotal = button.getAttribute('data-bs-materialRealTotal')
     var materialSolicitante = button.getAttribute('data-bs-materialSolicitante')
     var materialAplicacao = button.getAttribute('data-bs-materialAplicacao');
-    document.querySelector("[name='materialId']").value = `${materialId}`;
-    document.querySelector("[name='materialCodigo']").value = `${materialCodigo}`;
+    var materialQuantidade = button.getAttribute('data-bs-materialQuantidade');
+    var materialMesAprovacao = button.getAttribute('data-bs-materialMesAprovacao');
+
+    document.querySelector("[name='mesAprov']").value = `${materialMesAprovacao}`;
+    document.querySelector("[name='materialQuantidade']").value = `${materialQuantidade}`;
+    document.querySelector("[name='solicitacaoId']").value = `${solicitacaoId}`;
+    //document.querySelector("[name='materialCodigo']").value = `${materialCodigo}`;
     document.querySelector("[name='materialDescricao']").value = `${materialDescricao}`;
     document.querySelector("[name='materialRealUnit']").value = `R$ ${materialRealUnit}`;
     document.querySelector("[name='materialRealTotal']").value = `R$ ${materialRealTotal}`;
@@ -38,7 +74,7 @@ exampleModal.addEventListener('show.bs.modal', function(event) {
     document.querySelector("[name='materialAplicacao']").value = `${materialAplicacao}`;
 })
 
-$('.numbersComprasTotal').mask('000.000.000.000.000,00', { reverse: true });
+$('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
 
 var data = new Date();
 var dia = data.getDate();
@@ -52,16 +88,40 @@ if (mes <= 9) {
 var dataCompleta = dia + "/" + mes + "/" + ano;
 document.getElementById('dataAtual').value = dataCompleta;
 
+
 function reprovar() {
     var dataHoje = dataCompleta;
-    var txtCodigo = document.querySelector("[name='materialId']").value;
+    var solicId = document.querySelector("[name='solicitacaoId']").value;
+    var materialQtde = document.querySelector("[name='materialQuantidade']").value;
+    var mesAprov = document.querySelector("[name='mesAprov']").value; //2022-02
+    //console.log("Antes: " + mesAprov);
+    var splitMesAprov = mesAprov.split("-");
+    if (splitMesAprov[1] == 12) {
+        splitMesAprov[0]++;
+        splitMesAprov[1] = 1;
+    } else {
+        splitMesAprov[1]++;
+    }
+    if (splitMesAprov[1] < 10) { //2022,3
+        splitMesAprov[1] = "0" + splitMesAprov[1]; //2022,03
+    }
+    mesAprov = splitMesAprov.join(","); //vetor -> String
+    mesAprov = mesAprov.replace(",", "-"); //trocar , por -
+    //console.log("Depois: " + mesAprov); 2022-03
+
+
     $.ajax({
         url: '../../dao/crd/reprovar.php',
         type: 'POST',
-        data: { codigo: txtCodigo, data: dataHoje },
+        data: {
+            codigo: solicId,
+            data: dataHoje,
+            mesApr: mesAprov,
+            qtde: materialQtde
+        },
         success: function(result) {
             if (result) {
-                location.reload();
+                //location.reload();
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -69,12 +129,3 @@ function reprovar() {
         }
     });
 }
-//DataTable
-$(document).ready(function() {
-    $('#TabelaHome').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'excel', 'pdf', 'print'
-        ]
-    });
-});

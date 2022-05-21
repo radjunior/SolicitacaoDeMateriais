@@ -3,16 +3,38 @@ require_once "../conexao.php";
 
 $cod = $_POST['codigo'] ?? NULL;
 $data = $_POST['data'] ?? NULL;
-$status = 'REPROVADO';
-//echo $cod." / ".$data;
-if ($cod != NULL && $data != null) {
+$mesAprov = $_POST['mesApr'] ?? NULL;
+$qtde = $_POST['qtde'] ?? NULL;
+
+$status = 'APROVAR';
+$qtdeOriginal;
+
+if (str_contains($qtde, ",")) {
+    $qtde = str_replace(",", ".", $qtde);
+}
+
+if ($cod != NULL && $data != NULL && $qtde != NULL && $mesAprov != NULL) {
     try {
         $conn = ConexaoLocal::getConnection();
-        $query = "UPDATE MATERIAIS_SOLICITADOS SET STATUS_SOLIC = '$status', DATA_APROVACAO = '$data' WHERE ID = '$cod'";
+        $query = "SELECT * FROM MATERIAIS_SOLICITADOS WHERE ID = '$cod'";
         $stmt = $conn->query($query);
-        echo 'true';
-        exit;
+        foreach ($stmt as $item) {
+            $qtdeOriginal = $item['QUANTIDADE'];
+        }
+        if ($qtdeOriginal != $qtde) {
+            //echo "<br><br><br>Quantidade alterada";
+            $query = "UPDATE MATERIAIS_SOLICITADOS SET STATUS_SOLIC = '$status', DATA_APROVACAO = '$data', QUANTIDADE = '$qtde', MES_APROVACAO = '$mesAprov' WHERE ID = '$cod'";
+            $stmt = $conn->query($query);
+            echo "true";
+            exit;
+        } else {
+            //echo "<br><br><br>Quantidade não alterada";
+            $query = "UPDATE MATERIAIS_SOLICITADOS SET STATUS_SOLIC = '$status', DATA_APROVACAO = '$data', MES_APROVACAO = '$mesAprov' WHERE ID = '$cod'";
+            $stmt = $conn->query($query);
+            echo "true";
+            exit;
+        }
     } catch (PDOException $e) {
-        echo "Erro: <br>", $e;
+        echo "Erro: <br>" . $e;
     }
 }

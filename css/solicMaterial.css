@@ -44,6 +44,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
+    padding-left: 0rem;
 }
 
 .navigation ul li {
@@ -202,14 +203,14 @@ curve outside
     grid-gap: 30px;
 }
 
-.resultados .card .model {
+.resultados .cardResultados .modelResult {
     position: relative;
     font-weight: 500;
     font-size: 2.5em;
     color: var(--azul);
 }
 
-.resultados .card .nameModel {
+.resultados .cardResultados .nameModel {
     color: var(--preto2);
     font-size: 1.1em;
     margin-top: 5px;
@@ -274,6 +275,7 @@ textarea {
 }
 
 .titleMaterial button {
+    height: 30px;
     margin-left: 90px;
     border-radius: 6px;
     border: none;
@@ -329,6 +331,7 @@ textarea {
 }
 
 .titleCusto button {
+    height: 30px;
     margin-left: 30px;
     border-radius: 6px;
     border: none;
@@ -471,6 +474,34 @@ textarea {
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
     border-radius: 25px;
 }
+
+.modalTop input {
+    width: 100%;
+    border: none;
+    font-size: 1.2em;
+    border-bottom: 1px solid var(--preto2);
+}
+
+.tabelaModalMaterial {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.tabelaModalMaterial thead {
+    background-color: var(--preto2);
+}
+
+.tabelaModalCentroCusto {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.tabelaModalCentroCusto thead {
+    background-color: var(--preto2);
+}
+
+
+/* Cars*/
 
 .cardHeader {
     display: flex;

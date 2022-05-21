@@ -18,7 +18,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../../css/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../../scripts/datatables/datatables.css">
     <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
 
@@ -126,7 +126,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                 <div class="cardHeader">
                     <h2>Materiais a Serem Solicitados</h2>
                 </div>
-                <table id="TabelaHome" class="table table-striped table-hover">
+                <table id="TabelaHome" class="table table-striped">
                     <thead>
                         <tr>
                             <td scope="col">Descrição</td>
@@ -216,15 +216,12 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
             </div>
         </div>
         <!-- Fim Modal -->
-
     </div>
-    <script type="text/javascript" src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../../js/jQuery/jquery.mask.js"></script>
-    <script type="text/javascript" src="../../js/datatables/datatables.js"></script>
-    <script type="text/javascript" src="../../js/ger/home.js"></script>
+</body>
+    <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
+    <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
     <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/ger/home.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</body>
-
 </html>

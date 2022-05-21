@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    // Máscara R$
+    $('#valorUnit').mask('#.##0,00', { reverse: true });
+    $('#valorReal').mask('000.000.000.000.000,00', { reverse: true });
+
+});
 // menu toggle
 let toggle = document.querySelector('.toggle');
 let navigation = document.querySelector('.navigation');
@@ -32,6 +38,23 @@ document.getElementById('dataInsert').value = dataCompleta;
 
 // Automação de busca Material por código
 $(function() {
+    $('#pesquisaMaterial').keypress(pesquisaMaterialDescricao);
+    $('#pesquisaMaterial').keyup(pesquisaMaterialDescricao);
+    $('#pesquisaMaterial').keydown(pesquisaMaterialDescricao);
+
+    function pesquisaMaterialDescricao() {
+        var pesquisa = $(this).val();
+        if (pesquisa != '') {
+            dados = {
+                itemMaterial: pesquisa
+            }
+            $.get('../../dao/eng/buscarMaterial.php', dados, function(retorno) {
+                $('#tBodyModalMaterial').html(retorno);
+            });
+        }
+    }
+});
+$(function() {
     $('#codigoMaterial').keypress(pesquisaMaterial);
     $('#codigoMaterial').keyup(pesquisaMaterial);
     $('#codigoMaterial').keydown(pesquisaMaterial);
@@ -40,9 +63,9 @@ $(function() {
         var pesquisa = $(this).val();
         if (pesquisa != '') {
             dados = {
-                palavra: pesquisa
+                itemCodigo: pesquisa
             }
-            $.post('../../dao/eng/buscarMaterial.php', dados, function(retorno) {
+            $.get('../../dao/eng/buscarMaterial.php', dados, function(retorno) {
                 $("textarea[name='descricaoMaterial']").val(retorno.material);
                 $("input[name='unidadeMaterial']").val(retorno.unidade);
             }, "json");
@@ -56,6 +79,25 @@ $(function() {
             });
         }
     }
+});
+$(function() {
+    $('#pesquisaCentroCusto').keypress(pesquisaCentroCusto);
+    $('#pesquisaCentroCusto').keyup(pesquisaCentroCusto);
+    $('#pesquisaCentroCusto').keydown(pesquisaCentroCusto);
+
+    function pesquisaCentroCusto() {
+        var pesquisa = $(this).val();
+        if (pesquisa != '') {
+            dados = {
+                itemDescricao: pesquisa
+            }
+            $.get('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
+                $('#tBodyModalCentroCusto').html(retorno);
+            });
+        }
+    }
+});
+$(function() {
     $('#codigoCCusto').keypress(pesquisaCentroCusto);
     $('#codigoCCusto').keyup(pesquisaCentroCusto);
     $('#codigoCCusto').keydown(pesquisaCentroCusto);
@@ -64,9 +106,9 @@ $(function() {
         var pesquisa = $(this).val();
         if (pesquisa != '') {
             dados = {
-                palavra: pesquisa
+                itemCodigo: pesquisa
             }
-            $.post('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
+            $.get('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
                 $("input[name='descricaoCCusto']").val(retorno.descricao);
                 $("input[name='responsavelCCusto']").val(retorno.responsavel);
             }, "json");
@@ -84,34 +126,27 @@ $(function() {
 
 });
 
-// Máscara R$
-$('#valorUnit').mask('#.##0,00', { reverse: true });
-
-
-
-// Função de cálculo
 $(function() {
-    // Cálculo automatico dos qtde * valor Unitário
     var eventoInput1 = window.document.getElementById('valorUnit');
     var eventoInput2 = window.document.getElementById('qtdeMaterial');
+    eventoInput1.addEventListener('keyup', calcularValor);
+    eventoInput1.addEventListener('keydown', calcularValor);
+    eventoInput1.addEventListener('keypress', calcularValor);
+    eventoInput2.addEventListener('keyup', calcularValor);
+    eventoInput2.addEventListener('keydown', calcularValor);
+    eventoInput2.addEventListener('keypress', calcularValor);
 
-    eventoInput1.addEventListener('keyup', pegarValor);
-    eventoInput1.addEventListener('keydown', pegarValor);
-    eventoInput1.addEventListener('keypress', pegarValor);
-
-    eventoInput2.addEventListener('keyup', pegarValor);
-    eventoInput2.addEventListener('keydown', pegarValor);
-    eventoInput2.addEventListener('keypress', pegarValor);
-
-    function pegarValor() {
-        var unitUnmask = $('#valorUnit').unmask();
-        console.log(unitUnmask);
-        var unit = window.document.getElementById('valorUnit').value;
+    function calcularValor() {
         var qtde = window.document.getElementById('qtdeMaterial').value;
-
-        var nInput1 = Number(unit);
-        var nInput2 = Number(qtde);
-        var res = nInput1 * nInput2;
-        document.querySelector("[name='valorReal']").value = `R$ ${res.toFixed(2)}`;
+        var valorSemMascara = $("#valorUnit").cleanVal();
+        valorSemMascara = valorSemMascara.toString();
+        var decimal = valorSemMascara.substr(-2)
+        var valor = valorSemMascara.substr(0, valorSemMascara.length - 2);
+        var valorFinal = valor + "." + decimal;
+        if (valorFinal.length <= 3) {
+            valorFinal = valorFinal.replace(".", "");
+        }
+        var retorno = valorFinal * qtde;
+        document.querySelector("[name='valorReal']").value = retorno;
     }
 });

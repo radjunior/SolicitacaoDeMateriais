@@ -12,10 +12,12 @@ require_once "../../dao/session.php";
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <title>Solicitação de Material</title>
     <link rel="stylesheet" type="text/css" href="../../css/solicMaterial.css">
+    <link rel="stylesheet" type="text/css" href="../../scripts/datatables/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
 
 <body>
-    <div class="container">
+    <div class="conteiner">
         <div class="navigation">
             <ul>
                 <li>
@@ -87,15 +89,15 @@ require_once "../../dao/session.php";
         </div>
         <!-- body -->
         <div class="resultados">
-            <div class="card">
-                <div class="model">
+            <div class="cardResultados">
+                <div class="modelResult">
                     <ion-icon class="icone" name="cart-outline"></ion-icon>
                     <span id="spnValorTotal"></span>
                 </div>
                 <div class="nameModel">Total</div>
             </div>
-            <div class="card">
-                <div class="model">
+            <div class="cardResultados">
+                <div class="modelResult">
                     <ion-icon class="icone" name="file-tray-stacked-outline"></ion-icon>
                     <span id="spnQtde"></span>
                 </div>
@@ -111,7 +113,7 @@ require_once "../../dao/session.php";
             <div class="cardMaterial">
                 <div class="titleMaterial">
                     <h2>Materiais</h2>
-                    <button type="button" href="#">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#mdlMaterial">
                         <ion-icon name="search-circle-outline"></ion-icon>
                     </button>
                 </div>
@@ -122,7 +124,7 @@ require_once "../../dao/session.php";
                 </div>
                 <div class="inputValores">
                     <input type="text" placeholder="R$ Unitário *" id="valorUnit" name="valorUnit">
-                    <input type="text" id="valorReal" name="valorReal" placeholder="R$ Total" readonly>
+                    <input type="text" placeholder="R$ Total" name="valorReal" id="valorReal">
                 </div>
                 <div class="inputDescricao">
                     <textarea placeholder="Descrição" name="descricaoMaterial" id="descricaoMaterial" cols="30" readonly></textarea>
@@ -132,7 +134,7 @@ require_once "../../dao/session.php";
             <div class="cardCentroCusto">
                 <div class="titleCusto">
                     <h2>Centro de Custo</h2>
-                    <button type="button" href="#">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#mdlCentroCusto">
                         <ion-icon name="search-circle-outline"></ion-icon>
                     </button>
                 </div>
@@ -204,7 +206,7 @@ require_once "../../dao/session.php";
                     <h2>Materiais a Serem Solicitados</h2>
                     <button type="button" id="btnEnviarSolicitacaoBD" onclick="itemSolic.enviarBD()">Solicitar Materiais</button>
                 </div>
-                <table id="tabelaPrincipal" class="tabelaPrincipal">
+                <table id="tabelaPrincipal" class="table table-striped">
                     <thead>
                         <tr>
                             <td scope="col">Id</td>
@@ -222,9 +224,73 @@ require_once "../../dao/session.php";
                 </table>
             </div>
         </div>
+        <!-- Inicio Modal Material-->
+        <div class="modal fade" id="mdlMaterial" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Selecionar Mateiral</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modalTop">
+                            <input type="text" placeholder="Pesquisar" id="pesquisaMaterial">
+                        </div>
+                        <table class="table table-striped tabelaModalMaterial">
+                            <thead>
+                                <tr>
+                                    <td scope="col">Material</td>
+                                    <td scope="col">Tipo</td>
+                                    <td scope="col">Unidade</td>
+                                </tr>
+                            </thead>
+                            <tbody id="tBodyModalMaterial">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
+                        <button type="button" class="btn btn-primary">Selecionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal Material-->
+        <!-- Inicio Modal Centro de Custo-->
+        <div class="modal fade" id="mdlCentroCusto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Selecionar Centro de Custo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modalTop">
+                            <input type="text" placeholder="Pesquisar" id="pesquisaCentroCusto">
+                        </div>
+                        <table class="table table-striped tabelaModalCentroCusto">
+                            <thead>
+                                <tr>
+                                    <td scope="col">Codigo</td>
+                                    <td scope="col">Descrição</td>
+                                </tr>
+                            </thead>
+                            <tbody id="tBodyModalCentroCusto">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
+                        <button type="button" class="btn btn-primary">Selecionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal Centro de Custo-->
     </div>
-    <script type="text/javascript" src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../../js/jQuery/jquery.mask.js"></script>
+    <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
+    <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
+    <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
     <script type="text/javascript" src="../../js/eng/solicMaterial.js"></script>
     <script type="text/javascript" src="../../js/eng/Material.class.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

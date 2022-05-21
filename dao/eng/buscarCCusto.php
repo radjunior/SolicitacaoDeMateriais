@@ -1,21 +1,45 @@
 <?php
 require_once "../conexao.php";
 
-$codigo = filter_input(INPUT_POST, 'palavra');
+$codigo = $_GET['itemCodigo'] ?? NULL;
+$descricao = $_GET['itemDescricao'] ?? NULL;
+$dados = "";
+if ($codigo != NULL) {
+    try {
+        $conn = ConexaoLocal::getConnection();
+        $query = "SELECT TOP(1) * FROM CENTRO_CUSTO WHERE CODIGO LIKE '$codigo%'";
+        $stmt = $conn->query($query);
 
-$conn = ConexaoLocal::getConnection();
-$query = "SELECT TOP(1) * FROM CENTRO_CUSTO WHERE CODIGO LIKE '%$codigo%'";
-$stmt = $conn->query($query);
+        foreach ($stmt as $item) {
+            $descricao = $item['DESCRICAO'];
+            $responsavel = $item['RESPONSAVEL'];
+            $codigoDB = $item['CODIGO'];
 
-foreach ($stmt as $item) {
-    $descricao = $item['DESCRICAO'];
-    $responsavel = $item['RESPONSAVEL'];
-    $codigoDB = $item['CODIGO'];
+            $arr = array(
+                'codigo' => $codigoDB,
+                'descricao' => $descricao,
+                'responsavel' => $responsavel
+            );
+        }
+        echo json_encode($arr);
+    } catch (PDOException $th) {
+        echo $th;
+    }
+} else {
+    try {
+        $conn = ConexaoLocal::getConnection();
+        $query = "SELECT TOP(20) * FROM CENTRO_CUSTO WHERE DESCRICAO LIKE '$descricao%'";
+        $stmt = $conn->query($query);
 
-    $arr = array(
-        'codigo' => $codigoDB,
-        'descricao' => $descricao,
-        'responsavel' => $responsavel
-    );
-    echo json_encode($arr);
+        foreach ($stmt as $item) {
+            $dados .=
+                "<tr>" .
+                "<td>" . $item['CODIGO'] . "</td>" .
+                "<td>" . $item['DESCRICAO'] . "</td>" .
+                "</tr>";
+        }
+        echo $dados;
+    } catch (PDOException $th) {
+        echo $th;
+    }
 }

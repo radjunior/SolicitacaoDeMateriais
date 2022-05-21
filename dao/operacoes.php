@@ -59,7 +59,14 @@ class MaterialDAO
             $conn = ConexaoLocal::getConnection();
             $query = "SELECT COUNT(STATUS_SOLIC) AS TOTAL_COUNT FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVAR'";
             $stmt = $conn->query($query);
-            return $stmt;
+            foreach ($stmt as $item) {
+                if ($item['TOTAL_COUNT'] != NULL) {
+                    $stmtCountAprovar = $item['TOTAL_COUNT'];
+                } else {
+                    $stmtCountAprovar = "0";
+                }
+            }
+            return $stmtCountAprovar;
         } catch (PDOException $e) {
             throw new Exception($e);
         }
@@ -71,7 +78,14 @@ class MaterialDAO
             $conn = ConexaoLocal::getConnection();
             $query = "SELECT COUNT(STATUS_SOLIC) AS TOTAL_COUNT FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVADO'";
             $stmt = $conn->query($query);
-            return $stmt;
+            foreach ($stmt as $item) {
+                if ($item['TOTAL_COUNT'] != NULL) {
+                    $stmtCountAprovado = $item['TOTAL_COUNT'];
+                } else {
+                    $stmtCountAprovado = "0";
+                }
+            }
+            return $stmtCountAprovado;
         } catch (PDOException $e) {
             throw new Exception($e);
         }
@@ -83,7 +97,14 @@ class MaterialDAO
             $conn = ConexaoLocal::getConnection();
             $query = "SELECT COUNT(STATUS_SOLIC) AS TOTAL_COUNT FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
             $stmt = $conn->query($query);
-            return $stmt;
+            foreach ($stmt as $item) {
+                if ($item['TOTAL_COUNT'] != NULL) {
+                    $stmtCountAutorizado = $item['TOTAL_COUNT'];
+                } else {
+                    $stmtCountAutorizado = "0";
+                }
+            }
+            return $stmtCountAutorizado;
         } catch (PDOException $e) {
             throw new Exception($e);
         }
@@ -95,7 +116,14 @@ class MaterialDAO
             $conn = ConexaoLocal::getConnection();
             $query = "SELECT SUM(REAL_TOTAL) AS REAL_TOTAL FROM MATERIAIS_SOLICITADOS";
             $stmt = $conn->query($query);
-            return $stmt;
+            foreach ($stmt as $item) {
+                if ($item['REAL_TOTAL'] == NULL) {
+                    $somaRealTotal = "0.00";
+                } else {
+                    $somaRealTotal = $item['REAL_TOTAL'];
+                }
+            }
+            return $somaRealTotal;
         } catch (PDOException $e) {
             throw new Exception($e);
         }
@@ -107,7 +135,14 @@ class MaterialDAO
             $conn = ConexaoLocal::getConnection();
             $query = "SELECT SUM(REAL_TOTAL) AS REAL_TOTAL FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVAR'";
             $stmt = $conn->query($query);
-            return $stmt;
+            foreach ($stmt as $item) {
+                if ($item['REAL_TOTAL'] == NULL) {
+                    $stmtSomaRealTotalAprovar = "0.00";
+                } else {
+                    $stmtSomaRealTotalAprovar = $item['REAL_TOTAL'];
+                }
+            }
+            return $stmtSomaRealTotalAprovar;
         } catch (PDOException $e) {
             throw new Exception($e);
         }
@@ -119,7 +154,14 @@ class MaterialDAO
             $conn = ConexaoLocal::getConnection();
             $query = "SELECT SUM(REAL_TOTAL) AS REAL_TOTAL FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVADO'";
             $stmt = $conn->query($query);
-            return $stmt;
+            foreach ($stmt as $item) {
+                if ($item['REAL_TOTAL'] == NULL) {
+                    $stmtSomaRealTotalAprovado = "0.00";
+                } else {
+                    $stmtSomaRealTotalAprovado = $item['REAL_TOTAL'];
+                }
+            }
+            return $stmtSomaRealTotalAprovado;
         } catch (PDOException $e) {
             throw new Exception($e);
         }
@@ -131,7 +173,14 @@ class MaterialDAO
             $conn = ConexaoLocal::getConnection();
             $query = "SELECT SUM(REAL_TOTAL) AS REAL_TOTAL FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
             $stmt = $conn->query($query);
-            return $stmt;
+            foreach ($stmt as $item) {
+                if ($item['REAL_TOTAL'] == NULL) {
+                    $stmtSomaRealTotalAutorizado = "0.00";
+                } else {
+                    $stmtSomaRealTotalAutorizado = $item['REAL_TOTAL'];
+                }
+            }
+            return $stmtSomaRealTotalAutorizado;
         } catch (PDOException $e) {
             throw new Exception($e);
         }

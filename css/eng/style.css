@@ -222,22 +222,19 @@ curve outside
 /* Cards */
 
 .cardBox {
-    position: relative;
-    width: 100%;
-    padding: 20px;
+    padding: 30px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 30px;
+    justify-items: center;
+    grid-gap: 15px;
 }
 
 .cardBox .carde {
     position: relative;
-    background: var(--branco);
+    width: 300px;
     padding: 30px;
     border-radius: 20px;
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
+    cursor: default;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
 
@@ -266,7 +263,8 @@ curve outside
 .cardBox .carde:hover .numbers,
 .cardBox .carde:hover .cardName,
 .cardBox .carde:hover .iconBx,
-.cardBox .carde:hover .numbersComprasTotal {
+.cardBox .carde:hover .numbersComprasTotal,
+.cardBox .carde:hover .cardDivInput label {
     color: var(--branco);
 }
 
@@ -275,13 +273,27 @@ curve outside
 
 .numbersComprasTotal {
     position: relative;
+    width: 220px;
+    border: none;
     font-weight: 500;
-    font-size: 2.5em;
+    font-size: 2.2em;
     color: var(--azul);
 }
 
 .numbersComprasTotal:hover {
     color: var(--branco);
+}
+
+.carde:hover .cardDivInput input {
+    background-color: var(--azul);
+    cursor: default;
+    pointer-events: none;
+}
+
+.cardDivInput label {
+    font-weight: 500;
+    font-size: 1.0em;
+    color: var(--azul);
 }
 
 
@@ -337,11 +349,6 @@ curve outside
     font-size: 1.6em;
 }
 
-.tabelaPrincipal {
-    position: relative;
-    width: 100%;
-}
-
 .status.aprovar {
     padding: 2px 4px;
     background-color: var(--verde);
@@ -384,6 +391,20 @@ curve outside
 
 /* Reponsive */
 
+@media (max-width: 1600px) {
+    .cardBox {
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+    }
+}
+
+@media (max-width: 1280px) {
+    .cardBox {
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+    }
+}
+
 @media (max-width: 991px) {
     .navigation {
         left: -300px;
@@ -399,14 +420,23 @@ curve outside
     .main.active {
         left: 300px;
     }
-    .cardBox {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 @media (max-width: 768px) {
     .details {
         grid-template-columns: repeat(1, 1fr);
+    }
+    .navigation {
+        width: 100%;
+        left: -100%;
+        z-index: 1000;
+    }
+    .navigation.active {
+        width: 100%;
+        left: 0;
+    }
+    .details {
+        grid-template-columns: 1fr;
     }
     .recentOrders {
         overflow-x: auto;
@@ -414,12 +444,25 @@ curve outside
     .status.aprovar {
         white-space: nowrap;
     }
+    .toggle {
+        z-index: 10001;
+    }
+    .main.active .toggle {
+        position: fixed;
+        right: 0;
+        left: initial;
+        color: var(--branco);
+    }
+}
+
+@media (max-width: 690px) {
+    .cardBox {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
 }
 
 @media (max-width: 480px) {
-    .cardBox {
-        grid-template-columns: repeat(1, 1fr);
-    }
     .cardHeader h2 {
         font-size: 20px;
     }

@@ -1,3 +1,60 @@
+$(function() {
+    $('#btnFiltrar').click(listarTabelaHome);
+
+    function listarTabelaHome() {
+        var inputFiltroMes = $('#iptFiltroMes').val();
+        if (inputFiltroMes != '') {
+            dados = {
+                item: inputFiltroMes
+            }
+            $.get('../../dao/filtrarDataAprovacao.php', dados, function(retorno) {
+                $('#tbodyHome').html(retorno);
+            });
+        }
+    }
+});
+//DataTable
+$(document).ready(function() {
+    $('#TabelaHome').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
+        },
+        columnDefs: [{
+                target: 1,
+                render: DataTable.render.number(null, null, 0, null),
+            },
+            {
+                target: 2,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            },
+            {
+                target: 3,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            }
+        ],
+        dom: 'Bfrtip',
+        buttons: {
+            dom: {
+                button: {
+                    className: "btn"
+                }
+            },
+            buttons: [{
+                    extend: "excel",
+                    text: "Excel",
+                    className: "btn btn-outline-success",
+                    excelStyles: {
+                        template: "cyan_medium"
+                    }
+                },
+                {
+                    extend: "print",
+                    text: "Imprimir",
+                }
+            ]
+        }
+    });
+});
 // menu toggle
 let toggle = document.querySelector('.toggle');
 let navigation = document.querySelector('.navigation');
@@ -18,30 +75,5 @@ function activeLink() {
 }
 list.forEach((item) =>
     item.addEventListener('mouseover', activeLink));
-//DataTable
-$(document).ready(function() {
-    $('#TabelaHome').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
-});
 
-$('.numbersComprasTotal').mask('000.000.000.000.000,00', { reverse: true });
-$('#itemTabelaValores').mask('000.000.000.000.000,00', { reverse: true });
-
-$('#tBody tbody tr').each(function() {
-    // Recuperar todas as colunas da linha percorida
-    var colunas = $(this).children();
-    var pedidos = [];
-    // Criar objeto para armazenar os dados
-    var pedido = {
-        'itemTableValorUnitario': $(colunas[0]).text(), // valor da coluna Produto
-        'itemTableValorReal': $(colunas[1]).text() // Valor da coluna Quantidade
-    };
-
-    // Adicionar o objeto pedido no array
-    pedidos.push(pedido);
-    console.log(pedidos);
-});
+$('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
