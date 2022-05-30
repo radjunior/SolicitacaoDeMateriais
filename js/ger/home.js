@@ -1,3 +1,59 @@
+//DataTable
+$.fn.dataTable.ext.search.push(
+    function(settings, data, dataIndex) {
+        if ($("#iptFiltroMes").val() == data[5]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+);
+$(document).ready(function() {
+    $('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
+    var table = $('#TabelaHome').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
+        },
+        columnDefs: [{
+                target: 1,
+                render: DataTable.render.number(null, null, 0, null),
+            },
+            {
+                target: 2,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            },
+            {
+                target: 3,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            }
+        ],
+        dom: 'Bfrtip',
+        buttons: {
+            dom: {
+                button: {
+                    className: "btn"
+                }
+            },
+            buttons: [{
+                    extend: "excel",
+                    text: "Excel",
+                    className: "btn btn-outline-success",
+                    excelStyles: {
+                        template: "cyan_medium"
+                    }
+                },
+                {
+                    extend: "print",
+                    text: "Imprimir",
+                }
+            ]
+        }
+    });
+
+    $('#iptFiltroMes').change(function() {
+        table.draw();
+    });
+});
 // menu toggle
 let toggle = document.querySelector('.toggle');
 let navigation = document.querySelector('.navigation');
@@ -21,32 +77,29 @@ list.forEach((item) =>
 //Modal
 var exampleModal = document.getElementById('exampleModal')
 exampleModal.addEventListener('show.bs.modal', function(event) {
-    // Button that triggered the modal
-    var button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-    var materialId = button.getAttribute('data-bs-materialId')
-    var materialCodigo = button.getAttribute('data-bs-materialCodigo')
-    var materialDescricao = button.getAttribute('data-bs-materialDescricao')
-    var materialRealUnit = button.getAttribute('data-bs-materialRealUnit')
-    var materialRealTotal = button.getAttribute('data-bs-materialRealTotal')
-    var materialSolicitante = button.getAttribute('data-bs-materialSolicitante')
-    var materialAplicacao = button.getAttribute('data-bs-materialAplicacao');
-    // If necessary, you could initiate an AJAX request here
-    // and then do the updating in a callback.
-    //
-    // Update the modal's content.
-    document.querySelector("[name='materialId']").value = `${materialId}`;
-    document.querySelector("[name='materialCodigo']").value = `${materialCodigo}`;
-    document.querySelector("[name='materialDescricao']").value = `${materialDescricao}`;
-    document.querySelector("[name='materialRealUnit']").value = `R$ ${materialRealUnit}`;
-    document.querySelector("[name='materialRealTotal']").value = `R$ ${materialRealTotal}`;
-    document.querySelector("[name='materialSolicitante']").value = `${materialSolicitante}`;
-    document.querySelector("[name='materialAplicacao']").value = `${materialAplicacao}`;
-})
-
-$('.numbersComprasTotal').mask('000.000.000.000.000,00', { reverse: true });
-
-// data hoje
+        // Button that triggered the modal
+        var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+        var materialId = button.getAttribute('data-bs-materialId')
+        var materialCodigo = button.getAttribute('data-bs-materialCodigo')
+        var materialDescricao = button.getAttribute('data-bs-materialDescricao')
+        var materialRealUnit = button.getAttribute('data-bs-materialRealUnit')
+        var materialRealTotal = button.getAttribute('data-bs-materialRealTotal')
+        var materialSolicitante = button.getAttribute('data-bs-materialSolicitante')
+        var materialAplicacao = button.getAttribute('data-bs-materialAplicacao');
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        document.querySelector("[name='materialId']").value = `${materialId}`;
+        document.querySelector("[name='materialCodigo']").value = `${materialCodigo}`;
+        document.querySelector("[name='materialDescricao']").value = `${materialDescricao}`;
+        document.querySelector("[name='materialRealUnit']").value = `R$ ${materialRealUnit}`;
+        document.querySelector("[name='materialRealTotal']").value = `R$ ${materialRealTotal}`;
+        document.querySelector("[name='materialSolicitante']").value = `${materialSolicitante}`;
+        document.querySelector("[name='materialAplicacao']").value = `${materialAplicacao}`;
+    })
+    // data hoje
 var data = new Date();
 var dia = data.getDate();
 var mes = data.getMonth() + 1;
@@ -75,7 +128,3 @@ function desautorizar() {
         }
     });
 }
-//DataTable
-$(document).ready(function() {
-    $('#TabelaHome').DataTable();
-});

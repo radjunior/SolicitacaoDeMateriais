@@ -48,7 +48,7 @@ require_once "../../dao/session.php";
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
-                        <span class="title">Acompanhamento</span>
+                        <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
                     </a>
                 </li>
                 <li>
@@ -56,7 +56,7 @@ require_once "../../dao/session.php";
                         <span class="icon">
                             <ion-icon name="documents-outline"></ion-icon>
                         </span>
-                        <span class="title">Cadastro</span>
+                        <span class="title"><s>Cadastro</s>[Em Breve]</span>
                     </a>
                 </li>
                 <li>

@@ -58,7 +58,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
-                        <span class="title">Acompanhamento</span>
+                        <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
                     </a>
                 </li>
                 <li>
@@ -66,7 +66,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                         <span class="icon">
                             <ion-icon name="documents-outline"></ion-icon>
                         </span>
-                        <span class="title">Cadastro</span>
+                        <span class="title"><s>Cadastro</s>[Em Breve]</span>
                     </a>
                 </li>
                 <li>
@@ -100,7 +100,8 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
         <div class="cardBox">
             <div class="carde">
                 <div class="cardDivInput">
-                    <label>R$<input type="text" class="numbersComprasTotal" value="<?php echo $stmtSomaRealTotal ?>"></label>
+                    <!--<label>R$<input type="text" class="numbersComprasTotal" id="iptSomaRealTotal"></label>-->
+                    <label>R$<input type="text" class="numbersComprasTotal" id="iptSomaRealTotal" value="<?php echo $stmtSomaRealTotal ?>"></label>
                     <div class="cardName">Compras (R$)</div>
                 </div>
                 <div class="iconBx">
@@ -109,6 +110,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
             </div>
             <div class="carde">
                 <div class="cardDivInput">
+                    <!-- <input type="text" class="numbersComprasTotal" id="iptCountAprovar"> -->
                     <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovar ?>">
                     <div class="cardName">Aprovar</div>
                 </div>
@@ -118,6 +120,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
             </div>
             <div class="carde">
                 <div class="cardDivInput">
+                    <!-- <input type="text" class="numbersComprasTotal" id="iptCountAprovado"> -->
                     <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovado ?>">
                     <div class="cardName">Aprovado</div>
                 </div>
@@ -127,6 +130,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
             </div>
             <div class="carde">
                 <div class="cardDivInput">
+                    <!-- <input type="text" class="numbersComprasTotal" id="iptCountAutorizado"> -->
                     <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAutorizado ?>">
                     <div class="cardName">Autorizado</div>
                 </div>
@@ -142,9 +146,9 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                     <h2>Solicitações</h2>
                     <div>
                         <input type="month" id="iptFiltroMes">
-                        <button id="btnFiltrar">Filtrar</button>
                     </div>
                 </div>
+                
                 <table id="TabelaHome" class="table table-striped">
                     <thead>
                         <tr>
@@ -159,6 +163,18 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                         </tr>
                     </thead>
                     <tbody id="tbodyHome">
+                    <?php foreach ($stmtMateriaisGeral as $item) { ?>
+                            <tr>
+                                <td><?php echo $item['DESCRICAO'] ?></td>
+                                <td><?php echo $item['QUANTIDADE'] ?></td>
+                                <td><?php echo $item['REAL_UNITARIO'] ?></td>
+                                <td class="tdRealTotal" id="tdRealTotal"><?php echo $item['REAL_TOTAL'] ?></td>
+                                <td><?php echo $item['SOLICITANTE'] ?></td>
+                                <td><?php echo $item['APLICACAO'] ?></td>
+                                <td><?php echo $item['MES_APROVACAO'] ?></td>
+                                <td class="tdStatus" id="tdStatus"><?php echo $item['STATUS_SOLIC'] ?></td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

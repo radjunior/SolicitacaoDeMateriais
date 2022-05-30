@@ -269,12 +269,13 @@ textarea {
 }
 
 .titleMaterial {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
 .titleMaterial button {
+    width: 60px;
     height: 30px;
     margin-left: 90px;
     border-radius: 6px;
@@ -326,11 +327,13 @@ textarea {
 }
 
 .titleCusto {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
 .titleCusto button {
+    width: 60px;
     height: 30px;
     margin-left: 30px;
     border-radius: 6px;
@@ -381,8 +384,68 @@ textarea {
     font-size: 1.2em;
 }
 
+.titleAplicacao button {
+    width: 60px;
+    height: 30px;
+    margin-left: 30px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--azul);
+    color: var(--branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleAplicacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.titleAplicacao ion-icon {
+    font-size: 1.7em;
+}
+
+.titleAplicacao button:hover {
+    background-color: var(--branco);
+    color: var(--azul);
+    border: 1px solid var(--azul);
+    cursor: pointer;
+}
+
 
 /* Externo */
+
+.titleExterno button {
+    width: 60px;
+    height: 30px;
+    margin-left: 30px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--azul);
+    color: var(--branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleExterno {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.titleExterno ion-icon {
+    font-size: 1.7em;
+}
+
+.titleExterno button:hover {
+    background-color: var(--branco);
+    color: var(--azul);
+    border: 1px solid var(--azul);
+    cursor: pointer;
+}
 
 .cardExterno {
     padding: 10px;
@@ -394,6 +457,57 @@ textarea {
     margin-top: 20px;
     display: grid;
     grid-gap: 10px;
+}
+
+.drop-zone {
+    width: 100%;
+    height: 75px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+    cursor: pointer;
+    color: #cccccc;
+    border: 4px dashed var(--azul);
+    border-radius: 10px;
+}
+
+.drop-zone--over {
+    border-style: solid;
+}
+
+.drop-zone:hover {
+    border-style: solid;
+}
+
+.drop-zone__input {
+    display: none;
+}
+
+.drop-zone__thumb {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--cinza);
+    background-size: cover;
+    position: relative;
+}
+
+.drop-zone__thumb::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 0;
+    color: var(--cinza);
+    background: rgba(0, 0, 0, 0.75);
+    font-size: 14px;
+    text-align: center;
 }
 
 
@@ -438,10 +552,13 @@ textarea {
 }
 
 .botaoAcao button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     border-radius: 6px;
     height: 30px;
-    width: 60px;
+    width: 90px;
     cursor: pointer;
     background-color: var(--azul);
     color: var(--branco);
@@ -451,6 +568,10 @@ textarea {
     background-color: var(--branco);
     color: var(--azul);
     border: 1px solid var(--azul);
+}
+
+.botaoAcao ion-icon {
+    font-size: 1.3em;
 }
 
 

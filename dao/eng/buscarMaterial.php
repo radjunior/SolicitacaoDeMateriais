@@ -8,11 +8,12 @@ $dados = "";
 if ($txtMaterial != null) {
     try {
         $conn = ConexaoLocal::getConnection();
-        $query = "SELECT TOP(10) * FROM MATERIAIS WHERE MATERIAL LIKE '$txtMaterial%'";
+        $query = "SELECT TOP(10) * FROM MATERIAIS WHERE MATERIAL LIKE '%$txtMaterial%'";
         $stmt = $conn->query($query);
         foreach ($stmt as $item) {
             $dados .=
                 "<tr>" .
+                "<td>" . $item['CODIGO'] . "</td>" .
                 "<td>" . $item['MATERIAL'] . "</td>" .
                 "<td>" . $item['TIPO'] . "</td>" .
                 "<td>" . $item['UNIDADE'] . "</td>" .

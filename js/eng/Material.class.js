@@ -8,6 +8,8 @@ class SolicitacaoMaterial {
         this.dtAguardar = "AGUARDANDO";
         this.totalQtde = 0;
         this.totalReal = 0;
+        document.getElementById('spnQtde').innerText = this.totalQtde;
+        document.getElementById('spnValorTotal').innerText = this.totalReal;
     }
 
     salvar() {
@@ -166,6 +168,9 @@ class SolicitacaoMaterial {
                     tbody.deleteRow(i);
                 }
             }
+            this.totalQtde--;
+            document.getElementById('spnQtde').innerText = this.totalQtde;
+            document.getElementById('spnValorTotal').innerText = this.calcularTotalReal();
         }
     }
 
@@ -181,6 +186,7 @@ class SolicitacaoMaterial {
         let tbody = document.getElementById('tBody');
         tbody.innerText = '';
         document.getElementById('spnQtde').innerText = this.totalQtde;
+        document.getElementById('spnValorTotal').innerText = this.calcularTotalReal();
         for (let i = 0; i < this.arrSolicitacao.length; i++) {
             let tr = tbody.insertRow();
             let td_id = tr.insertCell();
@@ -212,14 +218,13 @@ class SolicitacaoMaterial {
         }
     }
     calcularTotalReal() {
+        var valor = 0;
         for (let i = 0; i < this.arrSolicitacao.length; i++) {
-            var valor = this.arrSolicitacao[i].valorReal;
-            console.log("Antes: " + valor);
-            valor = valor.substring(3, 10);
+            valor += parseFloat(this.arrSolicitacao[i].valorReal);
 
-            console.log("Depois: " + valor);
         }
-        document.getElementById('spnValorTotal').innerText
+        console.log("Return = " + valor);
+        return valor;
     }
     cancelar() {
         this.editId = null;

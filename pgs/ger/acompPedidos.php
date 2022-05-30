@@ -58,28 +58,11 @@ $stmtValorTotal = $conn->query($queryTotal);
                     </a>
                 </li>
                 <li>
-                    <a href="./solicMaterial.php">
-                        <span class="icon">
-                            <ion-icon name="add-outline"></ion-icon>
-                            </ion-icon>
-                        </span>
-                        <span class="title">Solicitar Material</span>
-                    </a>
-                </li>
-                <li>
                     <a href="./acompPedidos.php">
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
                         <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="./cadastroGeral.php">
-                        <span class="icon">
-                            <ion-icon name="documents-outline"></ion-icon>
-                        </span>
-                        <span class="title"><s>Cadastro</s>[Em Breve]</span>
                     </a>
                 </li>
                 <li>

@@ -50,7 +50,7 @@ require_once "../../dao/session.php";
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
-                        <span class="title">Acompanhamento</span>
+                        <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
                     </a>
                 </li>
                 <li>
@@ -58,7 +58,7 @@ require_once "../../dao/session.php";
                         <span class="icon">
                             <ion-icon name="documents-outline"></ion-icon>
                         </span>
-                        <span class="title">Cadastro</span>
+                        <span class="title"><s>Cadastro</s>[Em Breve]</span>
                     </a>
                 </li>
                 <li>
@@ -149,7 +149,12 @@ require_once "../../dao/session.php";
             </div>
 
             <div class="cardAplicacao">
-                <h2>Aplicação</h2>
+                <div class="titleAplicacao">
+                    <h2>Aplicação</h2>
+                    <button type="button" id="btnLimparZipProposta">
+                        <ion-icon name="trash-bin-outline"></ion-icon>
+                    </button>
+                </div>
                 <div class="aplicacaoValores">
                     <div>
                         <label for="prioridade">Prioridade [0-1-2]*</label>
@@ -158,6 +163,10 @@ require_once "../../dao/session.php";
                     <div>
                         <input type="text" placeholder="Proposta" id="proposta" name="proposta">
                     </div>
+                    <!-- <div class="drop-zone">
+                        <span class="drop-zone__prompt">Upload Proposta (.zip)</span>
+                        <input type="file" id="zipProposta" name="myFile" class="drop-zone__input" multiple="multiple">
+                    </div> -->
                     <div>
                         <textarea placeholder="Aplicação *" id="aplicacao" name="aplicacao"></textarea>
                     </div>
@@ -167,7 +176,12 @@ require_once "../../dao/session.php";
                 </div>
             </div>
             <div class="cardExterno">
-                <h2>Externo</h2>
+                <div class="titleExterno">
+                    <h2>Externo</h2>
+                    <button type="button" id="btnLimparZipRequisicao">
+                        <ion-icon name="trash-bin-outline"></ion-icon>
+                    </button>
+                </div>
                 <div class="inputExterno">
                     <div>
                         <input type="text" placeholder="Fornecedor" id="fornecedor" name="fornecedor">
@@ -176,8 +190,12 @@ require_once "../../dao/session.php";
                         <input type="number" placeholder="Requisição" id="requisicao" name="requisicao">
                     </div>
                     <div>
-                        <input type="file" placeholder="Item de Requisição" id="itemRequisicao" name="itemRequisicao">
+                        <input type="number" placeholder="Item da Requisição" id="itemRequisicao" name="itemRequisicao">
                     </div>
+                    <!-- <div class="drop-zone">
+                        <span class="drop-zone__prompt">Upload Item Requisição (.zip)</span>
+                        <input type="file" id="zipItemRequisicao" name="myFile" class="drop-zone__input" multiple="multiple">
+                    </div> -->
                 </div>
             </div>
             <div class="cardDatas">
@@ -196,8 +214,9 @@ require_once "../../dao/session.php";
         </div>
         <div class="containerBTN">
             <div class="botaoAcao">
-                <button type="button" onclick="itemSolic.cancelar()">Limpar</button>
-                <button type="button" onclick="itemSolic.salvar()" id="btnInsertAtt">Inserir</button>
+                <button type="button" onclick="itemSolic.cancelar()">Limpar<ion-icon name="trash-bin-outline"></ion-icon></button>
+                <button type="button" onclick="itemSolic.salvar()" id="btnInsertAtt">Inserir<ion-icon name="arrow-down-circle-outline"></ion-icon></button>
+
             </div>
         </div>
         <div class="details">
@@ -239,6 +258,7 @@ require_once "../../dao/session.php";
                         <table class="table table-striped tabelaModalMaterial">
                             <thead>
                                 <tr>
+                                    <td scope="col">Código</td>
                                     <td scope="col">Material</td>
                                     <td scope="col">Tipo</td>
                                     <td scope="col">Unidade</td>

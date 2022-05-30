@@ -1,21 +1,17 @@
-$(function() {
-    $('#btnFiltrar').click(listarTabelaHome);
-
-    function listarTabelaHome() {
-        var inputFiltroMes = $('#iptFiltroMes').val();
-        if (inputFiltroMes != '') {
-            dados = {
-                item: inputFiltroMes
-            }
-            $.get('../../dao/filtrarDataAprovacao.php', dados, function(retorno) {
-                $('#tbodyHome').html(retorno);
-            });
+//DataTable
+$.fn.dataTable.ext.search.push(
+    function(settings, data, dataIndex) {
+        if ($("#iptFiltroMes").val() == data[6]) {
+            return true;
+        } else {
+            return false;
         }
     }
-});
-//DataTable
+);
 $(document).ready(function() {
-    $('#TabelaHome').DataTable({
+    $('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
+    // $('.iptSomaRealTotal').mask('#.##0,00', { reverse: true });
+    var table = $('#TabelaHome').DataTable({
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
         },
@@ -54,6 +50,33 @@ $(document).ready(function() {
             ]
         }
     });
+    /*var qtdeStatusAprovar;
+    var qtdeStatusAprovado;
+    var qtdeStatusAutorizado;*/
+    $('#iptFiltroMes').change(function() {
+        /*qtdeStatusAprovar = 0;
+        qtdeStatusAprovado = 0;
+        qtdeStatusAutorizado = 0;
+        table.column(6).data().each(function(data, index) {
+            if ($("#iptFiltroMes").val() == data) {
+                table.column(7).data().each(function(value, index) {
+                    if (value == "APROVAR") {
+                        qtdeStatusAprovar++;
+                    }
+                    if (value == "APROVADO") {
+                        qtdeStatusAprovado++;
+                    }
+                    if (value == "AUTORIZADO") {
+                        qtdeStatusAutorizado++;
+                    }
+                });
+            }
+        });
+        $("#iptCountAprovar").val(qtdeStatusAprovar);
+        $("#iptCountAprovado").val(qtdeStatusAprovado);
+        $("#iptCountAutorizado").val(qtdeStatusAutorizado);*/
+        table.draw();
+    });
 });
 // menu toggle
 let toggle = document.querySelector('.toggle');
@@ -75,5 +98,3 @@ function activeLink() {
 }
 list.forEach((item) =>
     item.addEventListener('mouseover', activeLink));
-
-$('.numbersComprasTotal').mask('#.##0,00', { reverse: true });

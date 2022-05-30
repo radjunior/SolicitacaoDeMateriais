@@ -1,6 +1,32 @@
 //DataTable
+$.fn.dataTable.ext.search.push(
+    function(settings, data, dataIndex) {
+        if ($("#iptFiltroMes").val() == data[5]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+);
 $(document).ready(function() {
-    $('#TabelaHome').DataTable({
+    $('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
+    var table = $('#TabelaHome').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
+        },
+        columnDefs: [{
+                target: 1,
+                render: DataTable.render.number(null, null, 0, null),
+            },
+            {
+                target: 2,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            },
+            {
+                target: 3,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            }
+        ],
         dom: 'Bfrtip',
         buttons: {
             dom: {
@@ -23,12 +49,11 @@ $(document).ready(function() {
             ]
         }
     });
+
+    $('#iptFiltroMes').change(function() {
+        table.draw();
+    });
 });
-//Filtro do mês
-function filtrarTabela() {
-    var mes = document.querySelector("[name='filtroMes']").value;
-    console.log(mes);
-}
 // menu toggle
 let toggle = document.querySelector('.toggle');
 let navigation = document.querySelector('.navigation');
@@ -73,9 +98,6 @@ exampleModal.addEventListener('show.bs.modal', function(event) {
     document.querySelector("[name='materialSolicitante']").value = `${materialSolicitante}`;
     document.querySelector("[name='materialAplicacao']").value = `${materialAplicacao}`;
 })
-
-$('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
-
 var data = new Date();
 var dia = data.getDate();
 var mes = data.getMonth() + 1;

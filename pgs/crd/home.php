@@ -43,6 +43,14 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                     </a>
                 </li>
                 <li>
+                    <a href="./acompPedidos.php">
+                        <span class="icon">
+                            <ion-icon name="bar-chart-outline"></ion-icon>
+                        </span>
+                        <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
+                    </a>
+                </li>
+                <li>
                     <a href="?logout=1">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
@@ -72,7 +80,7 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
             <div class="carde">
                 <div class="cardDivInput">
                     <label>R$<input type="text" class="numbersComprasTotal" value="<?php echo $stmtSomaRealTotal ?>"></label>
-                    <div class="cardName">Compras (R$)</div>
+                    <div class="cardName">Compras</div>
                 </div>
                 <div class="iconBx">
                     <ion-icon name="cart-outline"></ion-icon>
@@ -101,10 +109,9 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
         <div class="details">
             <div class="recentOrders">
                 <div class="cardHeader">
-                    <h2>Materiais a Serem Solicitados</h2>
+                    <h2>Materiais a Serem Aprovados</h2>
                     <div>
                         <input type="month" id="iptFiltroMes">
-                        <button id="btnFiltrar">Filtrar</button>
                     </div>
                 </div>
                 
@@ -118,7 +125,7 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                             <td scope="col">Aplicação</td>
                             <td scope="col">Mês Aprovação</td>
                             <td scope="col">Solicitante</td>
-                            <td scope="col">Status</td>
+                            <td scope="col">Ação</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,8 +133,8 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                             <tr>
                                 <td><?php echo $item['DESCRICAO'] ?></td>
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
-                                <td><?php echo 'R$ ' . $item['REAL_UNITARIO'] ?></td>
-                                <td><?php echo 'R$ ' . $item['REAL_TOTAL'] ?></td>
+                                <td><?php echo $item['REAL_UNITARIO'] ?></td>
+                                <td><?php echo $item['REAL_TOTAL'] ?></td>
                                 <td><?php echo $item['APLICACAO'] ?></td>
                                 <td><?php echo $item['MES_APROVACAO'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>

@@ -231,11 +231,12 @@ curve outside
 
 .cardBox .carde {
     position: relative;
-    width: 300px;
-    padding: 30px;
+    width: 270px;
+    height: 200px;
+    padding: 15px;
     border-radius: 20px;
     cursor: default;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 40%);
 }
 
 .cardBox .carde .numbers {
@@ -314,7 +315,7 @@ curve outside
     min-height: 340px;
     background-color: var(--branco);
     padding: 20px;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 40%);
     border-radius: 25px;
 }
 
