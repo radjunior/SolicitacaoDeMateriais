@@ -6,20 +6,7 @@ $(document).ready(function() {
     table = $('#tabelaPrincipal').DataTable({
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
-        },
-        columnDefs: [{
-                target: 1,
-                render: DataTable.render.number(null, null, 0, null),
-            },
-            {
-                target: 2,
-                render: DataTable.render.number(null, null, 2, 'R$ '),
-            },
-            {
-                target: 3,
-                render: DataTable.render.number(null, null, 2, 'R$ '),
-            }
-        ],
+        }
     });
 });
 

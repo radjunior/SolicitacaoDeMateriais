@@ -1,12 +1,26 @@
 <?php
 require_once "../conexao.php";
+
+function parseFloat($str) {
+    if (strstr($str, ",")) {
+        $str = str_replace(".", "", $str); // replace dots (thousand seps) with blancs
+        $str = str_replace(",", ".", $str); // replace ',' with '.'
+    }
+
+    if (preg_match("#([0-9\.]+)#", $str, $match)) { // search for number that may contain '.'
+        return floatval($match[0]);
+    } else {
+        return floatval($str); // take some last chances with floatval
+    }
+}
+
 // Materiais
 $codMaterial = filter_input(INPUT_POST, 'codigoMaterial');
 $unidadeMaterial = filter_input(INPUT_POST, 'unidadeMaterial');
 $qtdeMaterial = filter_input(INPUT_POST, 'qtdeMaterial');
-$valorUnit = filter_input(INPUT_POST, 'valorUnit');
+$valorUnitString = filter_input(INPUT_POST, 'valorUnit');
+$valorUnit = parseFloat($valorUnitString);
 $valorReal = filter_input(INPUT_POST, 'valorReal');
-$valorRealReplace = str_replace('R$ ', '', $valorReal);
 $descricaoMaterial = filter_input(INPUT_POST, 'descricaoMaterial');
 // Centro de Custo
 $codigoCCusto = filter_input(INPUT_POST, 'codigoCCusto');
@@ -42,7 +56,7 @@ try {
         ':col06' => $qtdeMaterial,
         ':col07' => $proposta,
         ':col08' => $valorUnit,
-        ':col09' => $valorRealReplace,
+        ':col09' => $valorReal,
         ':col10' => $codigoCCusto,
         ':col11' => $descricaoCCusto,
         ':col12' => $fornecedor,
@@ -76,7 +90,7 @@ echo "Código Material: ", $codMaterial;
 echo "<br>Unidade: ", $unidadeMaterial;
 echo "<br>Qtde: ", $qtdeMaterial;
 echo "<br>Valor Unit: ", $valorUnit;
-echo "<br>Valor Real: ", $valorRealReplace;
+echo "<br>Valor Real: ", $valorReal;
 echo "<br>Descricao: ", $descricaoMaterial;
 echo "<br>Cod Centro: ", $codigoCCusto;
 echo "<br>Desc Centro: ", $descricaoCCusto;
