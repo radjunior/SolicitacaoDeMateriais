@@ -190,6 +190,7 @@ class SolicitacaoMaterial {
         for (let i = 0; i < this.arrSolicitacao.length; i++) {
             let tr = tbody.insertRow();
             let td_id = tr.insertCell();
+            let td_codigoMaterial = tr.insertCell();
             let td_descricaoMaterial = tr.insertCell();
             let td_qtdeMaterial = tr.insertCell();
             let td_valorUnit = tr.insertCell();
@@ -197,7 +198,9 @@ class SolicitacaoMaterial {
             let td_aplicacao = tr.insertCell();
             let td_solicitante = tr.insertCell();
             let td_acoes = tr.insertCell();
+
             td_id.innerText = this.arrSolicitacao[i].id;
+            td_codigoMaterial.innerText = this.arrSolicitacao[i].codigoMaterial;
             td_descricaoMaterial.innerText = this.arrSolicitacao[i].descricaoMaterial;
             td_qtdeMaterial.innerText = this.arrSolicitacao[i].qtdeMaterial;
             td_valorUnit.innerText = this.arrSolicitacao[i].valorUnit;
@@ -223,7 +226,7 @@ class SolicitacaoMaterial {
             valor += parseFloat(this.arrSolicitacao[i].valorReal);
 
         }
-        console.log("Return = " + valor);
+        //console.log("Return = " + valor);
         return valor;
     }
     cancelar() {

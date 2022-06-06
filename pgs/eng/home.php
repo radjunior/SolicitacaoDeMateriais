@@ -54,6 +54,14 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                     </a>
                 </li>
                 <li>
+                    <a href="./solicMaterialCAPEX.php">
+                        <span class="icon">
+                            <ion-icon name="logo-usd"></ion-icon>
+                        </span>
+                        <span class="title">CAPEX [Em Breve]</span>
+                    </a>
+                </li>
+                <li>
                     <a href="./acompPedidos.php">
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
@@ -100,7 +108,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
         <div class="cardBox">
             <div class="carde">
                 <div class="cardDivInput">
-                    <!--<label>R$<input type="text" class="numbersComprasTotal" id="iptSomaRealTotal"></label>-->
+                    <!-- <label>R$<input type="text" class="numbersComprasTotal" id="iptSomaRealTotal"></label> -->
                     <label>R$<input type="text" class="numbersComprasTotal" id="iptSomaRealTotal" value="<?php echo $stmtSomaRealTotal ?>"></label>
                     <div class="cardName">Compras (R$)</div>
                 </div>
@@ -140,7 +148,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
             </div>
         </div>
         <div class="details">
-        
+
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Solicitações</h2>
@@ -148,10 +156,11 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                         <input type="month" id="iptFiltroMes">
                     </div>
                 </div>
-                
+
                 <table id="TabelaHome" class="table table-striped">
                     <thead>
                         <tr>
+                            <td scope="col">Código</td>
                             <td scope="col">Descrição</td>
                             <td scope="col">Qtde</td>
                             <td scope="col">Valor Unit.</td>
@@ -163,12 +172,13 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                         </tr>
                     </thead>
                     <tbody id="tbodyHome">
-                    <?php foreach ($stmtMateriaisGeral as $item) { ?>
+                        <?php foreach ($stmtMateriaisGeral as $item) { ?>
                             <tr>
+                                <td><?php echo $item['CODIGO'] ?></td>
                                 <td><?php echo $item['DESCRICAO'] ?></td>
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
                                 <td><?php echo $item['REAL_UNITARIO'] ?></td>
-                                <td class="tdRealTotal" id="tdRealTotal"><?php echo $item['REAL_TOTAL'] ?></td>
+                                <td><?php echo $item['REAL_TOTAL'] ?></td>
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
                                 <td><?php echo $item['APLICACAO'] ?></td>
                                 <td><?php echo $item['MES_APROVACAO'] ?></td>
@@ -182,10 +192,11 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
     </div>
 
 </body>
-    <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
-    <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
-    <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="../../js/eng/home.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
+<script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
+<script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/eng/home.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </html>

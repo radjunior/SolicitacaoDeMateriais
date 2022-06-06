@@ -88,7 +88,7 @@ require_once "../../dao/session.php";
             </div>
             <!-- search -->
             <div class="titleTopBar">
-                <h2>Solicitação de Materiais</h2>
+                <h2>Solicitação de Materiais CAPEX</h2>
             </div>
             <!-- userImg -->
             <div class="user">
@@ -158,26 +158,15 @@ require_once "../../dao/session.php";
 
             <div class="cardAplicacao">
                 <div class="titleAplicacao">
-                    <h2>Aplicação</h2>
-                    <button type="button" id="btnLimparZipProposta">
-                        <ion-icon name="trash-bin-outline"></ion-icon>
-                    </button>
+                    <h2>Capital</h2>
                 </div>
-                <div class="aplicacaoValores">
-                    <div>
-                        <label for="prioridade">Prioridade [0-1-2]*</label>
-                        <input type="range" placeholder="Prioridade" id="prioridade" name="prioridade" min="0" max="2">
-                    </div>
-                    <div>
-                        <input type="text" placeholder="Proposta" id="proposta" name="proposta">
-                    </div>
-                    <!-- <div class="drop-zone">
-                        <span class="drop-zone__prompt">Upload Proposta (.zip)</span>
-                        <input type="file" id="zipProposta" name="myFile" class="drop-zone__input" multiple="multiple">
-                    </div> -->
-                    <div>
-                        <textarea placeholder="Aplicação *" id="aplicacao" name="aplicacao"></textarea>
-                    </div>
+                <div class="cardCapital">
+                    <select name="cptDescricao" id="cptDescricao">
+                        <option value="1">Caldeiras</option>
+                        <option value="2">Moendas</option>
+                        <option value="3">Destilaria</option>
+                        <option value="4">Fábrica</option>
+                    </select>
                 </div>
                 <div>
                     <input type="hidden" placeholder="Solicitante" id="solicitante" name="solicitante" value="<?php echo $_SESSION['usuarioLogin']; ?>">

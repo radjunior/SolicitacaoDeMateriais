@@ -1,7 +1,7 @@
 //DataTable
 $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
-        if ($("#iptFiltroMes").val() == data[6]) {
+        if ($("#iptFiltroMes").val() == data[7]) {
             return true;
         } else {
             return false;
@@ -12,6 +12,9 @@ $(document).ready(function() {
     $('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
     // $('.iptSomaRealTotal').mask('#.##0,00', { reverse: true });
     var table = $('#TabelaHome').DataTable({
+        paging: false,
+        ordering: true,
+        info: true,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
         },
@@ -20,11 +23,11 @@ $(document).ready(function() {
                 render: DataTable.render.number(null, null, 0, null),
             },
             {
-                target: 2,
+                target: 3,
                 render: DataTable.render.number(null, null, 2, 'R$ '),
             },
             {
-                target: 3,
+                target: 4,
                 render: DataTable.render.number(null, null, 2, 'R$ '),
             }
         ],
@@ -50,34 +53,12 @@ $(document).ready(function() {
             ]
         }
     });
-    /*var qtdeStatusAprovar;
-    var qtdeStatusAprovado;
-    var qtdeStatusAutorizado;*/
+
     $('#iptFiltroMes').change(function() {
-        /*qtdeStatusAprovar = 0;
-        qtdeStatusAprovado = 0;
-        qtdeStatusAutorizado = 0;
-        table.column(6).data().each(function(data, index) {
-            if ($("#iptFiltroMes").val() == data) {
-                table.column(7).data().each(function(value, index) {
-                    if (value == "APROVAR") {
-                        qtdeStatusAprovar++;
-                    }
-                    if (value == "APROVADO") {
-                        qtdeStatusAprovado++;
-                    }
-                    if (value == "AUTORIZADO") {
-                        qtdeStatusAutorizado++;
-                    }
-                });
-            }
-        });
-        $("#iptCountAprovar").val(qtdeStatusAprovar);
-        $("#iptCountAprovado").val(qtdeStatusAprovado);
-        $("#iptCountAutorizado").val(qtdeStatusAutorizado);*/
         table.draw();
     });
 });
+
 // menu toggle
 let toggle = document.querySelector('.toggle');
 let navigation = document.querySelector('.navigation');

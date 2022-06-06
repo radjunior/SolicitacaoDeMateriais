@@ -44,6 +44,14 @@ require_once "../../dao/session.php";
                     </a>
                 </li>
                 <li>
+                    <a href="./solicMaterialCAPEX.php">
+                        <span class="icon">
+                            <ion-icon name="logo-usd"></ion-icon>
+                        </span>
+                        <span class="title">CAPEX [Em Breve]</span>
+                    </a>
+                </li>
+                <li>
                     <a href="./acompPedidos.php">
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
