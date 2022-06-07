@@ -58,7 +58,15 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                         <span class="icon">
                             <ion-icon name="logo-usd"></ion-icon>
                         </span>
-                        <span class="title">CAPEX [Em Breve]</span>
+                        <span class="title">CAPEX</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./solicManutExterna.php">
+                        <span class="icon">
+                            <ion-icon name="cog-outline"></ion-icon>
+                        </span>
+                        <span class="title">Solitar Manutenção</span>
                     </a>
                 </li>
                 <li>
@@ -66,7 +74,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
-                        <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
+                        <span class="title">Acompanhamento</span>
                     </a>
                 </li>
                 <li>
@@ -74,7 +82,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                         <span class="icon">
                             <ion-icon name="documents-outline"></ion-icon>
                         </span>
-                        <span class="title"><s>Cadastro</s>[Em Breve]</span>
+                        <span class="title">Cadastro</span>
                     </a>
                 </li>
                 <li>
@@ -106,46 +114,61 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
         </div>
         <!-- cards -->
         <div class="cardBox">
-            <div class="carde">
-                <div class="cardDivInput">
-                    <!-- <label>R$<input type="text" class="numbersComprasTotal" id="iptSomaRealTotal"></label> -->
-                    <label>R$<input type="text" class="numbersComprasTotal" id="iptSomaRealTotal" value="<?php echo $stmtSomaRealTotal ?>"></label>
-                    <div class="cardName">Compras (R$)</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="cart-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="carde">
-                <div class="cardDivInput">
-                    <!-- <input type="text" class="numbersComprasTotal" id="iptCountAprovar"> -->
-                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovar ?>">
-                    <div class="cardName">Aprovar</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="checkmark-outline"></ion-icon>
+
+            <div class="cardeRealTotal">
+                <div class="cardeTop">
+                    <h2>Valor Total</h2>
+                    <input type="text" id="iptSomaRealTotal" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="bag-add-outline"></ion-icon>
+                    </div>
                 </div>
             </div>
-            <div class="carde">
-                <div class="cardDivInput">
-                    <!-- <input type="text" class="numbersComprasTotal" id="iptCountAprovado"> -->
-                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovado ?>">
-                    <div class="cardName">Aprovado</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="checkmark-done-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="carde">
-                <div class="cardDivInput">
-                    <!-- <input type="text" class="numbersComprasTotal" id="iptCountAutorizado"> -->
-                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAutorizado ?>">
-                    <div class="cardName">Autorizado</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+
+            <div class="cardeAprovar">
+                <div class="cardeTop">
+                    <h2>Aprovar</h2>
+                    <input type="text" id="iptCountAprovar" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="sync-outline"></ion-icon>
+                    </div>
                 </div>
             </div>
+
+            <div class="cardeAprovado">
+                <div class="cardeL">
+                    <h2>Aprovado</h2>
+                    <input type="text" id="iptCountAprovado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="cardeR">
+                    <h2>Reprovado</h2>
+                    <input type="text" id="iptCountReprovado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cardeAutorizado">
+                <div class="cardeL">
+                    <h2>Autorizado</h2>
+                    <input type="text" id="iptCountAutorizado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="checkmark-circle-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="cardeR">
+                    <h2>Desautorizado</h2>
+                    <input type="text" id="iptCountDesautorizado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="details">
 
@@ -157,7 +180,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                     </div>
                 </div>
 
-                <table id="TabelaHome" class="table table-striped">
+                <table id="TabelaHome" class="table table-hover">
                     <thead>
                         <tr>
                             <td scope="col">Código</td>
@@ -195,6 +218,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
 <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
 <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
 <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/vendor/numeral/numeral.min.js"></script>
 <script type="text/javascript" src="../../js/eng/home.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

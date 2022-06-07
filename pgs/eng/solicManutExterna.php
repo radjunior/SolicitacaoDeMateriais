@@ -96,7 +96,7 @@ require_once "../../dao/session.php";
             </div>
             <!-- search -->
             <div class="titleTopBar">
-                <h2>Solicitação de Materiais CAPEX</h2>
+                <h2>Solicitação de Manutenção Externa</h2>
             </div>
             <!-- userImg -->
             <div class="user">
@@ -128,25 +128,40 @@ require_once "../../dao/session.php";
 
             <div class="cardMaterial">
                 <div class="titleMaterial">
-                    <h2>Materiais</h2>
+                    <h2>Equipamento</h2>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#mdlMaterial">
                         <ion-icon name="search-circle-outline"></ion-icon>
                     </button>
                 </div>
                 <div class="inputMaterial">
                     <input type="text" placeholder="Código *" id="codigoMaterial" name="codigoMaterial">
-                    <input type="text" placeholder="Un" id="unidadeMaterial" name="unidadeMaterial" readonly>
+                    <input type="text" placeholder="Un" id="unidadeMaterial" name="unidadeMaterial">
                     <input type="number" placeholder="Qtde *" id="qtdeMaterial" name="qtdeMaterial">
                 </div>
                 <div class="inputValores">
                     <input type="text" placeholder="R$ Unitário *" id="valorUnit" name="valorUnit">
-                    <input type="text" placeholder="R$ Total" name="valorReal" id="valorReal">
+                    <input type="text" placeholder="(Kg) Peso *" name="valorReal" id="valorReal">
                 </div>
                 <div class="inputDescricao">
                     <textarea placeholder="Descrição" name="descricaoMaterial" id="descricaoMaterial" cols="30" readonly></textarea>
                 </div>
             </div>
-
+            <div class="cardCentroCusto">
+                <div class="titleCusto">
+                    <h2>Serviço</h2>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#mdlCentroCusto">
+                        <ion-icon name="search-circle-outline"></ion-icon>
+                    </button>
+                </div>
+                <div class="inputCentroCusto">
+                    <div>
+                        <input type="number" placeholder="Código *" id="codigoCCusto" name="codigoCCusto">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Descrição" id="descricaoCCusto" name="descricaoCCusto" readonly>
+                    </div>
+                </div>
+            </div>
             <div class="cardCentroCusto">
                 <div class="titleCusto">
                     <h2>Centro de Custo</h2>
@@ -166,15 +181,18 @@ require_once "../../dao/session.php";
 
             <div class="cardAplicacao">
                 <div class="titleAplicacao">
-                    <h2>Capital</h2>
+                    <h2>Aplicação</h2>
+                    <button type="button" id="btnLimparZipProposta">
+                        <ion-icon name="trash-bin-outline"></ion-icon>
+                    </button>
                 </div>
-                <div class="cardCapital">
-                    <select name="cptDescricao" id="cptDescricao">
-                        <option value="1">Caldeiras</option>
-                        <option value="2">Moendas</option>
-                        <option value="3">Destilaria</option>
-                        <option value="4">Fábrica</option>
-                    </select>
+                <div class="aplicacaoValores">
+                    <div>
+                        <textarea placeholder="Defeito/Obs *" id="aplicacao" name="aplicacao"></textarea>
+                        <textarea placeholder="Aplicação *" id="aplicacao" name="aplicacao"></textarea>
+                        <input type="text" placeholder="Número de Série" id="proposta" name="proposta">
+                        <input type="text" placeholder="Número de Patrimônio" id="proposta" name="proposta">
+                    </div>
                 </div>
                 <div>
                     <input type="hidden" placeholder="Solicitante" id="solicitante" name="solicitante" value="<?php echo $_SESSION['usuarioLogin']; ?>">
@@ -188,26 +206,18 @@ require_once "../../dao/session.php";
                     </button>
                 </div>
                 <div class="inputExterno">
-                    <div>
-                        <input type="text" placeholder="Fornecedor" id="fornecedor" name="fornecedor">
-                    </div>
-                    <div>
-                        <input type="number" placeholder="Requisição" id="requisicao" name="requisicao">
-                    </div>
-                    <div>
-                        <input type="number" placeholder="Item da Requisição" id="itemRequisicao" name="itemRequisicao">
-                    </div>
-                    <!-- <div class="drop-zone">
-                        <span class="drop-zone__prompt">Upload Item Requisição (.zip)</span>
-                        <input type="file" id="zipItemRequisicao" name="myFile" class="drop-zone__input" multiple="multiple">
-                    </div> -->
+                    <input type="text" placeholder="Fornecedor *" id="fornecedor" name="fornecedor">
+                    <input type="number" placeholder="Requisição" id="requisicao" name="requisicao">
+                    <input type="number" placeholder="Item da Requisição" id="itemRequisicao" name="itemRequisicao">
+                    <input type="number" placeholder="Pedido" id="itemRequisicao" name="itemRequisicao">
+                    <input type="number" placeholder="Item do Pedido" id="itemRequisicao" name="itemRequisicao">
                 </div>
             </div>
             <div class="cardDatas">
                 <h2>Datas</h2>
                 <div class="inputDatas">
                     <div>
-                        <label for="mesAprov">Mês de Aprovação *</label>
+                        <label for="mesAprov">Mês de Aprovação</label>
                         <input type="month" id="mesAprov" name="mesAprov">
                     </div>
                     <div>
@@ -216,19 +226,53 @@ require_once "../../dao/session.php";
                     </div>
                 </div>
             </div>
+            <div class="cardDatas">
+                <h2>Orçamento</h2>
+                <div class="inputDatas">
+                    <div>
+                        <input type="text" id="mesAprov" name="mesAprov" placeholder="Proposta">
+                        <input type="text" id="dataInsert" name="dataInsert" placeholder="Item da Proposta">
+                        <input type="text" id="mesAprov" name="mesAprov" placeholder="Custo Total">
+                        <div class="drop-zone">
+                            <span class="drop-zone__prompt">Upload (.zip)</span>
+                            <input type="file" id="zipProposta" name="myFile" class="drop-zone__input" multiple="multiple">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cardDatas">
+                <h2>Matriz de Gut</h2>
+                <div class="inputDatas">
+                    <label for="prioridade">Gravidade</label>
+                    <input type="range" placeholder="Prioridade" id="prioridade" name="prioridade" min="1" max="5">
+                    <label for="prioridade">Urgência</label>
+                    <input type="range" placeholder="Prioridade" id="prioridade" name="prioridade" min="1" max="5">
+                    <label for="prioridade">Pendência</label>
+                    <input type="range" placeholder="Prioridade" id="prioridade" name="prioridade" min="1" max="5">
+                    <input type="Texto" placeholder="Prioridade" id="prioridade" name="prioridade" min="1" max="5">
+                </div>
+            </div>
+            <div class="cardDatas">
+                <h2>[NF] Remessa e Retorno</h2>
+                <div class="inputDatas">
+                    <input type="text" placeholder="Num NF Envio">
+                    <input type="date" placeholder="Data NF Envio">
+                    <input type="text" placeholder="Num NF Envio">
+                    <input type="date" placeholder="Data NF Envio">
+                </div>
+            </div>
         </div>
         <div class="containerBTN">
             <div class="botaoAcao">
                 <button type="button" onclick="itemSolic.cancelar()">Limpar<ion-icon name="trash-bin-outline"></ion-icon></button>
                 <button type="button" onclick="itemSolic.salvar()" id="btnInsertAtt">Inserir<ion-icon name="arrow-down-circle-outline"></ion-icon></button>
-
             </div>
         </div>
         <div class="details">
             <div class="recentOrders">
                 <div class="cardHeader">
-                    <h2>Materiais a Serem Solicitados</h2>
-                    <button type="button" id="btnEnviarSolicitacaoBD" onclick="itemSolic.enviarBD()">Solicitar Materiais</button>
+                    <h2>Manutenção de Equipamentos</h2>
+                    <button type="button" id="btnEnviarSolicitacaoBD" onclick="itemSolic.enviarBD()">Solicitar Serviço</button>
                 </div>
                 <table id="tabelaPrincipal" class="table table-striped">
                     <thead>

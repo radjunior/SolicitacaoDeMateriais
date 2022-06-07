@@ -325,24 +325,13 @@ curve outside
     align-items: flex-start;
 }
 
+.cardHeader input {
+    border-radius: 10px;
+}
+
 .cardHeader h2 {
     font-weight: 600;
     color: var(--azul);
-}
-
-.cardHeader a {
-    position: relative;
-    padding: 5px 10px;
-    background: var(--verde);
-    text-decoration: none;
-    color: var(--branco);
-    border-radius: 6px;
-}
-
-.cardHeader a:hover {
-    background: var(--branco);
-    color: var(--verde);
-    border: 1px solid var(--verde)
 }
 
 .btn ion-icon {
