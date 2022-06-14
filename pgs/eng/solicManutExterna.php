@@ -1,6 +1,6 @@
 <?php
-require_once "../../dao/conexao.php";
-require_once "../../dao/session.php";
+require_once "../../dao/app/conexao.php";
+require_once "../../dao/app/session.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -257,7 +257,7 @@ require_once "../../dao/session.php";
                 <div class="inputDatas">
                     <input type="text" placeholder="Num NF Envio">
                     <input type="date" placeholder="Data NF Envio">
-                    <input type="text" placeholder="Num NF Envio">
+                    <input type="text" placeholder="Num NF Retorno">
                     <input type="date" placeholder="Data NF Envio">
                 </div>
             </div>

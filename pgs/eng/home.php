@@ -1,7 +1,7 @@
 <?php
-require_once "../../dao/conexao.php";
-require_once "../../dao/session.php";
-require_once "../../dao/operacoes.php";
+require_once "../../dao/app/conexao.php";
+require_once "../../dao/app/session.php";
+require_once "../../dao/app/operacoes.php";
 
 $stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
 $stmtSomaRealTotal = MaterialDAO::getSomaMateriaisRealTotal();
@@ -114,7 +114,6 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
         </div>
         <!-- cards -->
         <div class="cardBox">
-
             <div class="cardeRealTotal">
                 <div class="cardeTop">
                     <h2>Valor Total</h2>
@@ -124,7 +123,6 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                     </div>
                 </div>
             </div>
-
             <div class="cardeAprovar">
                 <div class="cardeTop">
                     <h2>Aprovar</h2>
@@ -134,7 +132,6 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                     </div>
                 </div>
             </div>
-
             <div class="cardeAprovado">
                 <div class="cardeL">
                     <h2>Aprovado</h2>
@@ -151,7 +148,6 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                     </div>
                 </div>
             </div>
-
             <div class="cardeAutorizado">
                 <div class="cardeL">
                     <h2>Autorizado</h2>
@@ -168,7 +164,6 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="details">
 
@@ -176,8 +171,32 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                 <div class="cardHeader">
                     <h2>Solicitações</h2>
                     <div>
+                        <select name="cptSolicitante" id="cptSolicitante">
+                            <option value="">Solicitante</option>
+                            <option value="jvstomaz">jvstomaz</option>
+                            <option value="ctsilva">ctsilva</option>
+                            <option value="vgsouza">vgsouza</option>
+                            <option value="bscastro">bscastro</option>
+                            <option value="marsantos">marsantos</option>
+                        </select>
+                        <select name="cptStatus" id="cptStatus">
+                            <option value="">Status</option>
+                            <option value="APROVAR">Aprovar</option>
+                            <option value="APROVADO">Aprovado</option>
+                            <option value="REPROVADO">Reprovado</option>
+                            <option value="AUTORIZADO">Autorizado</option>
+                            <option value="NAO_AUTORIZADO">Desautorizado</option>
+                        </select>
+                        <select name="cptPriord" id="cptPriord">
+                            <option value="">Prioridade</option>
+                            <option value="0">[0] Baixa</option>
+                            <option value="1">[1] Média</option>
+                            <option value="2">[2] Alta</option>
+                        </select>
                         <input type="month" id="iptFiltroMes">
                     </div>
+                    <span> </span>
+                    
                 </div>
 
                 <table id="TabelaHome" class="table table-hover">
@@ -192,6 +211,9 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                             <td scope="col">Aplicação</td>
                             <td scope="col">Mês Aprovação</td>
                             <td scope="col">Status</td>
+                            <td scope="col">Fornecedor</td>
+                            <td scope="col">Proposta</td>
+                            <td scope="col">Prioridade</td>
                         </tr>
                     </thead>
                     <tbody id="tbodyHome">
@@ -205,7 +227,10 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                                 <td><?php echo $item['SOLICITANTE'] ?></td>
                                 <td><?php echo $item['APLICACAO'] ?></td>
                                 <td><?php echo $item['MES_APROVACAO'] ?></td>
-                                <td class="tdStatus" id="tdStatus"><?php echo $item['STATUS_SOLIC'] ?></td>
+                                <td><?php echo $item['STATUS_SOLIC'] ?></td>
+                                <td><?php echo $item['FORNECEDOR'] ?></td>
+                                <td><?php echo $item['PROPOSTA'] ?></td>
+                                <td><?php echo $item['PRIORIDADE'] ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

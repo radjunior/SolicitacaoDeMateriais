@@ -1,6 +1,6 @@
 <?php
-require_once "../../dao/conexao.php";
-require_once "../../dao/session.php";
+require_once "../../dao/app/conexao.php";
+require_once "../../dao/app/session.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

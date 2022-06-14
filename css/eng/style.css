@@ -369,7 +369,37 @@ curve outside
 }
 
 .cardHeader input {
-    border-radius: 8px;
+    margin-left: 10px;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    width: 15em;
+    height: 3em;
+    padding: 0 2em 0 1em;
+    background: var(--cinza);
+    color: var(--preto2);
+    border-radius: 0.25em;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 40%);
+    cursor: pointer;
+}
+
+.cardHeader select {
+    margin-left: 10px;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    width: 15em;
+    height: 3em;
+    padding: 0 2em 0 1em;
+    color: var(--preto2);
+    border-radius: 0.25em;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 40%);
+    cursor: pointer;
+}
+
+.cardHeader option {
+    color: inherit;
+    background-color: var(--branco);
 }
 
 .cardHeader h2 {

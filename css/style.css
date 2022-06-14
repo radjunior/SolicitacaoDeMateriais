@@ -219,82 +219,121 @@ curve outside
 }
 
 
-/* Cards */
+/* Card Principal*/
 
 .cardBox {
-    padding: 30px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    justify-items: center;
-    grid-gap: 15px;
+    grid-gap: 10px;
+    padding: 20px;
 }
 
-.cardBox .carde {
+
+/* Card Real Total */
+
+.cardeRealTotal {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
     position: relative;
-    width: 270px;
-    height: 200px;
     padding: 15px;
     border-radius: 20px;
     cursor: default;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 40%);
 }
 
-.cardBox .carde .numbers {
-    position: relative;
-    font-weight: 500;
-    font-size: 2.5em;
-    color: var(--azul);
-}
-
-.cardBox .carde .cardName {
-    color: var(--preto2);
-    font-size: 1.1em;
-    margin-top: 5px;
-}
-
-.cardBox .carde .iconBx {
-    font-size: 3.5em;
-    color: var(--preto2);
-}
-
-.cardBox .carde:hover {
-    background: var(--azul);
-}
-
-.cardBox .carde:hover .numbers,
-.cardBox .carde:hover .cardName,
-.cardBox .carde:hover .iconBx,
-.cardBox .carde:hover .numbersComprasTotal,
-.cardBox .carde:hover .cardDivInput label {
-    color: var(--branco);
-}
-
-
-/* card */
-
-.numbersComprasTotal {
-    position: relative;
-    width: 220px;
-    border: none;
-    font-weight: 500;
-    font-size: 2.2em;
-    color: var(--azul);
-}
-
-.numbersComprasTotal:hover {
-    color: var(--branco);
-}
-
-.carde:hover .cardDivInput input {
+.cardeRealTotal:hover,
+.cardeAprovar:hover,
+.cardeAprovado:hover,
+.cardeAutorizado:hover {
     background-color: var(--azul);
-    cursor: default;
-    pointer-events: none;
 }
 
-.cardDivInput label {
-    font-weight: 500;
-    font-size: 1.0em;
+.cardeRealTotal:hover h2,
+.cardeRealTotal:hover input,
+.cardeRealTotal:hover .iconBx,
+.cardeAprovar:hover h2,
+.cardeAprovar:hover input,
+.cardeAprovar:hover .iconBx,
+.cardeAprovado:hover h2,
+.cardeAprovado:hover input,
+.cardeAprovado:hover .iconBx,
+.cardeAutorizado:hover h2,
+.cardeAutorizado:hover input,
+.cardeAutorizado:hover .iconBx {
+    background-color: var(--azul);
+    color: var(--branco);
+}
+
+
+/* Card Aprovar - Aprovado/Reprovado - Autorizado/NãoAutorizado*/
+
+.cardeAprovar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    position: relative;
+    padding: 15px;
+    border-radius: 20px;
+    cursor: default;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 40%);
+}
+
+.cardeAprovado {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    position: relative;
+    padding: 15px;
+    border-radius: 20px;
+    cursor: default;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 40%);
+}
+
+.cardeAutorizado {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    position: relative;
+    padding: 15px;
+    border-radius: 20px;
+    cursor: default;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 40%);
+}
+
+
+/* Input */
+
+.cardBox input {
+    width: 100%;
+    text-align: center;
+    border: none;
+    cursor: default;
+    font-size: 1.5em;
     color: var(--azul);
+}
+
+
+/* Titulo */
+
+.cardBox h2 {
+    text-align: center;
+    color: var(--preto2);
+}
+
+
+/* Icones Cards*/
+
+.cardBox ion-icon {
+    font-size: 2em;
+}
+
+.iconBx {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    color: var(--preto2);
 }
 
 
@@ -302,7 +341,6 @@ curve outside
 
 .details {
     position: relative;
-    width: 100%;
     padding: 20px;
     display: grid;
     grid-gap: 30px;
@@ -319,6 +357,11 @@ curve outside
     border-radius: 25px;
 }
 
+.recentOrders table {
+    /* width: 100% !important; */
+    padding-top: 10px;
+}
+
 .cardHeader {
     display: flex;
     justify-content: space-between;
@@ -326,7 +369,7 @@ curve outside
 }
 
 .cardHeader input {
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .cardHeader h2 {
@@ -383,7 +426,7 @@ curve outside
 
 @media (max-width: 1600px) {
     .cardBox {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         justify-items: center;
     }
 }

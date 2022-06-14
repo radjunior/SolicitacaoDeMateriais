@@ -1,6 +1,6 @@
 <?php
-require_once "../../dao/operacoes.php";
-require_once "../../dao/session.php";
+require_once "../../dao/app/operacoes.php";
+require_once "../../dao/app/session.php";
 
 $stmtMateriaisAprovar = MaterialDAO::getMateriaisAprovar();
 $stmtSomaRealTotal = MaterialDAO::getSomaMateriaisAprovar();
@@ -47,7 +47,7 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
-                        <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
+                        <span class="title">Acompanhamento</span>
                     </a>
                 </li>
                 <li>
@@ -77,31 +77,54 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
         </div>
         <!-- cards -->
         <div class="cardBox">
-            <div class="carde">
-                <div class="cardDivInput">
-                    <label>R$<input type="text" class="numbersComprasTotal" value="<?php echo $stmtSomaRealTotal ?>"></label>
-                    <div class="cardName">Compras</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="cart-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="carde">
-                <div class="cardDivInput">
-                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovar ?>">
-                    <div class="cardName">Aprovar</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="checkmark-outline"></ion-icon>
+            <div class="cardeRealTotal">
+                <div class="cardeTop">
+                    <h2>Valor Total</h2>
+                    <input type="text" id="iptSomaRealTotal" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="bag-add-outline"></ion-icon>
+                    </div>
                 </div>
             </div>
-            <div class="carde">
-                <div class="cardDivInput">
-                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovado ?>">
-                    <div class="cardName">Aprovado</div>
+            <div class="cardeAprovar">
+                <div class="cardeTop">
+                    <h2>Aprovar</h2>
+                    <input type="text" id="iptCountAprovar" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="sync-outline"></ion-icon>
+                    </div>
                 </div>
-                <div class="iconBx">
-                    <ion-icon name="checkmark-done-outline"></ion-icon>
+            </div>
+            <div class="cardeAprovado">
+                <div class="cardeL">
+                    <h2>Aprovado</h2>
+                    <input type="text" id="iptCountAprovado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="cardeR">
+                    <h2>Reprovado</h2>
+                    <input type="text" id="iptCountReprovado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="cardeAutorizado">
+                <div class="cardeL">
+                    <h2>Autorizado</h2>
+                    <input type="text" id="iptCountAutorizado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="checkmark-circle-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="cardeR">
+                    <h2>Desautorizado</h2>
+                    <input type="text" id="iptCountDesautorizado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                    </div>
                 </div>
             </div>
         </div>
@@ -118,6 +141,7 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                 <table id="TabelaHome" class="table table-striped">
                     <thead>
                         <tr>
+                            <td scope="col">Código</td>
                             <td scope="col">Descrição</td>
                             <td scope="col">Qtde</td>
                             <td scope="col">Valor Unitário</td>
@@ -131,6 +155,7 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                     <tbody>
                     <?php foreach ($stmtMateriaisAprovar as $item) { ?>
                             <tr>
+                                <td><?php echo $item['CODIGO'] ?></td>
                                 <td><?php echo $item['DESCRICAO'] ?></td>
                                 <td><?php echo $item['QUANTIDADE'] ?></td>
                                 <td><?php echo $item['REAL_UNITARIO'] ?></td>
@@ -178,7 +203,7 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                             <div class="centerModal">
                                 <div class="mb-3">
                                     <label for="materialQuantidade" class="col-form-label">Quantidade</label>
-                                    <input type="text" class="form-control" name="materialQuantidade">
+                                    <input type="text" class="form-control" name="materialQuantidade" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="materialSolicitante" class="col-form-label">Solicitante</label>

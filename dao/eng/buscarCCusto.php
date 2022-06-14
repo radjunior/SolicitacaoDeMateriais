@@ -1,5 +1,5 @@
 <?php
-require_once "../conexao.php";
+require_once "../app/conexao.php";
 
 $codigo = $_GET['itemCodigo'] ?? NULL;
 $descricao = $_GET['itemDescricao'] ?? NULL;
@@ -18,7 +18,6 @@ if ($codigo != NULL) {
             $arr = array(
                 'codigo' => $codigoDB,
                 'descricao' => $descricao,
-                'responsavel' => $responsavel
             );
         }
         echo json_encode($arr);
@@ -34,8 +33,9 @@ if ($codigo != NULL) {
         foreach ($stmt as $item) {
             $dados .=
                 "<tr>" .
-                "<td>" . $item['CODIGO'] . "</td>" .
-                "<td>" . $item['DESCRICAO'] . "</td>" .
+                    "<td>" . $item['CODIGO'] . "</td>" .
+                    "<td>" . $item['DESCRICAO'] . "</td>" .
+                    "<td>" .'<button type="button" onclick="receberCodigoCentroCustoModal(' . $item["CODIGO"] . ')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdlCentroCusto" data-bs-whatever="' . $item["CODIGO"] . '">Selecionar</button>'."</td>".
                 "</tr>";
         }
         echo $dados;

@@ -1,6 +1,6 @@
 <?php
-require_once "conexao.php";
-require_once "./session.php";
+require_once "../app/conexao.php";
+require_once "../app/session.php";
 
 $usuario = $_POST['user'] ?? NULL;
 $senha = $_POST['pass'] ?? NULL;
@@ -13,7 +13,7 @@ $acesso;
 if ($usuario != NULL && $senha != NULL) {
     try {
         $conn = ConexaoLocal::getConnection();
-        $query = "SELECT * FROM USUARIOS WHERE login_usuario = '$usuario' and senha_usuario = '$senha'";
+        $query = "SELECT * FROM USUARIOS WHERE login_usuario = '$usuario' AND senha_usuario = '$senha'";
         $stmt = $conn->query($query);
     } catch (PDOException $e) {
         echo "Erro: <br>", $e;
@@ -27,7 +27,7 @@ if ($usuario != NULL && $senha != NULL) {
             $acesso = $item['nivel_acesso'];
         } else {
             $_SESSION['msgErroUserPass'] = "Usuário Desativado";
-            header('Location: ../index.php');
+            header('Location: ../../index.php');
             exit();
         }
     }
@@ -36,26 +36,26 @@ if ($usuario != NULL && $senha != NULL) {
         $_SESSION['nomeUsuario'] = $apelido;
         $_SESSION['usuarioLogin'] = $loginDB;
         if ($acesso == 1) {
-            header('Location: ../pgs/eng/home.php');
+            header('Location: ../../pgs/eng/home.php');
             exit();
         } else if ($acesso == 2) {
-            header('Location: ../pgs/crd/home.php');
+            header('Location: ../../pgs/crd/home.php');
             exit();
         } else if ($acesso == 3) {
-            header('Location: ../pgs/ger/home.php');
+            header('Location: ../../pgs/ger/home.php');
             exit();
         } else {
             $_SESSION['msgErroUserPass'] = "Erro no Nível de Acesso";
-            header('Location: ../index.php');
+            header('Location: ../../index.php');
             exit();
         }
     } else {
         $_SESSION['msgErroUserPass'] = "Usuário ou Senha Incorreta";
-        header('Location: ../index.php');
+        header('Location: ../../index.php');
         exit();
     }
 } else {
     $_SESSION['msgErroUserPass'] = "Preencha todos os Campos";
-    header('Location: ../index.php');
+    header('Location: ../../index.php');
     exit();
 }

@@ -1,28 +1,6 @@
 <?php
-require_once "../../dao/conexao.php";
-require_once "../../dao/session.php";
-
-$conn = ConexaoLocal::getConnection();
-$query = "SELECT * FROM MATERIAIS_SOLICITADOS";
-$stmt = $conn->query($query);
-
-$queryAprovado = "SELECT COUNT(STATUS_SOLIC) AS totalAprovado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVADO'";
-$stmtAprovado = $conn->query($queryAprovado);
-
-$queryAprovar = "SELECT COUNT(STATUS_SOLIC) AS totalAprovar FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'APROVAR'";
-$stmtAprovar = $conn->query($queryAprovar);
-
-$queryAutorizado = "SELECT COUNT(STATUS_SOLIC) AS totalAutorizado FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
-$stmtAutorizado = $conn->query($queryAutorizado);
-
-$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
-$stmtValorTotal = $conn->query($queryTotal);
-
-$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
-$stmtValorTotal = $conn->query($queryTotal);
-
-$queryTotal = "SELECT SUM(real_total) AS totalValorTotal FROM MATERIAIS_SOLICITADOS WHERE STATUS_SOLIC = 'AUTORIZADO'";
-$stmtValorTotal = $conn->query($queryTotal);
+require_once "../../dao/app/conexao.php";
+require_once "../../dao/app/session.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

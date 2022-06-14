@@ -1,5 +1,5 @@
 <?php
-require_once "../conexao.php";
+require_once "../app/conexao.php";
 
 $codigo = $_GET['itemCodigo'] ?? NULL;
 $txtMaterial = $_GET['itemMaterial'] ?? NULL;
@@ -8,7 +8,7 @@ $dados = "";
 if ($txtMaterial != null) {
     try {
         $conn = ConexaoLocal::getConnection();
-        $query = "SELECT TOP(10) * FROM MATERIAIS WHERE MATERIAL LIKE '%$txtMaterial%'";
+        $query = "SELECT TOP(10) * FROM MATERIAIS WHERE MATERIAL LIKE '$txtMaterial%'";
         $stmt = $conn->query($query);
         foreach ($stmt as $item) {
             $dados .=
@@ -17,7 +17,8 @@ if ($txtMaterial != null) {
                 "<td>" . $item['MATERIAL'] . "</td>" .
                 "<td>" . $item['TIPO'] . "</td>" .
                 "<td>" . $item['UNIDADE'] . "</td>" .
-                "</tr>";
+                "<td>" . '<button type="button" onclick="receberCodigoMaterialModal(' . $item["CODIGO"] . ')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdlMaterial" data-bs-codigoMaterial="' . $item["CODIGO"] . '">Selecionar</button>' . "</td>" .
+                "</tr>"; 
         }
         echo $dados;
     } catch (PDOException $pdoex) {

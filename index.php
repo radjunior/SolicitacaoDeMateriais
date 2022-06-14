@@ -1,5 +1,5 @@
 <?php
-require_once "./dao/session.php"
+require_once "./dao/app/session.php"
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -27,7 +27,7 @@ require_once "./dao/session.php"
                     <img src="images/img-01.png" alt="IMG">
                 </div>
 
-                <form method="POST" action="./dao/autenticacao.php" class="login100-form validate-form">
+                <form method="POST" action="./dao/idx/autenticacao.php" class="login100-form validate-form">
                     <span class="login100-form-title">
                         Solicitação de Materiais
                     </span>

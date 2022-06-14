@@ -1,5 +1,5 @@
 <?php
-require_once "../conexao.php";
+require_once "../app/conexao.php";
 
 function parseFloat($str) {
     if (strstr($str, ",")) {

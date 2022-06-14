@@ -1,6 +1,6 @@
 <?php
-require_once "../../dao/operacoes.php";
-require_once "../../dao/session.php";
+require_once "../../dao/app/operacoes.php";
+require_once "../../dao/app/session.php";
 
 $stmtMateriaisAprovado = MaterialDAO::getMateriaisAprovado();
 $stmtSomaAprovado = MaterialDAO::getSomaMateriaisAprovado();

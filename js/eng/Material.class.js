@@ -186,7 +186,12 @@ class SolicitacaoMaterial {
         let tbody = document.getElementById('tBody');
         tbody.innerText = '';
         document.getElementById('spnQtde').innerText = this.totalQtde;
-        document.getElementById('spnValorTotal').innerText = this.calcularTotalReal();
+        var valorTotalSemFormatacao = this.calcularTotalReal();
+        var valorFormatado = valorTotalSemFormatacao.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+        document.getElementById('spnValorTotal').innerText = valorFormatado;
         for (let i = 0; i < this.arrSolicitacao.length; i++) {
             let tr = tbody.insertRow();
             let td_id = tr.insertCell();
@@ -226,7 +231,6 @@ class SolicitacaoMaterial {
             valor += parseFloat(this.arrSolicitacao[i].valorReal);
 
         }
-        //console.log("Return = " + valor);
         return valor;
     }
     cancelar() {
@@ -256,7 +260,6 @@ class SolicitacaoMaterial {
 
     enviarBD() {
         this.arrSolicitacao
-            // console.log(dados);
         for (let i = 0; i < this.arrSolicitacao.length; i++) {
             dados = {
                 codigoMaterial: this.arrSolicitacao[i].codigoMaterial,

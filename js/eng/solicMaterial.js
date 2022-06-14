@@ -1,24 +1,27 @@
-//Máscara
+/*
+ * Função que executa quando o site é carregado por completo
+ */
 $(document).ready(function() {
-    // Máscara R$
+    // Inserindo data de hoje formatada no corpo do site
+    document.getElementById('dataInsert').value = getDataHoje();
+
+    // Definindo máscara padrão BRL na digitação reversa
     $('#valorUnit').mask('#.##0,00', { reverse: true });
-    $('#valorReal').mask('000.000.000.000.000,00', { reverse: true });
-    table = $('#tabelaPrincipal').DataTable({
+
+    // Inicializando Datatables
+    $('#tabelaPrincipal').DataTable({
+        paging: false,
+        ordering: true,
+        info: true,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
         }
     });
 });
 
-$("#btnLimparZipProposta").click(function() {
-    console.log("limpar!")
-    $("#zipProposta").val("");
-});
-
-$("#btnLimparZipRequisicao").click(function() {
-    console.log("limpar!")
-    $("#zipItemRequisicao").val("");
-});
+/*
+ * Tarefa que permite o acesso ao explorer do Windows para fazer upload de um arquivo qualquer
+ */
 
 document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
     const dropZoneElement = inputElement.closest(".drop-zone");
@@ -57,7 +60,7 @@ document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
 });
 
 /**
- * Updates the thumbnail on a drop zone element.
+ * Atualiza a miniatura em um elemento de zona para soltar.
  *
  * @param {HTMLElement} dropZoneElement
  * @param {File} file
@@ -65,12 +68,12 @@ document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
 function updateThumbnail(dropZoneElement, file) {
     let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
 
-    // First time - remove the prompt
+    // Primeira vez - remova o prompt
     if (dropZoneElement.querySelector(".drop-zone__prompt")) {
         dropZoneElement.querySelector(".drop-zone__prompt").remove();
     }
 
-    // First time - there is no thumbnail element, so lets create it
+    // Primeira vez - não há elemento de miniatura, então vamos criá-lo
     if (!thumbnailElement) {
         thumbnailElement = document.createElement("div");
         thumbnailElement.classList.add("drop-zone__thumb");
@@ -79,7 +82,7 @@ function updateThumbnail(dropZoneElement, file) {
 
     thumbnailElement.dataset.label = file.name;
 
-    // Show thumbnail for image files
+    // Exibir imagem do arquivo
     if (file.type.startsWith("image/")) {
         const reader = new FileReader();
 
@@ -92,7 +95,10 @@ function updateThumbnail(dropZoneElement, file) {
     }
 }
 
-// menu toggle
+/*
+ * Tarefa que altera a da navbar para 'Active' a fim de recolher e exibir a navbar
+ */
+
 let toggle = document.querySelector('.toggle');
 let navigation = document.querySelector('.navigation');
 let main = document.querySelector('.main');
@@ -102,7 +108,10 @@ toggle.onclick = function() {
     main.classList.toggle('active');
 }
 
-// adicionar classe HOVERED no item de lista selecionado
+/*
+ * Tarefa que altera a classe do item da navbar para "HOVERED" a fim manter o mesmo selecionado
+ */
+
 let list = document.querySelectorAll('.navigation li');
 
 function activeLink() {
@@ -110,21 +119,27 @@ function activeLink() {
         item.classList.remove('hovered'));
     this.classList.add('hovered');
 }
-list.forEach((item) =>
-    item.addEventListener('mouseover', activeLink));
 
-//Data de Hoje
-var data = new Date();
-var dia = data.getDate();
-var mes = data.getMonth() + 1;
-var ano = data.getFullYear();
-if (mes <= 9) {
-    mes = "0" + mes;
+list.forEach((item) => item.addEventListener('mouseover', activeLink));
+
+/*
+ * Função que instancia e formata a data do dia 
+ */
+function getDataHoje() {
+    let data = new Date();
+    let dia = data.getDate();
+    let mes = data.getMonth() + 1;
+    let ano = data.getFullYear();
+    if (mes <= 9) {
+        mes = "0" + mes;
+    }
+    return dia + "/" + mes + "/" + ano; /* dd/MM/yyyy */
 }
-var dataCompleta = dia + "/" + mes + "/" + ano;
-document.getElementById('dataInsert').value = dataCompleta;
 
-// Automação de busca Material por código
+/*
+ * Função que busca o Material pela descrição sempre quando há entrada dentro do Input '#pesquisaMaterial'
+ */
+
 $(function() {
     $('#pesquisaMaterial').keypress(pesquisaMaterialDescricao);
     $('#pesquisaMaterial').keyup(pesquisaMaterialDescricao);
@@ -142,6 +157,33 @@ $(function() {
         }
     }
 });
+
+/*
+ * Função que busca o Centro de Custo pela descrição sempre quando há entrada dentro do Input '#pesquisaCentroCusto'
+ */
+
+$(function() {
+    $('#pesquisaCentroCusto').keypress(pesquisaCentroCusto);
+    $('#pesquisaCentroCusto').keyup(pesquisaCentroCusto);
+    $('#pesquisaCentroCusto').keydown(pesquisaCentroCusto);
+
+    function pesquisaCentroCusto() {
+        var pesquisa = $(this).val();
+        if (pesquisa != '') {
+            dados = {
+                itemDescricao: pesquisa
+            }
+            $.get('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
+                $('#tBodyModalCentroCusto').html(retorno);
+            });
+        }
+    }
+});
+
+/*
+ * Função que busca o Material pelo código sempre quando há entrada dentro do Input '#codigoMaterial'
+ */
+
 $(function() {
     $('#codigoMaterial').keypress(pesquisaMaterial);
     $('#codigoMaterial').keyup(pesquisaMaterial);
@@ -160,7 +202,7 @@ $(function() {
             document.addEventListener('keydown', function(event) {
                 var code = event.keyCode || event.which;
                 if (code === 9) {
-                    $.post('../../dao/eng/buscarMaterial.php', dados, function(retorno) {
+                    $.get('../../dao/eng/buscarMaterial.php', dados, function(retorno) {
                         $("input[name='codigoMaterial']").val(retorno.codigo);
                     }, "json");
                 }
@@ -168,23 +210,11 @@ $(function() {
         }
     }
 });
-$(function() {
-    $('#pesquisaCentroCusto').keypress(pesquisaCentroCusto);
-    $('#pesquisaCentroCusto').keyup(pesquisaCentroCusto);
-    $('#pesquisaCentroCusto').keydown(pesquisaCentroCusto);
 
-    function pesquisaCentroCusto() {
-        var pesquisa = $(this).val();
-        if (pesquisa != '') {
-            dados = {
-                itemDescricao: pesquisa
-            }
-            $.get('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
-                $('#tBodyModalCentroCusto').html(retorno);
-            });
-        }
-    }
-});
+/*
+ * Função que busca o Centro de Custo pelo código sempre quando há entrada dentro do Input '#codigoCCusto'
+ */
+
 $(function() {
     $('#codigoCCusto').keypress(pesquisaCentroCusto);
     $('#codigoCCusto').keyup(pesquisaCentroCusto);
@@ -204,7 +234,7 @@ $(function() {
             document.addEventListener('keydown', function(event) {
                 var code = event.keyCode || event.which;
                 if (code === 9) {
-                    $.post('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
+                    $.get('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
                         $("input[name='codigoCCusto']").val(retorno.codigo);
                     }, "json");
                 }
@@ -214,17 +244,24 @@ $(function() {
 
 });
 
+/*
+ * Função que calcula o (valor unitário * qtde do material) sempre quando há entrada de dados nos respectivos input's
+ */
+
 $(function() {
+    // Capturar evento de entrada de dados no Input do valor unitário
     var eventoInput1 = window.document.getElementById('valorUnit');
     eventoInput1.addEventListener('keyup', calcularValor);
     eventoInput1.addEventListener('keydown', calcularValor);
     eventoInput1.addEventListener('keypress', calcularValor);
 
+    // Capturar evento de entrada de dados no Input da qtde do material
     var eventoInput2 = window.document.getElementById('qtdeMaterial');
     eventoInput2.addEventListener('keyup', calcularValor);
     eventoInput2.addEventListener('keydown', calcularValor);
     eventoInput2.addEventListener('keypress', calcularValor);
 
+    // Cálculo
     function calcularValor() {
         var qtde = window.document.getElementById('qtdeMaterial').value;
         var valorSemMascara = $("#valorUnit").cleanVal();
@@ -236,6 +273,38 @@ $(function() {
             valorFinal = valorFinal.replace(".", "");
         }
         var retorno = valorFinal * qtde;
+        // Retornando para o site
         document.querySelector("[name='valorReal']").value = retorno;
     }
 });
+
+/*
+ * Enviar Mateiral do Modal de Pesquisa de Materiais para os Campos do Card
+ */
+
+function receberCodigoMaterialModal(codigo) {
+    $('#tBodyModalMaterial').html("");
+    document.getElementById('pesquisaMaterial').value = "";
+
+    dados = { itemCodigo: codigo }
+    $.get('../../dao/eng/buscarMaterial.php', dados, function(retorno) {
+        $("input[name='codigoMaterial']").val(retorno.codigo);
+        $("textarea[name='descricaoMaterial']").val(retorno.material);
+        $("input[name='unidadeMaterial']").val(retorno.unidade);
+    }, "json");
+}
+
+/*
+ * Enviar Centro de Custo do Modal de Pesquisa de Centro de Custo para os Campos do Card
+ */
+
+function receberCodigoCentroCustoModal(codigo) {
+    $('#tBodyModalCentroCusto').html("");
+    document.getElementById('pesquisaCentroCusto').value = "";
+
+    dados = { itemCodigo: codigo }
+    $.get('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
+        $("input[name='codigoCCusto']").val(retorno.codigo);
+        $("input[name='descricaoCCusto']").val(retorno.descricao);
+    }, "json");
+}

@@ -1,6 +1,5 @@
 <?php
-require_once "../../dao/conexao.php";
-require_once "../../dao/session.php";
+require_once "../../dao/app/session.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -121,9 +120,6 @@ require_once "../../dao/session.php";
             </div>
         </div>
 
-        <div class="msgErro">
-            <span class="msg-erro"></span>
-        </div>
         <div class="cardBox">
 
             <div class="cardMaterial">
@@ -261,7 +257,7 @@ require_once "../../dao/session.php";
             </div>
         </div>
         <!-- Inicio Modal Material-->
-        <div class="modal fade" id="mdlMaterial" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="mdlMaterial" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -279,6 +275,7 @@ require_once "../../dao/session.php";
                                     <td scope="col">Material</td>
                                     <td scope="col">Tipo</td>
                                     <td scope="col">Unidade</td>
+                                    <td scope="col">Selecionar</td>
                                 </tr>
                             </thead>
                             <tbody id="tBodyModalMaterial">
@@ -287,14 +284,13 @@ require_once "../../dao/session.php";
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
-                        <button type="button" class="btn btn-primary">Selecionar</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Fim Modal Material-->
         <!-- Inicio Modal Centro de Custo-->
-        <div class="modal fade" id="mdlCentroCusto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="mdlCentroCusto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -305,11 +301,12 @@ require_once "../../dao/session.php";
                         <div class="modalTop">
                             <input type="text" placeholder="Pesquisar" id="pesquisaCentroCusto">
                         </div>
-                        <table class="table table-striped tabelaModalCentroCusto">
+                        <table class="table table-striped tabelaModalCCusto">
                             <thead>
                                 <tr>
                                     <td scope="col">Codigo</td>
                                     <td scope="col">Descrição</td>
+                                    <td scope="col">Selecionar</td>
                                 </tr>
                             </thead>
                             <tbody id="tBodyModalCentroCusto">
@@ -318,7 +315,6 @@ require_once "../../dao/session.php";
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
-                        <button type="button" class="btn btn-primary">Selecionar</button>
                     </div>
                 </div>
             </div>

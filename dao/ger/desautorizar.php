@@ -1,5 +1,5 @@
 <?php
-require_once "../conexao.php";
+require_once "../app/conexao.php";
 
 $cod = $_POST['codigo'] ?? NULL;
 $data = $_POST['data'] ?? NULL;

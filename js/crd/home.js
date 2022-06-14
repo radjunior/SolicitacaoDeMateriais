@@ -1,7 +1,7 @@
 //DataTable
 $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
-        if ($("#iptFiltroMes").val() == data[5]) {
+        if ($("#iptFiltroMes").val() == data[6]) {
             return true;
         } else {
             return false;
@@ -11,6 +11,9 @@ $.fn.dataTable.ext.search.push(
 $(document).ready(function() {
     $('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
     var table = $('#TabelaHome').DataTable({
+        paging: false,
+        ordering: true,
+        info: true,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
         },
@@ -19,11 +22,11 @@ $(document).ready(function() {
                 render: DataTable.render.number(null, null, 0, null),
             },
             {
-                target: 2,
+                target: 3,
                 render: DataTable.render.number(null, null, 2, 'R$ '),
             },
             {
-                target: 3,
+                target: 4,
                 render: DataTable.render.number(null, null, 2, 'R$ '),
             }
         ],
@@ -51,9 +54,58 @@ $(document).ready(function() {
     });
 
     $('#iptFiltroMes').change(function() {
+        atualizarCardResultados(table);
         table.draw();
     });
 });
+
+function atualizarCardResultados(table) {
+    var valorTotal = 0;
+    var contAprovar = 0;
+    var contAprovado = 0;
+    var contReprovado = 0;
+    var contAutorizado = 0;
+    var contDesautorizado = 0;
+    $('#iptSomaRealTotal').val(valorTotal);
+    $('#iptCountAprovar').val(contAprovar);
+    $('#iptCountAprovado').val(contAprovado);
+    $('#iptCountReprovado').val(contReprovado);
+    $('#iptCountAutorizado').val(contAutorizado);
+    $('#iptCountDesautorizado').val(contDesautorizado);
+    table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+        var data = this.data();
+        if ($('#iptFiltroMes').val() == data[6]) {
+            valorTotal += parseFloat(data[3]);
+            if (data[7] == "APROVAR") {
+                contAprovar++;
+            } else if (data[7] == "APROVADO") {
+                contAprovado++;
+            } else if (data[7] == "REPROVADO") {
+                contReprovado++;
+            } else if (data[7] == "AUTORIZADO") {
+                contAutorizado++;
+            } else if (data[7] == "NAO_AUTORIZADO") {
+                contDesautorizado++;
+            }
+        }
+    });
+    var valorFormatado = valorTotal.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    });
+    $('#iptSomaRealTotal').val(valorFormatado);
+    $('#iptCountAprovar').val(contAprovar);
+    $('#iptCountAprovado').val(contAprovado);
+    $('#iptCountReprovado').val(contReprovado);
+    $('#iptCountAutorizado').val(contAutorizado);
+    $('#iptCountDesautorizado').val(contDesautorizado);
+    valorTotal = 0;
+    contAprovar = 0;
+    contAprovado = 0;
+    contReprovado = 0;
+    contAutorizado = 0;
+    contDesautorizado = 0;
+}
 // menu toggle
 let toggle = document.querySelector('.toggle');
 let navigation = document.querySelector('.navigation');
@@ -93,8 +145,8 @@ exampleModal.addEventListener('show.bs.modal', function(event) {
     document.querySelector("[name='solicitacaoId']").value = `${solicitacaoId}`;
     //document.querySelector("[name='materialCodigo']").value = `${materialCodigo}`;
     document.querySelector("[name='materialDescricao']").value = `${materialDescricao}`;
-    document.querySelector("[name='materialRealUnit']").value = `R$ ${materialRealUnit}`;
-    document.querySelector("[name='materialRealTotal']").value = `R$ ${materialRealTotal}`;
+    document.querySelector("[name='materialRealUnit']").value = `${materialRealUnit}`;
+    document.querySelector("[name='materialRealTotal']").value = `${materialRealTotal}`;
     document.querySelector("[name='materialSolicitante']").value = `${materialSolicitante}`;
     document.querySelector("[name='materialAplicacao']").value = `${materialAplicacao}`;
 })

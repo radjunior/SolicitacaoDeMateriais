@@ -522,7 +522,7 @@ textarea {
 .inputDatas {
     margin-top: 20px;
     display: grid;
-    grid-template-rows: repeat(2, 30px);
+    grid-template-rows: repeat(2, 60px);
     grid-gap: 15px;
 }
 
@@ -603,21 +603,37 @@ textarea {
     border-bottom: 1px solid var(--preto2);
 }
 
+
+/* Tabela Modal Materiais */
+
 .tabelaModalMaterial {
     width: 100%;
     margin-top: 10px;
+}
+
+.tabelaModalMaterial tr:hover {
+    background-color: var(--preto2);
+    cursor: pointer;
 }
 
 .tabelaModalMaterial thead {
     background-color: var(--preto2);
 }
 
-.tabelaModalCentroCusto {
+
+/* Tabela Modal Centro Custo */
+
+.tabelaModalCCusto {
     width: 100%;
     margin-top: 10px;
 }
 
-.tabelaModalCentroCusto thead {
+.tabelaModalCCusto tr:hover {
+    background-color: var(--preto2);
+    cursor: pointer;
+}
+
+.tabelaModalCCusto thead {
     background-color: var(--preto2);
 }
 

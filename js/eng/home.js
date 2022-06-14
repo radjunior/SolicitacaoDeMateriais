@@ -1,7 +1,10 @@
 //DataTable
 $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
-        if ($("#iptFiltroMes").val() == data[7]) {
+        if (($('#cptSolicitante').val() == "" || $('#cptSolicitante').val() == data[5]) &&
+            ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[8]) &&
+            ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[11]) &&
+            ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[7])) {
             return true;
         } else {
             return false;
@@ -18,7 +21,7 @@ $(document).ready(function() {
             url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
         },
         columnDefs: [{
-                target: 1,
+                target: 2,
                 render: DataTable.render.number(null, null, 0, null),
             },
             {
@@ -52,8 +55,19 @@ $(document).ready(function() {
             ]
         }
     });
-
     $('#iptFiltroMes').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+    $('#cptSolicitante').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+    $('#cptStatus').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+    $('#cptPriord').change(function() {
         atualizarCardResultados(table);
         table.draw();
     });
@@ -72,9 +86,12 @@ function atualizarCardResultados(table) {
     $('#iptCountReprovado').val(contReprovado);
     $('#iptCountAutorizado').val(contAutorizado);
     $('#iptCountDesautorizado').val(contDesautorizado);
-    table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+    table.rows().every(function() {
         var data = this.data();
-        if ($('#iptFiltroMes').val() == data[7]) {
+        if (($('#cptSolicitante').val() == "" || $('#cptSolicitante').val() == data[5]) &&
+            ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[8]) &&
+            ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[11]) &&
+            ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[7])) {
             valorTotal += parseFloat(data[4]);
             if (data[8] == "APROVAR") {
                 contAprovar++;
