@@ -11,7 +11,7 @@ require_once "../../dao/app/session.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <title>Cadastros Gerais</title>
-    <link rel="stylesheet" type="text/css" href="../../css/cadastroGeral.css">
+    <link rel="stylesheet" type="text/css" href="../../css/eng/cadastroGeral.css">
 </head>
 
 <body>
@@ -142,52 +142,6 @@ require_once "../../dao/app/session.php";
                                 <button type="submit">Salvar</button>
                                 <button type="reset">Limpar</button>
                             </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="containerMaterial">
-                <form action="" method="post">
-                    <div class="topMaterial">
-                        <h2>Cadastro de Materiais</h2>
-                        <button type="button" href="#">
-                            <ion-icon name="search-circle-outline"></ion-icon>
-                        </button>
-                    </div>
-                    <div class="bodyMaterial">
-                        <div>
-                            <label for="codMaterial">Código</label>
-                            <input type="number" id="codMaterial" maxlength="8">
-                        </div>
-                        <div>
-                            <label for="descricaoMaterial">Descrição</label>
-                            <input type="text" id="descricaoMaterial" maxlength="255">
-                        </div>
-                        <div>
-                            <label for="tipoMaterial">Tipo</label>
-                            <input type="text" id="tipoMaterial" maxlength="10">
-                        </div>
-                        <div>
-                            <label for="unidadeMaterial">Unidade</label>
-                            <input type="text" id="unidadeMaterial" maxlength="10">
-                        </div>
-                        <div>
-                            <label for="grupoMaterial">Grupo</label>
-                            <input type="number" id="grupoMaterial" maxlength="7">
-                        </div>
-                        <div>
-                            <label for="criacaoMaterial">Criação</label>
-                            <input type="date" id="criacaoMaterial">
-                        </div>
-                        <div>
-                            <label for="criadorMaterial">Criador</label>
-                            <input type="text" id="criadorMaterial" maxlength="255" value="<?php echo $_SESSION['usuarioLogin']; ?>" readonly>
-                        </div>
-                    </div>
-                    <div class="rodapeMaterial">
-                        <div class="btnMaterial">
-                            <button type="submit">Salvar</button>
-                            <button type="reset">Limpar</button>
                         </div>
                     </div>
                 </form>

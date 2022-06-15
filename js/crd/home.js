@@ -1,7 +1,10 @@
 //DataTable
 $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
-        if ($("#iptFiltroMes").val() == data[6]) {
+        if (($('#cptSolicitante').val() == "" || $('#cptSolicitante').val() == data[7]) &&
+            ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[8]) &&
+            ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[9]) &&
+            ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[6])) {
             return true;
         } else {
             return false;
@@ -52,11 +55,23 @@ $(document).ready(function() {
             ]
         }
     });
-
     $('#iptFiltroMes').change(function() {
         atualizarCardResultados(table);
         table.draw();
     });
+    $('#cptSolicitante').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+    $('#cptStatus').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+    $('#cptPriord').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+    atualizarCardResultados(table);
 });
 
 function atualizarCardResultados(table) {
@@ -72,19 +87,22 @@ function atualizarCardResultados(table) {
     $('#iptCountReprovado').val(contReprovado);
     $('#iptCountAutorizado').val(contAutorizado);
     $('#iptCountDesautorizado').val(contDesautorizado);
-    table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+    table.rows().every(function() {
         var data = this.data();
-        if ($('#iptFiltroMes').val() == data[6]) {
-            valorTotal += parseFloat(data[3]);
-            if (data[7] == "APROVAR") {
+        if (($('#cptSolicitante').val() == "" || $('#cptSolicitante').val() == data[7]) &&
+            ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[8]) &&
+            ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[9]) &&
+            ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[6])) {
+            valorTotal += parseFloat(data[4]);
+            if (data[8] == "APROVAR") {
                 contAprovar++;
-            } else if (data[7] == "APROVADO") {
+            } else if (data[8] == "APROVADO") {
                 contAprovado++;
-            } else if (data[7] == "REPROVADO") {
+            } else if (data[8] == "REPROVADO") {
                 contReprovado++;
-            } else if (data[7] == "AUTORIZADO") {
+            } else if (data[8] == "AUTORIZADO") {
                 contAutorizado++;
-            } else if (data[7] == "NAO_AUTORIZADO") {
+            } else if (data[8] == "NAO_AUTORIZADO") {
                 contDesautorizado++;
             }
         }

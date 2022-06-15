@@ -3,21 +3,17 @@ require_once "../../dao/app/operacoes.php";
 require_once "../../dao/app/session.php";
 
 $stmtMateriaisAprovar = MaterialDAO::getMateriaisAprovar();
-$stmtSomaRealTotal = MaterialDAO::getSomaMateriaisAprovar();
-$stmtCountAprovar = MaterialDAO::getCountMateriaisAprovar();
-$stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <title>Automação</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automação</title>
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/crd/style.css">
     <link rel="stylesheet" type="text/css" href="../../scripts/datatables/datatables.css">
     <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
@@ -128,55 +124,83 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
                 </div>
             </div>
         </div>
+        <div class="cardFiltros">
+            <div class="cptFiltros">
+                <div>
+                    <select name="cptSolicitante" id="cptSolicitante">
+                        <option value="">Solicitante</option>
+                        <option value="jvstomaz">jvstomaz</option>
+                        <option value="ctsilva">ctsilva</option>
+                        <option value="vgsouza">vgsouza</option>
+                        <option value="bscastro">bscastro</option>
+                        <option value="marsantos">marsantos</option>
+                    </select>
+                </div>
+                <div>
+                    <select name="cptStatus" id="cptStatus">
+                        <option value="">Status</option>
+                        <option value="APROVAR">Aprovar</option>
+                        <option value="APROVADO">Aprovado</option>
+                        <option value="REPROVADO">Reprovado</option>
+                        <option value="AUTORIZADO">Autorizado</option>
+                        <option value="NAO_AUTORIZADO">Desautorizado</option>
+                    </select>
+                </div>
+                <div>
+                    <select name="cptPriord" id="cptPriord">
+                        <option value="">Prioridade</option>
+                        <option value="0">[0] Baixa</option>
+                        <option value="1">[1] Média</option>
+                        <option value="2">[2] Alta</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="month" id="iptFiltroMes">
+                </div>
+            </div>
+        </div>
         <!-- tabelaPrincipal -->
         <div class="details">
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Materiais a Serem Aprovados</h2>
-                    <div>
-                        <input type="month" id="iptFiltroMes">
-                    </div>
                 </div>
-                
-                <table id="TabelaHome" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td scope="col">Código</td>
-                            <td scope="col">Descrição</td>
-                            <td scope="col">Qtde</td>
-                            <td scope="col">Valor Unitário</td>
-                            <td scope="col">Valor Total</td>
-                            <td scope="col">Aplicação</td>
-                            <td scope="col">Mês Aprovação</td>
-                            <td scope="col">Solicitante</td>
-                            <td scope="col">Ação</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($stmtMateriaisAprovar as $item) { ?>
+                <div class="tabelaAbsolute">
+                    <table id="TabelaHome" class="table table-hover">
+                        <thead>
                             <tr>
-                                <td><?php echo $item['CODIGO'] ?></td>
-                                <td><?php echo $item['DESCRICAO'] ?></td>
-                                <td><?php echo $item['QUANTIDADE'] ?></td>
-                                <td><?php echo $item['REAL_UNITARIO'] ?></td>
-                                <td><?php echo $item['REAL_TOTAL'] ?></td>
-                                <td><?php echo $item['APLICACAO'] ?></td>
-                                <td><?php echo $item['MES_APROVACAO'] ?></td>
-                                <td><?php echo $item['SOLICITANTE'] ?></td>
-                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                data-bs-solicitacaoId="<?php echo $item['ID'] ?>" 
-                                data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>"
-                                data-bs-materialQuantidade="<?php echo $item['QUANTIDADE'] ?>"
-                                data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" 
-                                data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" 
-                                data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" 
-                                data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" 
-                                data-bs-materialMesAprovacao="<?php echo $item['MES_APROVACAO'] ?>" 
-                                data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
+                                <td scope="col">Código</td>
+                                <td scope="col">Descrição</td>
+                                <td scope="col">Qtde</td>
+                                <td scope="col">Valor Unitário</td>
+                                <td scope="col">Valor Total</td>
+                                <td scope="col">Aplicação</td>
+                                <td scope="col">Mês Aprovação</td>
+                                <td scope="col">Solicitante</td>
+                                <td scope="col">Status</td>
+                                <td scope="col">Prioridade</td>
+                                <td scope="col">Ação</td>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($stmtMateriaisAprovar as $item) { ?>
+                                <tr>
+                                    <td><?php echo $item['CODIGO'] ?></td>
+                                    <td><?php echo $item['DESCRICAO'] ?></td>
+                                    <td><?php echo $item['QUANTIDADE'] ?></td>
+                                    <td><?php echo $item['REAL_UNITARIO'] ?></td>
+                                    <td><?php echo $item['REAL_TOTAL'] ?></td>
+                                    <td><?php echo $item['APLICACAO'] ?></td>
+                                    <td><?php echo $item['MES_APROVACAO'] ?></td>
+                                    <td><?php echo $item['SOLICITANTE'] ?></td>
+                                    <td><?php echo $item['STATUS_SOLIC'] ?></td>
+                                    <td><?php echo $item['PRIORIDADE'] ?></td>
+                                    <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-solicitacaoId="<?php echo $item['ID'] ?>" data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" data-bs-materialQuantidade="<?php echo $item['QUANTIDADE'] ?>" data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" data-bs-materialMesAprovacao="<?php echo $item['MES_APROVACAO'] ?>" data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- Inicio Modal -->
@@ -233,11 +257,12 @@ $stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
         <!-- Fim Modal -->
     </div>
 </body>
-    
-    <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
-    <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
-    <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="../../js/crd/home.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
+<script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
+<script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/crd/home.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </html>

@@ -11,7 +11,7 @@ require_once "../../dao/app/session.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
     <title>Solicitação de Material</title>
-    <link rel="stylesheet" type="text/css" href="../../css/solicMaterial.css">
+    <link rel="stylesheet" type="text/css" href="../../css/eng/solicMaterialCAPEX.css">
     <link rel="stylesheet" type="text/css" href="../../scripts/datatables/datatables.css">
     <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
@@ -317,8 +317,8 @@ require_once "../../dao/app/session.php";
     <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
     <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
     <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="../../js/eng/solicMaterial.js"></script>
-    <script type="text/javascript" src="../../js/eng/Material.class.js"></script>
+    <script type="text/javascript" src="../../js/eng/solicMaterialCAPEX.js"></script>
+    <script type="text/javascript" src="../../js/class/MaterialCAPEX.class.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

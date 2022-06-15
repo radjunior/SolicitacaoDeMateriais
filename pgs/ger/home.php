@@ -3,27 +3,24 @@ require_once "../../dao/app/operacoes.php";
 require_once "../../dao/app/session.php";
 
 $stmtMateriaisAprovado = MaterialDAO::getMateriaisAprovado();
-$stmtSomaAprovado = MaterialDAO::getSomaMateriaisAprovado();
-$stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
-$stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <title>Automação</title>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <title>Automação</title>
+    <link rel="stylesheet" type="text/css" href="../../css/ger/style.css">
     <link rel="stylesheet" type="text/css" href="../../scripts/datatables/datatables.css">
     <link rel="stylesheet" type="text/css" href="../../css/css.bootstrap/bootstrap.css">
 </head>
 
 <body>
-<div class="leftBar">
+    <div class="leftBar">
         <div class="navigation">
             <ul>
                 <li>
@@ -47,7 +44,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
-                        <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
+                        <span class="title">Acompanhamento</span>
                     </a>
                 </li>
                 <li>
@@ -63,7 +60,7 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
     </div>
     <!-- main -->
     <div class="main">
-    <div class="topbar">
+        <div class="topbar">
             <div class="toggle">
                 <ion-icon name="menu-outline"></ion-icon>
             </div>
@@ -76,77 +73,134 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
         </div>
         <!-- cards -->
         <div class="cardBox">
-            <div class="carde">
-                <div class="cardDivInput">
-                    <label>R$<input type="text" class="numbersComprasTotal" value="<?php echo $stmtSomaAprovado ?>"></label>
-                    <div class="cardName">Compras</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="cart-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="carde">
-                <div class="cardDivInput">
-                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAprovado ?>">
-                    <div class="cardName">Aprovar</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="checkmark-outline"></ion-icon>
+            <div class="cardeRealTotal">
+                <div class="cardeTop">
+                    <h2>Valor Total</h2>
+                    <input type="text" id="iptSomaRealTotal" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="bag-add-outline"></ion-icon>
+                    </div>
                 </div>
             </div>
-            <div class="carde">
-                <div class="cardDivInput">
-                    <input type="text" class="numbersComprasTotal" value="<?php echo $stmtCountAutorizado ?>">
-                    <div class="cardName">Aprovado</div>
+            <div class="cardeAprovar">
+                <div class="cardeTop">
+                    <h2>Aprovar</h2>
+                    <input type="text" id="iptCountAprovar" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="sync-outline"></ion-icon>
+                    </div>
                 </div>
-                <div class="iconBx">
-                    <ion-icon name="checkmark-done-outline"></ion-icon>
+            </div>
+            <div class="cardeAprovado">
+                <div class="cardeL">
+                    <h2>Aprovado</h2>
+                    <input type="text" id="iptCountAprovado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="cardeR">
+                    <h2>Reprovado</h2>
+                    <input type="text" id="iptCountReprovado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="cardeAutorizado">
+                <div class="cardeL">
+                    <h2>Autorizado</h2>
+                    <input type="text" id="iptCountAutorizado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="checkmark-circle-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="cardeR">
+                    <h2>Desautorizado</h2>
+                    <input type="text" id="iptCountDesautorizado" readonly>
+                    <div class="iconBx">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="cardFiltros">
+            <div class="cptFiltros">
+                <div>
+                    <select name="cptSolicitante" id="cptSolicitante">
+                        <option value="">Solicitante</option>
+                        <option value="jvstomaz">jvstomaz</option>
+                        <option value="ctsilva">ctsilva</option>
+                        <option value="vgsouza">vgsouza</option>
+                        <option value="bscastro">bscastro</option>
+                        <option value="marsantos">marsantos</option>
+                    </select>
+                </div>
+                <div>
+                    <select name="cptStatus" id="cptStatus">
+                        <option value="">Status</option>
+                        <option value="APROVAR">Aprovar</option>
+                        <option value="APROVADO">Aprovado</option>
+                        <option value="REPROVADO">Reprovado</option>
+                        <option value="AUTORIZADO">Autorizado</option>
+                        <option value="NAO_AUTORIZADO">Desautorizado</option>
+                    </select>
+                </div>
+                <div>
+                    <select name="cptPriord" id="cptPriord">
+                        <option value="">Prioridade</option>
+                        <option value="0">[0] Baixa</option>
+                        <option value="1">[1] Média</option>
+                        <option value="2">[2] Alta</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="month" id="iptFiltroMes">
+                </div>
+            </div>
+        </div>
+        <!-- tabelaPrincipal -->
         <div class="details">
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Materiais a Serem Autorizados</h2>
-                    <div>
-                        <input type="month" id="iptFiltroMes">
-                    </div>
                 </div>
-                <table id="TabelaHome" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td scope="col">Descrição</td>
-                            <td scope="col">Qtde</td>
-                            <td scope="col">Valor Unitário</td>
-                            <td scope="col">Valor Total</td>
-                            <td scope="col">Aplicação</td>
-                            <td scope="col">Mês Aprovação</td>
-                            <td scope="col">Solicitante</td>
-                            <td scope="col">Ação</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($stmtMateriaisAprovado as $item) { ?>
+                <div class="tabelaAbsolute">
+                    <table id="TabelaHome" class="table table-hover">
+                        <thead>
                             <tr>
-                                <td><?php echo $item['DESCRICAO'] ?></td>
-                                <td><?php echo $item['QUANTIDADE'] ?></td>
-                                <td><?php echo $item['REAL_UNITARIO'] ?></td>
-                                <td><?php echo $item['REAL_TOTAL'] ?></td>
-                                <td><?php echo $item['APLICACAO'] ?></td>
-                                <td><?php echo $item['MES_APROVACAO'] ?></td>
-                                <td><?php echo $item['SOLICITANTE'] ?></td>
-                                <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                data-bs-materialId="<?php echo $item['ID'] ?>" 
-                                data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" 
-                                data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" 
-                                data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" 
-                                data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" 
-                                data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" 
-                                data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Autorizar</button></td>
+                                <td scope="col">Código</td>
+                                <td scope="col">Descrição</td>
+                                <td scope="col">Qtde</td>
+                                <td scope="col">Valor Unitário</td>
+                                <td scope="col">Valor Total</td>
+                                <td scope="col">Aplicação</td>
+                                <td scope="col">Mês Aprovação</td>
+                                <td scope="col">Solicitante</td>
+                                <td scope="col">Status</td>
+                                <td scope="col">Prioridade</td>
+                                <td scope="col">Ação</td>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($stmtMateriaisAprovado as $item) { ?>
+                                <tr>
+                                    <td><?php echo $item['CODIGO'] ?></td>
+                                    <td><?php echo $item['DESCRICAO'] ?></td>
+                                    <td><?php echo $item['QUANTIDADE'] ?></td>
+                                    <td><?php echo $item['REAL_UNITARIO'] ?></td>
+                                    <td><?php echo $item['REAL_TOTAL'] ?></td>
+                                    <td><?php echo $item['APLICACAO'] ?></td>
+                                    <td><?php echo $item['MES_APROVACAO'] ?></td>
+                                    <td><?php echo $item['SOLICITANTE'] ?></td>
+                                    <td><?php echo $item['STATUS_SOLIC'] ?></td>
+                                    <td><?php echo $item['PRIORIDADE'] ?></td>
+                                    <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-materialId="<?php echo $item['ID'] ?>" data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Autorizar</button></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- Inicio Modal -->
@@ -213,10 +267,11 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
         <!-- Fim Modal -->
     </div>
 </body>
-    <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
-    <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
-    <script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="../../js/ger/home.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
+<script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>
+<script type="text/javascript" src="../../js/js.bootstrap/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/ger/home.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </html>

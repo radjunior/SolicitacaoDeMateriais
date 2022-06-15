@@ -11,7 +11,7 @@ require_once "../../dao/app/session.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Automação</title>
     <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../../css/acompPedidos.css">
+    <link rel="stylesheet" type="text/css" href="../../css/ger/acompPedidos.css">
 
 </head>
 
@@ -40,7 +40,7 @@ require_once "../../dao/app/session.php";
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
-                        <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
+                        <span class="title">Acompanhamento</span>
                     </a>
                 </li>
                 <li>

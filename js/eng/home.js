@@ -71,6 +71,7 @@ $(document).ready(function() {
         atualizarCardResultados(table);
         table.draw();
     });
+    atualizarCardResultados(table);
 });
 
 function atualizarCardResultados(table) {

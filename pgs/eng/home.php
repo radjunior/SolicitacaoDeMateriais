@@ -3,12 +3,7 @@ require_once "../../dao/app/conexao.php";
 require_once "../../dao/app/session.php";
 require_once "../../dao/app/operacoes.php";
 
-$stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
-$stmtSomaRealTotal = MaterialDAO::getSomaMateriaisRealTotal();
-$stmtCountAprovar = MaterialDAO::getCountMateriaisAprovar();
-$stmtCountAprovado = MaterialDAO::getCountMateriaisAprovado();
-$stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
-
+$stmtMateriaisGeral = MaterialDAO::getMateriaisGeral(); 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -165,76 +160,84 @@ $stmtCountAutorizado = MaterialDAO::getCountMateriaisAutorizado();
                 </div>
             </div>
         </div>
+        <div class="cardFiltros">
+            <div class="cptFiltros">
+                <div>
+                    <select name="cptSolicitante" id="cptSolicitante">
+                        <option value="">Solicitante</option>
+                        <option value="jvstomaz">jvstomaz</option>
+                        <option value="ctsilva">ctsilva</option>
+                        <option value="vgsouza">vgsouza</option>
+                        <option value="bscastro">bscastro</option>
+                        <option value="marsantos">marsantos</option>
+                    </select>
+                </div>
+                <div>
+                    <select name="cptStatus" id="cptStatus">
+                        <option value="">Status</option>
+                        <option value="APROVAR">Aprovar</option>
+                        <option value="APROVADO">Aprovado</option>
+                        <option value="REPROVADO">Reprovado</option>
+                        <option value="AUTORIZADO">Autorizado</option>
+                        <option value="NAO_AUTORIZADO">Desautorizado</option>
+                    </select>
+                </div>
+                <div>
+                    <select name="cptPriord" id="cptPriord">
+                        <option value="">Prioridade</option>
+                        <option value="0">[0] Baixa</option>
+                        <option value="1">[1] Média</option>
+                        <option value="2">[2] Alta</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="month" id="iptFiltroMes">
+                </div>
+            </div>
+        </div>
         <div class="details">
-
             <div class="recentOrders">
                 <div class="cardHeader">
-                    <h2>Solicitações</h2>
-                    <div>
-                        <select name="cptSolicitante" id="cptSolicitante">
-                            <option value="">Solicitante</option>
-                            <option value="jvstomaz">jvstomaz</option>
-                            <option value="ctsilva">ctsilva</option>
-                            <option value="vgsouza">vgsouza</option>
-                            <option value="bscastro">bscastro</option>
-                            <option value="marsantos">marsantos</option>
-                        </select>
-                        <select name="cptStatus" id="cptStatus">
-                            <option value="">Status</option>
-                            <option value="APROVAR">Aprovar</option>
-                            <option value="APROVADO">Aprovado</option>
-                            <option value="REPROVADO">Reprovado</option>
-                            <option value="AUTORIZADO">Autorizado</option>
-                            <option value="NAO_AUTORIZADO">Desautorizado</option>
-                        </select>
-                        <select name="cptPriord" id="cptPriord">
-                            <option value="">Prioridade</option>
-                            <option value="0">[0] Baixa</option>
-                            <option value="1">[1] Média</option>
-                            <option value="2">[2] Alta</option>
-                        </select>
-                        <input type="month" id="iptFiltroMes">
-                    </div>
-                    <span> </span>
-                    
+                    <h2>Solicitações</h2>     
                 </div>
-
-                <table id="TabelaHome" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <td scope="col">Código</td>
-                            <td scope="col">Descrição</td>
-                            <td scope="col">Qtde</td>
-                            <td scope="col">Valor Unit.</td>
-                            <td scope="col">Valor Total</td>
-                            <td scope="col">Solicitante</td>
-                            <td scope="col">Aplicação</td>
-                            <td scope="col">Mês Aprovação</td>
-                            <td scope="col">Status</td>
-                            <td scope="col">Fornecedor</td>
-                            <td scope="col">Proposta</td>
-                            <td scope="col">Prioridade</td>
-                        </tr>
-                    </thead>
-                    <tbody id="tbodyHome">
-                        <?php foreach ($stmtMateriaisGeral as $item) { ?>
+                <div class="tabelaAbsolute">
+                    <table id="TabelaHome" class="table table-hover">
+                        <thead>
                             <tr>
-                                <td><?php echo $item['CODIGO'] ?></td>
-                                <td><?php echo $item['DESCRICAO'] ?></td>
-                                <td><?php echo $item['QUANTIDADE'] ?></td>
-                                <td><?php echo $item['REAL_UNITARIO'] ?></td>
-                                <td><?php echo $item['REAL_TOTAL'] ?></td>
-                                <td><?php echo $item['SOLICITANTE'] ?></td>
-                                <td><?php echo $item['APLICACAO'] ?></td>
-                                <td><?php echo $item['MES_APROVACAO'] ?></td>
-                                <td><?php echo $item['STATUS_SOLIC'] ?></td>
-                                <td><?php echo $item['FORNECEDOR'] ?></td>
-                                <td><?php echo $item['PROPOSTA'] ?></td>
-                                <td><?php echo $item['PRIORIDADE'] ?></td>
+                                <td scope="col">Código</td>
+                                <td scope="col">Descrição</td>
+                                <td scope="col">Qtde</td>
+                                <td scope="col">Valor Unit.</td>
+                                <td scope="col">Valor Total</td>
+                                <td scope="col">Solicitante</td>
+                                <td scope="col">Aplicação</td>
+                                <td scope="col">Mês Aprovação</td>
+                                <td scope="col">Status</td>
+                                <td scope="col">Fornecedor</td>
+                                <td scope="col">Proposta</td>
+                                <td scope="col">Prioridade</td>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($stmtMateriaisGeral as $item) { ?>
+                                <tr>
+                                    <td><?php echo $item['CODIGO'] ?></td>
+                                    <td><?php echo $item['DESCRICAO'] ?></td>
+                                    <td><?php echo $item['QUANTIDADE'] ?></td>
+                                    <td><?php echo $item['REAL_UNITARIO'] ?></td>
+                                    <td><?php echo $item['REAL_TOTAL'] ?></td>
+                                    <td><?php echo $item['SOLICITANTE'] ?></td>
+                                    <td><?php echo $item['APLICACAO'] ?></td>
+                                    <td><?php echo $item['MES_APROVACAO'] ?></td>
+                                    <td><?php echo $item['STATUS_SOLIC'] ?></td>
+                                    <td><?php echo $item['FORNECEDOR'] ?></td>
+                                    <td><?php echo $item['PROPOSTA'] ?></td>
+                                    <td><?php echo $item['PRIORIDADE'] ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
