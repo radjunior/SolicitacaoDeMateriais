@@ -16,6 +16,7 @@ require_once "../../dao/app/session.php";
 </head>
 
 <body>
+    <!-- LeftBar -->
     <div class="conteiner">
         <div class="navigation">
             <ul>
@@ -87,22 +88,24 @@ require_once "../../dao/app/session.php";
             </ul>
         </div>
     </div>
-    <!-- main -->
+    <!-- Main -->
     <div class="main">
+        <!-- Botão / Titulo / Foto -->
         <div class="topbar">
+            <!-- Botão Container -->
             <div class="toggle">
                 <ion-icon name="menu-outline"></ion-icon>
             </div>
-            <!-- search -->
+            <!-- Titulo -->
             <div class="titleTopBar">
                 <h2>Solicitação de Materiais</h2>
             </div>
-            <!-- userImg -->
+            <!-- Imagem do Usuario -->
             <div class="user">
                 <img src="../../images/user.jpg">
             </div>
         </div>
-        <!-- body -->
+        <!-- Card Resultados -->
         <div class="resultados">
             <div class="cardResultados">
                 <div class="modelResult">
@@ -119,10 +122,26 @@ require_once "../../dao/app/session.php";
                 <div class="nameModel">Quantidade</div>
             </div>
         </div>
+        <div class="cardRbMaterial">
+            
+            <div class="rbButtonsDestinoMaterial">
+                <h2>Período</h2>
+                <div class="form-check">
+                    <input class="form-check-input" onchange="alterarRbSafra()" type="radio" name="rbPeriodoSafra" id="rbPeriodoSafra">
+                    <label class="form-check-label" for="rbPeriodoSafra">Safra</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" onchange="alterarRbEntreSafra()" type="radio" name="rbPeriodoEntreSafra" id="rbPeriodoEntreSafra">
+                    <label class="form-check-label" for="rbPeriodoEntreSafra">Entre-Safra</label>
+                </div>
+            </div>
+        </div>
 
+        <!-- Caixa de Cards -->
         <div class="cardBox">
-
+            <!-- Card Material -->
             <div class="cardMaterial">
+                <input type="hidden" placeholder="Solicitante" id="solicitante" name="solicitante" value="<?php echo $_SESSION['usuarioLogin']; ?>">
                 <div class="titleMaterial">
                     <h2>Materiais</h2>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#mdlMaterial">
@@ -136,13 +155,13 @@ require_once "../../dao/app/session.php";
                 </div>
                 <div class="inputValores">
                     <input type="text" placeholder="R$ Unitário *" id="valorUnit" name="valorUnit">
-                    <input type="text" placeholder="R$ Total" name="valorReal" id="valorReal">
+                    <input type="text" placeholder="R$ Total" id="valorReal" name="valorReal">
                 </div>
                 <div class="inputDescricao">
-                    <textarea placeholder="Descrição" name="descricaoMaterial" id="descricaoMaterial" cols="30" readonly></textarea>
+                    <textarea placeholder="Descrição" id="descricaoMaterial" name="descricaoMaterial" cols="30" readonly></textarea>
                 </div>
             </div>
-
+            <!-- Card Centro de Custo -->
             <div class="cardCentroCusto">
                 <div class="titleCusto">
                     <h2>Centro de Custo</h2>
@@ -159,13 +178,10 @@ require_once "../../dao/app/session.php";
                     </div>
                 </div>
             </div>
-
+            <!-- Card Aplicação -->
             <div class="cardAplicacao">
                 <div class="titleAplicacao">
                     <h2>Aplicação</h2>
-                    <button type="button" id="btnLimparZipProposta">
-                        <ion-icon name="trash-bin-outline"></ion-icon>
-                    </button>
                 </div>
                 <div class="aplicacaoValores">
                     <div>
@@ -175,28 +191,22 @@ require_once "../../dao/app/session.php";
                     <div>
                         <input type="text" placeholder="Proposta" id="proposta" name="proposta">
                     </div>
-                    <!-- <div class="drop-zone">
-                        <span class="drop-zone__prompt">Upload Proposta (.zip)</span>
-                        <input type="file" id="zipProposta" name="myFile" class="drop-zone__input" multiple="multiple">
-                    </div> -->
                     <div>
                         <textarea placeholder="Aplicação *" id="aplicacao" name="aplicacao"></textarea>
                     </div>
                 </div>
-                <div>
-                    <input type="hidden" placeholder="Solicitante" id="solicitante" name="solicitante" value="<?php echo $_SESSION['usuarioLogin']; ?>">
-                </div>
             </div>
+            <!-- Card Externo -->
             <div class="cardExterno">
                 <div class="titleExterno">
                     <h2>Externo</h2>
-                    <button type="button" id="btnLimparZipRequisicao">
-                        <ion-icon name="trash-bin-outline"></ion-icon>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#mdlFornecedor">
+                        <ion-icon name="search-circle-outline"></ion-icon>
                     </button>
                 </div>
                 <div class="inputExterno">
                     <div>
-                        <input type="text" placeholder="Fornecedor" id="fornecedor" name="fornecedor">
+                        <input type="text" placeholder="Fornecedor" id="fornecedor" name="fornecedor" readonly>
                     </div>
                     <div>
                         <input type="number" placeholder="Requisição" id="requisicao" name="requisicao">
@@ -204,12 +214,9 @@ require_once "../../dao/app/session.php";
                     <div>
                         <input type="number" placeholder="Item da Requisição" id="itemRequisicao" name="itemRequisicao">
                     </div>
-                    <!-- <div class="drop-zone">
-                        <span class="drop-zone__prompt">Upload Item Requisição (.zip)</span>
-                        <input type="file" id="zipItemRequisicao" name="myFile" class="drop-zone__input" multiple="multiple">
-                    </div> -->
                 </div>
             </div>
+            <!-- Card Datas -->
             <div class="cardDatas">
                 <h2>Datas</h2>
                 <div class="inputDatas">
@@ -224,13 +231,18 @@ require_once "../../dao/app/session.php";
                 </div>
             </div>
         </div>
+        <!-- Botões de Ação -->
         <div class="containerBTN">
             <div class="botaoAcao">
-                <button type="button" onclick="itemSolic.cancelar()">Limpar<ion-icon name="trash-bin-outline"></ion-icon></button>
-                <button type="button" onclick="itemSolic.salvar()" id="btnInsertAtt">Inserir<ion-icon name="arrow-down-circle-outline"></ion-icon></button>
-
+                <button type="button" onclick="itemSolic.cancelar()">
+                    Limpar<ion-icon name="trash-bin-outline"></ion-icon>
+                </button>
+                <button type="button" onclick="itemSolic.salvar()" id="btnInsertAtt">
+                    Inserir<ion-icon name="arrow-down-circle-outline"></ion-icon>
+                </button>
             </div>
         </div>
+        <!-- Tabela -->
         <div class="details">
             <div class="recentOrders">
                 <div class="cardHeader">
@@ -256,7 +268,7 @@ require_once "../../dao/app/session.php";
                 </table>
             </div>
         </div>
-        <!-- Inicio Modal Material-->
+        <!-- Modal Material-->
         <div class="modal fade" id="mdlMaterial" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -288,8 +300,7 @@ require_once "../../dao/app/session.php";
                 </div>
             </div>
         </div>
-        <!-- Fim Modal Material-->
-        <!-- Inicio Modal Centro de Custo-->
+        <!-- Modal Centro de Custo-->
         <div class="modal fade" id="mdlCentroCusto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -319,7 +330,36 @@ require_once "../../dao/app/session.php";
                 </div>
             </div>
         </div>
-        <!-- Fim Modal Centro de Custo-->
+        <!-- Modal Fornecedor-->
+        <div class="modal fade" id="mdlFornecedor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Selecionar Fornecedor</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modalTop">
+                            <input type="text" placeholder="Pesquisar" id="pesquisaFornecedor">
+                        </div>
+                        <table class="table table-striped tabelaModalFornecedor">
+                            <thead>
+                                <tr>
+                                    <td scope="col">Codigo</td>
+                                    <td scope="col">Descrição</td>
+                                    <td scope="col">Selecionar</td>
+                                </tr>
+                            </thead>
+                            <tbody id="tBodyModalFornecedor">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script type="text/javascript" src="../../scripts/datatables/datatables.js"></script>
     <script type="text/javascript" src="../../js/vendor/jquery/jquery.mask.js"></script>

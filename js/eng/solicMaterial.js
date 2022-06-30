@@ -308,3 +308,16 @@ function receberCodigoCentroCustoModal(codigo) {
         $("input[name='descricaoCCusto']").val(retorno.descricao);
     }, "json");
 }
+
+/*
+ * Lógica do Rádio Buttom
+ */
+function alterarRbSafra() {
+    document.getElementById('rbPeriodoSafra').checked = true;
+    document.getElementById('rbPeriodoEntreSafra').checked = false;
+}
+
+function alterarRbEntreSafra() {
+    document.getElementById('rbPeriodoEntreSafra').checked = true;
+    document.getElementById('rbPeriodoSafra').checked = false;
+}

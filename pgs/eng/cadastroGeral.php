@@ -104,47 +104,49 @@ require_once "../../dao/app/session.php";
         <div class="containerCards">
             <div class="containerUsuario">
                 <form action="" method="post">
-                    <div class="cardUsuario">
-                        <div class="topUsuario">
-                            <h2>Cadastro de Usuário</h2>
-                            <button type="button" href="#">
-                                <ion-icon name="search-circle-outline"></ion-icon>
-                            </button>
+                    <div class="topUsuario">
+                        <h2>Cadastro de Usuário</h2>
+                        <button type="button" href="#">
+                            <ion-icon name="search-circle-outline"></ion-icon>
+                        </button>
+                    </div>
+                    <div class="bodyUsuario">
+                        <div>
+                            <input type="text" placeholder="Nome Completo" name="nomeUsuario">
                         </div>
-                        <div class="bodyUsuario">
-                            <div>
-                                <label for="nomeUsuario">Nome Completo</label>
-                                <input type="text" id="nomeUsuario">
-                            </div>
-                            <div>
-                                <label for="apelidoUsuario">Apelido</label>
-                                <input type="text" id="apelidoUsuario">
-                            </div>
-                            <div>
-                                <label for="loginUsuario">Login</label>
-                                <input type="text" id="loginUsuario">
-                            </div>
-                            <div>
-                                <label for="senhaUsuario">Senha</label>
-                                <input type="password" id="senhaUsuario">
-                            </div>
-                            <div>
-                                <label for="senhaUsuario2">Confirme a Senha</label>
-                                <input type="password" id="senhaUsuario2">
-                            </div>
+                        <div>
+                            <input type="text" placeholder="Apelido" name="apelidoUsuario">
                         </div>
-                        <div class="rodapeUsuario">
-                            <div>
-                                <label for="nivelAcesso">Nível de Acesso</label>
-                                <input type="range" id="nivelAcesso" min="1" max="3" title="1 a 3: Solicitante, Aprovador, Autorizador">
-                            </div>
-                            <div class="btnUsuario">
-                                <button type="submit">Salvar</button>
-                                <button type="reset">Limpar</button>
-                            </div>
+                        <div>
+                            <input type="text" placeholder="Login" name="loginUsuario">
+                        </div>
+                        <div>
+                            <input type="password" placeholder="Senha" name="senhaUsuario" id="senhaUsuario">
+                        </div>
+                        <div>
+                            <input type="password" placeholder="Confirmar Senha" name="senhaUsuario2" id="senhaUsuario2">
                         </div>
                     </div>
+                    <div class="rodapeUsuario">
+                        <div>
+                            <label for="nivelAcesso">Nível de Acesso</label>
+                            <input type="range" id="nivelAcesso" min="1" max="3" title="1 a 3: Solicitante, Aprovador, Autorizador">
+                        </div>
+                        <div class="btnUsuario">
+                            <button type="submit">Salvar</button>
+                            <button type="reset">Limpar</button>
+                        </div>
+                    </div>
+
                 </form>
+            </div>
+            <div class="containerRequisicao">
+                <div>
+                    <input type="number" placeholder="Requisição" id="requisicao" name="requisicao">
+                </div>
+                <div>
+                    <input type="number" placeholder="Item da Requisição" id="itemRequisicao" name="itemRequisicao">
+                </div>
             </div>
         </div>
     </div>

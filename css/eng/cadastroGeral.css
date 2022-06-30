@@ -215,14 +215,7 @@ textarea {
 /* Usuário */
 
 .containerUsuario {
-    padding: 10px;
-    border-radius: 25px;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
-}
-
-.cardUsuario {
-    display: grid;
-    grid-template-rows: 5vh 20vh 10vh;
+    width: 500px;
 }
 
 .topUsuario {
@@ -257,13 +250,8 @@ textarea {
     font-size: 1.7em;
 }
 
-.bodyUsuario {
-    display: grid;
-    grid-template-rows: repeat(5, 1fr);
-    justify-items: end;
-    justify-content: center;
-    align-items: center;
-}
+
+/* .bodyUsuario {} */
 
 .rodapeUsuario {
     display: grid;

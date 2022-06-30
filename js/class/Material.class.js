@@ -62,7 +62,13 @@ class SolicitacaoMaterial {
     }
 
     validaCampo(dados) {
+        var rbPeriodoSafra = document.getElementById('rbPeriodoSafra').checked;
+        var rbPeriodoEntreSafra = document.getElementById('rbPeriodoEntreSafra').checked;
         let msg = '';
+
+        if (rbPeriodoSafra != true && rbPeriodoEntreSafra != true) {
+            msg += 'Informe o Período (Safra ou Entre-safra)\n';
+        }
 
         if (dados.codigoMaterial == '') {
             msg += 'Informe o Material\n';
@@ -259,6 +265,14 @@ class SolicitacaoMaterial {
     }
 
     enviarBD() {
+        var rbPeriodoValor;
+        if (document.getElementById('rbPeriodoSafra').checked) {
+            rbPeriodoValor = 'safra';
+        }
+
+        if (document.getElementById('rbPeriodoEntreSafra').checked) {
+            rbPeriodoValor = 'entre_safra';
+        }
         this.arrSolicitacao
         for (let i = 0; i < this.arrSolicitacao.length; i++) {
             dados = {
@@ -281,7 +295,8 @@ class SolicitacaoMaterial {
                 solicitante: this.arrSolicitacao[i].solicitante,
                 statusSolic: this.arrSolicitacao[i].statusSolic,
                 dataAprovacao: this.arrSolicitacao[i].dataAprovacao,
-                dataAutoriz: this.arrSolicitacao[i].dataAutoriz
+                dataAutoriz: this.arrSolicitacao[i].dataAutoriz,
+                periodo: rbPeriodoValor
             }
             $.post('../../dao/eng/cadastroDAO.php', dados, function(retorno) {
                 if (retorno.queryString == null) {

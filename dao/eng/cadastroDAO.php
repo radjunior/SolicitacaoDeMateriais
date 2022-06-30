@@ -41,11 +41,12 @@ $solicitante = filter_input(INPUT_POST, 'solicitante');
 $statusSolic = filter_input(INPUT_POST, 'statusSolic');
 $dataAprovacao = filter_input(INPUT_POST, 'dataAprovacao');
 $dataAutorizacao = filter_input(INPUT_POST, 'dataAutoriz');
+$periodo = filter_input(INPUT_POST, 'periodo');
 
 try {
     $conn = ConexaoLocal::getConnection();
-    $query = "INSERT INTO MATERIAIS_SOLICITADOS(MES_APROVACAO, MES_INSERCAO, CODIGO, DESCRICAO, UNIDADE, QUANTIDADE, PROPOSTA, REAL_UNITARIO, REAL_TOTAL, CENTRO_CUSTO, DESCRICAO_CENTRO_CUSTO, FORNECEDOR, REQUISICAO, ITEM_REQUISICAO, SOLICITANTE, STATUS_SOLIC, DATA_APROVACAO, DATA_AUTORIZACAO, PRIORIDADE, APLICACAO) 
-    VALUES (:col01, :col02, :col03, :col04, :col05, :col06, :col07, :col08, :col09, :col10, :col11, :col12, :col13, :col14, :col15, :col16, :col17, :col18, :col19, :col20)";
+    $query = "INSERT INTO MATERIAIS_SOLICITADOS(MES_APROVACAO, MES_INSERCAO, CODIGO, DESCRICAO, UNIDADE, QUANTIDADE, PROPOSTA, REAL_UNITARIO, REAL_TOTAL, CENTRO_CUSTO, DESCRICAO_CENTRO_CUSTO, FORNECEDOR, REQUISICAO, ITEM_REQUISICAO, SOLICITANTE, STATUS_SOLIC, DATA_APROVACAO, DATA_AUTORIZACAO, PRIORIDADE, APLICACAO, PERIODO) 
+    VALUES (:col01, :col02, :col03, :col04, :col05, :col06, :col07, :col08, :col09, :col10, :col11, :col12, :col13, :col14, :col15, :col16, :col17, :col18, :col19, :col20, :col21)";
     $stmt = $conn->prepare($query);
     $stmt->execute(array(
         ':col01' => $mesAprov,
@@ -67,7 +68,8 @@ try {
         ':col17' => $dataAprovacao,
         ':col18' => $dataAutorizacao,
         ':col19' => $prioridade,
-        ':col20' => $aplicacao
+        ':col20' => $aplicacao,
+        ':col21' => $periodo
     ));
 } catch (Exception $exc) {
     echo json_encode($exc);
