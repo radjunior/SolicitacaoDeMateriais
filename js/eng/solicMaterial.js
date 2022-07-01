@@ -312,12 +312,15 @@ function receberCodigoCentroCustoModal(codigo) {
 /*
  * Lógica do Rádio Buttom
  */
+
 function alterarRbSafra() {
     document.getElementById('rbPeriodoSafra').checked = true;
     document.getElementById('rbPeriodoEntreSafra').checked = false;
+    document.getElementById('divEquipe').style.display = 'none';
 }
 
 function alterarRbEntreSafra() {
     document.getElementById('rbPeriodoEntreSafra').checked = true;
     document.getElementById('rbPeriodoSafra').checked = false;
+    document.getElementById('divEquipe').style.display = '';
 }

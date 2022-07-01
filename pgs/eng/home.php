@@ -3,7 +3,7 @@ require_once "../../dao/app/conexao.php";
 require_once "../../dao/app/session.php";
 require_once "../../dao/app/operacoes.php";
 
-$stmtMateriaisGeral = MaterialDAO::getMateriaisGeral(); 
+$stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -163,6 +163,13 @@ $stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
         <div class="cardFiltros">
             <div class="cptFiltros">
                 <div>
+                    <select name="cptPeriodo" id="cptPeriodo">
+                        <option value="">Período</option>
+                        <option value="safra">Safra</option>
+                        <option value="entre_safra">E-Safra</option>
+                    </select>
+                </div>
+                <div>
                     <select name="cptSolicitante" id="cptSolicitante">
                         <option value="">Solicitante</option>
                         <option value="jvstomaz">jvstomaz</option>
@@ -198,13 +205,14 @@ $stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
         <div class="details">
             <div class="recentOrders">
                 <div class="cardHeader">
-                    <h2>Solicitações</h2>     
+                    <h2>Solicitações</h2>
                 </div>
                 <div class="tabelaAbsolute">
                     <table id="TabelaHome" class="table table-hover">
                         <thead>
                             <tr>
                                 <td scope="col">Código</td>
+                                <td scope="col">Período</td>
                                 <td scope="col">Descrição</td>
                                 <td scope="col">Qtde</td>
                                 <td scope="col">Valor Unit.</td>
@@ -222,6 +230,7 @@ $stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
                             <?php foreach ($stmtMateriaisGeral as $item) { ?>
                                 <tr>
                                     <td><?php echo $item['CODIGO'] ?></td>
+                                    <td><?php echo $item['PERIODO'] ?></td>
                                     <td><?php echo $item['DESCRICAO'] ?></td>
                                     <td><?php echo $item['QUANTIDADE'] ?></td>
                                     <td><?php echo $item['REAL_UNITARIO'] ?></td>

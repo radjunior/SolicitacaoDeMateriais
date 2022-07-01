@@ -512,17 +512,19 @@ textarea {
 
 .rbButtonsDestinoMaterial {
     padding: 10px;
-    width: 8em;
+    width: 6em;
     /* background-color: red; */
-    display: grid;
-    justify-content: center;
+    display: flex;
     border-radius: 10px;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 7px 25px rgb(0 0 0 / 10%);
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 .rbButtonsDestinoMaterial h2 {
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 700;
     color: var(--azul);
 }
 

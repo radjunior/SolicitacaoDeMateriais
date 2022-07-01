@@ -48,6 +48,9 @@ class SolicitacaoMaterial {
         arrSolic.prioridade = document.getElementById('prioridade').value;
         arrSolic.proposta = document.getElementById('proposta').value;
         arrSolic.aplicacao = document.getElementById('aplicacao').value;
+        if (document.getElementById('rbPeriodoEntreSafra').checked) {
+            arrSolic.equipe = document.getElementById('equipe').value;
+        }
         //Externo
         arrSolic.fornecedor = document.getElementById('fornecedor').value;
         arrSolic.requisicao = document.getElementById('requisicao').value;
@@ -62,12 +65,16 @@ class SolicitacaoMaterial {
     }
 
     validaCampo(dados) {
-        var rbPeriodoSafra = document.getElementById('rbPeriodoSafra').checked;
-        var rbPeriodoEntreSafra = document.getElementById('rbPeriodoEntreSafra').checked;
         let msg = '';
 
-        if (rbPeriodoSafra != true && rbPeriodoEntreSafra != true) {
+        if (document.getElementById('rbPeriodoSafra').checked != true &&
+            document.getElementById('rbPeriodoEntreSafra').checked != true) {
             msg += 'Informe o Período (Safra ou Entre-safra)\n';
+        }
+        if (document.getElementById('rbPeriodoEntreSafra').checked == true) {
+            if (document.getElementById('equipe').value == '') {
+                msg += 'Informe a Equipe\n';
+            }
         }
 
         if (dados.codigoMaterial == '') {
@@ -79,23 +86,23 @@ class SolicitacaoMaterial {
         }
 
         if (dados.valorUnit == '') {
-            msg += 'Informe o valor unitário\n';
+            msg += 'Informe o Valor unitário\n';
         }
 
         if (dados.codigoCCusto == '') {
-            msg += 'Informe o centro de custo\n';
+            msg += 'Informe o Centro de Custo\n';
         }
 
         if (dados.aplicacao == '') {
-            msg += 'Informe a aplicação\n';
+            msg += 'Informe a Aplicação\n';
         }
 
         if (dados.mesAprov == '') {
-            msg += 'Informe o mês de aprovação\n';
+            msg += 'Informe o Mês de Aprovação\n';
         }
 
         if (dados.dataInsert == '') {
-            msg += 'Informe a data de inserção\n';
+            msg += 'Informe a Data de Inserção\n';
         }
 
         if (msg != '') {
@@ -128,6 +135,7 @@ class SolicitacaoMaterial {
         document.getElementById('prioridade').value = dados.prioridade;
         document.getElementById('proposta').value = dados.proposta;
         document.getElementById('aplicacao').value = dados.aplicacao;
+        document.getElementById('equipe').value = dados.equipe;
         //Externo
         document.getElementById('fornecedor').value = dados.fornecedor;
         document.getElementById('requisicao').value = dados.requisicao;
@@ -155,6 +163,7 @@ class SolicitacaoMaterial {
                 this.arrSolicitacao[i].prioridade = dados.prioridade;
                 this.arrSolicitacao[i].proposta = dados.proposta;
                 this.arrSolicitacao[i].aplicacao = dados.aplicacao;
+                this.arrSolicitacao[i].equipe = dados.equipe;
                 //Externo
                 this.arrSolicitacao[i].fornecedor = dados.fornecedor;
                 this.arrSolicitacao[i].requisicao = dados.requisicao;
@@ -208,6 +217,7 @@ class SolicitacaoMaterial {
             let td_valorReal = tr.insertCell();
             let td_aplicacao = tr.insertCell();
             let td_solicitante = tr.insertCell();
+            let td_equipe = tr.insertCell();
             let td_acoes = tr.insertCell();
 
             td_id.innerText = this.arrSolicitacao[i].id;
@@ -218,6 +228,7 @@ class SolicitacaoMaterial {
             td_valorReal.innerText = this.arrSolicitacao[i].valorReal;
             td_solicitante.innerText = this.arrSolicitacao[i].solicitante;
             td_aplicacao.innerText = this.arrSolicitacao[i].aplicacao;
+            td_equipe.innerText = this.arrSolicitacao[i].equipe;
 
             let imgEdit = document.createElement('img');
             imgEdit.src = '../../images/icons/edit.png';
@@ -255,6 +266,7 @@ class SolicitacaoMaterial {
         itemSolic.prioridade = document.getElementById('prioridade').value = '';
         itemSolic.proposta = document.getElementById('proposta').value = '';
         itemSolic.aplicacao = document.getElementById('aplicacao').value = '';
+        itemSolic.equipe = document.getElementById('equipe').value = '';
         //Externo
         itemSolic.fornecedor = document.getElementById('fornecedor').value = '';
         itemSolic.requisicao = document.getElementById('requisicao').value = '';
@@ -296,7 +308,8 @@ class SolicitacaoMaterial {
                 statusSolic: this.arrSolicitacao[i].statusSolic,
                 dataAprovacao: this.arrSolicitacao[i].dataAprovacao,
                 dataAutoriz: this.arrSolicitacao[i].dataAutoriz,
-                periodo: rbPeriodoValor
+                periodo: rbPeriodoValor,
+                equipe: this.arrSolicitacao[i].equipe
             }
             $.post('../../dao/eng/cadastroDAO.php', dados, function(retorno) {
                 if (retorno.queryString == null) {

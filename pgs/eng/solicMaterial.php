@@ -123,7 +123,6 @@ require_once "../../dao/app/session.php";
             </div>
         </div>
         <div class="cardRbMaterial">
-            
             <div class="rbButtonsDestinoMaterial">
                 <h2>Período</h2>
                 <div class="form-check">
@@ -132,7 +131,7 @@ require_once "../../dao/app/session.php";
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" onchange="alterarRbEntreSafra()" type="radio" name="rbPeriodoEntreSafra" id="rbPeriodoEntreSafra">
-                    <label class="form-check-label" for="rbPeriodoEntreSafra">Entre-Safra</label>
+                    <label class="form-check-label" for="rbPeriodoEntreSafra">E-Safra</label>
                 </div>
             </div>
         </div>
@@ -190,6 +189,9 @@ require_once "../../dao/app/session.php";
                     </div>
                     <div>
                         <input type="text" placeholder="Proposta" id="proposta" name="proposta">
+                    </div>
+                    <div id="divEquipe" style="display: none;">
+                        <input type="text" placeholder="Equipe" id="equipe" name="equipe">
                     </div>
                     <div>
                         <textarea placeholder="Aplicação *" id="aplicacao" name="aplicacao"></textarea>
@@ -260,6 +262,7 @@ require_once "../../dao/app/session.php";
                             <td scope="col">Valor Total</td>
                             <td scope="col">Aplicação</td>
                             <td scope="col">Solicitante</td>
+                            <td scope="col">Equipe</td>
                             <td scope="col">Config</td>
                         </tr>
                     </thead>
