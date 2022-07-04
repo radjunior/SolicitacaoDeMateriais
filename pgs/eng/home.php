@@ -224,6 +224,7 @@ $stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
                                 <td scope="col">Fornecedor</td>
                                 <td scope="col">Proposta</td>
                                 <td scope="col">Prioridade</td>
+                                <td scope="col">Equipe</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -242,6 +243,7 @@ $stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
                                     <td><?php echo $item['FORNECEDOR'] ?></td>
                                     <td><?php echo $item['PROPOSTA'] ?></td>
                                     <td><?php echo $item['PRIORIDADE'] ?></td>
+                                    <td><?php echo $item['EQUIPE'] ?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>

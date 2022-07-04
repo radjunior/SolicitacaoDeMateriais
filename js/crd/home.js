@@ -1,10 +1,11 @@
 //DataTable
 $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
-        if (($('#cptSolicitante').val() == "" || $('#cptSolicitante').val() == data[7]) &&
-            ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[8]) &&
-            ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[9]) &&
-            ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[6])) {
+        if (($('#cptSolicitante').val() == "" || $('#cptSolicitante').val() == data[6]) &&
+            ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[9]) &&
+            ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[12]) &&
+            ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[8]) &&
+            ($('#cptPeriodo').val() == "" || $('#cptPeriodo').val() == data[1])) {
             return true;
         } else {
             return false;
@@ -71,6 +72,10 @@ $(document).ready(function() {
         atualizarCardResultados(table);
         table.draw();
     });
+    $('#cptPeriodo').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
     atualizarCardResultados(table);
 });
 
@@ -89,23 +94,25 @@ function atualizarCardResultados(table) {
     $('#iptCountDesautorizado').val(contDesautorizado);
     table.rows().every(function() {
         var data = this.data();
-        if (($('#cptSolicitante').val() == "" || $('#cptSolicitante').val() == data[7]) &&
-            ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[8]) &&
-            ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[9]) &&
-            ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[6])) {
-            valorTotal += parseFloat(data[4]);
-            if (data[8] == "APROVAR") {
+        if (($('#cptSolicitante').val() == "" || $('#cptSolicitante').val() == data[6]) &&
+            ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[9]) &&
+            ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[12]) &&
+            ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[8]) &&
+            ($('#cptPeriodo').val() == "" || $('#cptPeriodo').val() == data[1])) {
+            valorTotal += parseFloat(data[5]);
+            if (data[9] == "APROVAR") {
                 contAprovar++;
-            } else if (data[8] == "APROVADO") {
+            } else if (data[9] == "APROVADO") {
                 contAprovado++;
-            } else if (data[8] == "REPROVADO") {
+            } else if (data[9] == "REPROVADO") {
                 contReprovado++;
-            } else if (data[8] == "AUTORIZADO") {
+            } else if (data[9] == "AUTORIZADO") {
                 contAutorizado++;
-            } else if (data[8] == "NAO_AUTORIZADO") {
+            } else if (data[9] == "NAO_AUTORIZADO") {
                 contDesautorizado++;
             }
         }
+
     });
     var valorFormatado = valorTotal.toLocaleString('pt-BR', {
         style: 'currency',

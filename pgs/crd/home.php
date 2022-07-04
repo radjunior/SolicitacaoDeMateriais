@@ -127,6 +127,13 @@ $stmtMateriaisAprovar = MaterialDAO::getMateriaisAprovar();
         <div class="cardFiltros">
             <div class="cptFiltros">
                 <div>
+                    <select name="cptPeriodo" id="cptPeriodo">
+                        <option value="">Período</option>
+                        <option value="safra">Safra</option>
+                        <option value="entre_safra">E-Safra</option>
+                    </select>
+                </div>
+                <div>
                     <select name="cptSolicitante" id="cptSolicitante">
                         <option value="">Solicitante</option>
                         <option value="jvstomaz">jvstomaz</option>
@@ -170,6 +177,7 @@ $stmtMateriaisAprovar = MaterialDAO::getMateriaisAprovar();
                         <thead>
                             <tr>
                                 <td scope="col">Código</td>
+                                <td scope="col">Período</td>
                                 <td scope="col">Descrição</td>
                                 <td scope="col">Qtde</td>
                                 <td scope="col">Valor Unitário</td>
@@ -179,6 +187,7 @@ $stmtMateriaisAprovar = MaterialDAO::getMateriaisAprovar();
                                 <td scope="col">Solicitante</td>
                                 <td scope="col">Status</td>
                                 <td scope="col">Prioridade</td>
+                                <td scope="col">Equipe</td>
                                 <td scope="col">Ação</td>
                             </tr>
                         </thead>
@@ -186,6 +195,7 @@ $stmtMateriaisAprovar = MaterialDAO::getMateriaisAprovar();
                             <?php foreach ($stmtMateriaisAprovar as $item) { ?>
                                 <tr>
                                     <td><?php echo $item['CODIGO'] ?></td>
+                                    <td><?php echo $item['PERIODO'] ?></td>
                                     <td><?php echo $item['DESCRICAO'] ?></td>
                                     <td><?php echo $item['QUANTIDADE'] ?></td>
                                     <td><?php echo $item['REAL_UNITARIO'] ?></td>
@@ -195,6 +205,8 @@ $stmtMateriaisAprovar = MaterialDAO::getMateriaisAprovar();
                                     <td><?php echo $item['SOLICITANTE'] ?></td>
                                     <td><?php echo $item['STATUS_SOLIC'] ?></td>
                                     <td><?php echo $item['PRIORIDADE'] ?></td>
+                                    <td><?php echo $item['EQUIPE'] ?></td>
+                                    
                                     <td><button type="button" class="botaoId" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-solicitacaoId="<?php echo $item['ID'] ?>" data-bs-materialCodigo="<?php echo $item['CODIGO'] ?>" data-bs-materialQuantidade="<?php echo $item['QUANTIDADE'] ?>" data-bs-materialDescricao="<?php echo $item['DESCRICAO'] ?>" data-bs-materialRealUnit="<?php echo $item['REAL_UNITARIO'] ?>" data-bs-materialRealTotal="<?php echo $item['REAL_TOTAL'] ?>" data-bs-materialAplicacao="<?php echo $item['APLICACAO'] ?>" data-bs-materialMesAprovacao="<?php echo $item['MES_APROVACAO'] ?>" data-bs-materialSolicitante="<?php echo $item['SOLICITANTE'] ?>">Aprovar</button></td>
                                 </tr>
                             <?php } ?>
