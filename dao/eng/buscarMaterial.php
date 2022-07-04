@@ -17,6 +17,7 @@ if ($txtMaterial != null) {
                 "<td>" . $item['MATERIAL'] . "</td>" .
                 "<td>" . $item['TIPO'] . "</td>" .
                 "<td>" . $item['UNIDADE'] . "</td>" .
+                "<td>" . $item['PRECO_UNITARIO'] . "</td>" .
                 "<td>" . '<button type="button" onclick="receberCodigoMaterialModal(' . $item["CODIGO"] . ')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdlMaterial" data-bs-codigoMaterial="' . $item["CODIGO"] . '">Selecionar</button>' . "</td>" .
                 "</tr>"; 
         }
@@ -31,14 +32,16 @@ if ($txtMaterial != null) {
         $stmt = $conn->query($query);
 
         foreach ($stmt as $item) {
+            $codigoDB = $item['CODIGO'];
             $material = $item['MATERIAL'];
             $unidade = $item['UNIDADE'];
-            $codigoDB = $item['CODIGO'];
+            $precoDB = $item['PRECO_UNITARIO'];
 
             $materiais = array(
                 'codigo' => $codigoDB,
                 'material' => $material,
-                'unidade' => $unidade
+                'unidade' => $unidade,
+                'preco' => $precoDB
             );
             echo json_encode($materiais);
         }

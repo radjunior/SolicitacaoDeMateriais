@@ -153,8 +153,8 @@ require_once "../../dao/app/session.php";
                     <input type="number" placeholder="Qtde *" id="qtdeMaterial" name="qtdeMaterial">
                 </div>
                 <div class="inputValores">
-                    <input type="text" placeholder="R$ Unitário *" id="valorUnit" name="valorUnit">
-                    <input type="text" placeholder="R$ Total" id="valorReal" name="valorReal">
+                    <input type="text" placeholder="R$ Unitário *" id="valorUnit" name="valorUnit" readonly>
+                    <input type="text" placeholder="R$ Total" id="valorReal" name="valorReal" readonly>
                 </div>
                 <div class="inputDescricao">
                     <textarea placeholder="Descrição" id="descricaoMaterial" name="descricaoMaterial" cols="30" readonly></textarea>
@@ -290,6 +290,7 @@ require_once "../../dao/app/session.php";
                                     <td scope="col">Material</td>
                                     <td scope="col">Tipo</td>
                                     <td scope="col">Unidade</td>
+                                    <td scope="col">Preço Unitário</td>
                                     <td scope="col">Selecionar</td>
                                 </tr>
                             </thead>

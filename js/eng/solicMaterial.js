@@ -135,51 +135,6 @@ function getDataHoje() {
     }
     return dia + "/" + mes + "/" + ano; /* dd/MM/yyyy */
 }
-
-/*
- * Função que busca o Material pela descrição sempre quando há entrada dentro do Input '#pesquisaMaterial'
- */
-
-$(function() {
-    $('#pesquisaMaterial').keypress(pesquisaMaterialDescricao);
-    $('#pesquisaMaterial').keyup(pesquisaMaterialDescricao);
-    $('#pesquisaMaterial').keydown(pesquisaMaterialDescricao);
-
-    function pesquisaMaterialDescricao() {
-        var pesquisa = $(this).val();
-        if (pesquisa != '') {
-            dados = {
-                itemMaterial: pesquisa
-            }
-            $.get('../../dao/eng/buscarMaterial.php', dados, function(retorno) {
-                $('#tBodyModalMaterial').html(retorno);
-            });
-        }
-    }
-});
-
-/*
- * Função que busca o Centro de Custo pela descrição sempre quando há entrada dentro do Input '#pesquisaCentroCusto'
- */
-
-$(function() {
-    $('#pesquisaCentroCusto').keypress(pesquisaCentroCusto);
-    $('#pesquisaCentroCusto').keyup(pesquisaCentroCusto);
-    $('#pesquisaCentroCusto').keydown(pesquisaCentroCusto);
-
-    function pesquisaCentroCusto() {
-        var pesquisa = $(this).val();
-        if (pesquisa != '') {
-            dados = {
-                itemDescricao: pesquisa
-            }
-            $.get('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
-                $('#tBodyModalCentroCusto').html(retorno);
-            });
-        }
-    }
-});
-
 /*
  * Função que busca o Material pelo código sempre quando há entrada dentro do Input '#codigoMaterial'
  */
@@ -198,6 +153,12 @@ $(function() {
             $.get('../../dao/eng/buscarMaterial.php', dados, function(retorno) {
                 $("textarea[name='descricaoMaterial']").val(retorno.material);
                 $("input[name='unidadeMaterial']").val(retorno.unidade);
+                var valorSemFormatar = retorno.preco;
+                var valorFormatado = valorSemFormatar.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
+                $("input[name='valorUnit']").val(valorFormatado);
             }, "json");
             document.addEventListener('keydown', function(event) {
                 var code = event.keyCode || event.which;
@@ -206,6 +167,27 @@ $(function() {
                         $("input[name='codigoMaterial']").val(retorno.codigo);
                     }, "json");
                 }
+            });
+        }
+    }
+});
+/*
+ * Função que busca o Material pela descrição sempre quando há entrada dentro do Input '#pesquisaMaterial'
+ */
+
+$(function() {
+    $('#pesquisaMaterial').keypress(pesquisaMaterialDescricao);
+    $('#pesquisaMaterial').keyup(pesquisaMaterialDescricao);
+    $('#pesquisaMaterial').keydown(pesquisaMaterialDescricao);
+
+    function pesquisaMaterialDescricao() {
+        var pesquisa = $(this).val();
+        if (pesquisa != '') {
+            dados = {
+                itemMaterial: pesquisa
+            }
+            $.get('../../dao/eng/buscarMaterial.php', dados, function(retorno) {
+                $('#tBodyModalMaterial').html(retorno);
             });
         }
     }
@@ -244,6 +226,27 @@ $(function() {
 
 });
 
+/*
+ * Função que busca o Centro de Custo pela descrição sempre quando há entrada dentro do Input '#pesquisaCentroCusto'
+ */
+
+$(function() {
+    $('#pesquisaCentroCusto').keypress(pesquisaCentroCusto);
+    $('#pesquisaCentroCusto').keyup(pesquisaCentroCusto);
+    $('#pesquisaCentroCusto').keydown(pesquisaCentroCusto);
+
+    function pesquisaCentroCusto() {
+        var pesquisa = $(this).val();
+        if (pesquisa != '') {
+            dados = {
+                itemDescricao: pesquisa
+            }
+            $.get('../../dao/eng/buscarCCusto.php', dados, function(retorno) {
+                $('#tBodyModalCentroCusto').html(retorno);
+            });
+        }
+    }
+});
 /*
  * Função que calcula o (valor unitário * qtde do material) sempre quando há entrada de dados nos respectivos input's
  */
