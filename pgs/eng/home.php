@@ -163,6 +163,24 @@ $stmtMateriaisGeral = MaterialDAO::getMateriaisGeral();
         <div class="cardFiltros">
             <div class="cptFiltros">
                 <div>
+                    <select name="cptEquipe" id="cptEquipe">
+                        <option value="">Equipe</option>
+                        <option value="MURILO">Murilo</option>
+                        <option value="DAVES">Daves</option>
+                        <option value="GEDEON">Gedeon</option>
+                        <option value="JEFFERSON">Jefferon</option>
+                        <option value="OSCAR">Oscar</option>
+                        <option value="RODRIGO">Rodrigo</option>
+                        <option value="AGMAR">Agmar</option>
+                        <option value="MESSIAS">Messias</option>
+                        <option value="RODOLFO">Rodolfo</option>
+                        <option value="REISSON">Reisson</option>
+                        <option value="FLAVIO">Flavio</option>
+                        <option value="MARCOS">Marcos</option>
+                        <option value="JOSELAN">Joselan</option>
+                    </select>
+                </div>
+                <div>
                     <select name="cptPeriodo" id="cptPeriodo">
                         <option value="">Período</option>
                         <option value="safra">Safra</option>

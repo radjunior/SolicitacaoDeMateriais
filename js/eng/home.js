@@ -5,7 +5,8 @@ $.fn.dataTable.ext.search.push(
             ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[9]) &&
             ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[12]) &&
             ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[8]) &&
-            ($('#cptPeriodo').val() == "" || $('#cptPeriodo').val() == data[1])) {
+            ($('#cptPeriodo').val() == "" || $('#cptPeriodo').val() == data[1]) &&
+            ($('#cptEquipe').val() == "" || $('#cptEquipe').val() == data[13])) {
             return true;
         } else {
             return false;
@@ -56,6 +57,10 @@ $(document).ready(function() {
             ]
         }
     });
+    $('#cptEquipe').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
     $('#iptFiltroMes').change(function() {
         atualizarCardResultados(table);
         table.draw();
@@ -98,7 +103,8 @@ function atualizarCardResultados(table) {
             ($('#cptStatus').val() == "" || $('#cptStatus').val() == data[9]) &&
             ($('#cptPriord').val() == "" || $('#cptPriord').val() == data[12]) &&
             ($('#iptFiltroMes').val() == "" || $('#iptFiltroMes').val() == data[8]) &&
-            ($('#cptPeriodo').val() == "" || $('#cptPeriodo').val() == data[1])) {
+            ($('#cptPeriodo').val() == "" || $('#cptPeriodo').val() == data[1]) &&
+            ($('#cptEquipe').val() == "" || $('#cptEquipe').val() == data[13])) {
             valorTotal += parseFloat(data[5]);
             if (data[9] == "APROVAR") {
                 contAprovar++;
