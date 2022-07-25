@@ -186,3 +186,17 @@ class MaterialDAO
         }
     }
 }
+class ServicoDAO
+{
+    public static function getServicosGeral()
+    {
+        try {
+            $conn = ConexaoLocal::getConnection();
+            $query = "SELECT * FROM SERVICOS_SOLICITADOS";
+            $stmt = $conn->query($query);
+            return $stmt;
+        } catch (PDOException $e) {
+            throw new Exception($e);
+        }
+    }
+}

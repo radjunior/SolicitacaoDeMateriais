@@ -4,14 +4,14 @@ require_once "../app/conexao.php";
 function parseFloat($str)
 {
     if (strstr($str, ",")) {
-        $str = str_replace(".", "", $str); // replace dots (thousand seps) with blancs
-        $str = str_replace(",", ".", $str); // replace ',' with '.'
+        $str = str_replace(".", "", $str); // substituir pontos (mil seps) por brancos
+        $str = str_replace(",", ".", $str); // substituir ',' por '.'
     }
 
-    if (preg_match("#([0-9\.]+)#", $str, $match)) { // search for number that may contain '.'
+    if (preg_match("#([0-9\.]+)#", $str, $match)) { // procure o número que pode conter '.'
         return floatval($match[0]);
     } else {
-        return floatval($str); // take some last chances with floatval
+        return floatval($str); // dar algumas últimas chances com floatval
     }
 }
 

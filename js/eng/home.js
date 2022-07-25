@@ -15,6 +15,134 @@ $.fn.dataTable.ext.search.push(
 );
 $(document).ready(function() {
     $('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
+
+    $('#TableServicos').DataTable({
+        paging: false,
+        ordering: true,
+        info: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
+        },
+        columnDefs: [{
+                target: 2,
+                render: DataTable.render.number(null, null, 0, null),
+            },
+            {
+                target: 3,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            },
+            {
+                target: 4,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            }
+        ],
+        dom: 'Bfrtip',
+        buttons: {
+            dom: {
+                button: {
+                    className: "btn"
+                }
+            },
+            buttons: [{
+                    extend: "excel",
+                    text: "Excel",
+                    className: "btn btn-outline-success",
+                    excelStyles: {
+                        template: "cyan_medium"
+                    }
+                },
+                {
+                    extend: "print",
+                    text: "Imprimir",
+                }
+            ]
+        }
+    }).columns.adjust();
+
+    var table = $('#TableMaterial').DataTable({
+        paging: false,
+        ordering: true,
+        info: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.12.0/i18n/pt-BR.json'
+        },
+        columnDefs: [{
+                target: 3,
+                render: DataTable.render.number(null, null, 0, null),
+            },
+            {
+                target: 4,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            },
+            {
+                target: 5,
+                render: DataTable.render.number(null, null, 2, 'R$ '),
+            }
+        ],
+        dom: 'Bfrtip',
+        buttons: {
+            dom: {
+                button: {
+                    className: "btn"
+                }
+            },
+            buttons: [{
+                    extend: "excel",
+                    text: "Excel",
+                    className: "btn btn-outline-success",
+                    excelStyles: {
+                        template: "cyan_medium"
+                    }
+                },
+                {
+                    extend: "print",
+                    text: "Imprimir",
+                }
+            ]
+        }
+    }).columns.adjust();
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        $.fn.dataTable.tables({
+            visible: true,
+            api: true
+        }).columns.adjust();
+    });
+
+    $('#cptEquipe').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+
+    $('#iptFiltroMes').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+
+    $('#cptSolicitante').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+
+    $('#cptStatus').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+
+    $('#cptPriord').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+
+    $('#cptPeriodo').change(function() {
+        atualizarCardResultados(table);
+        table.draw();
+    });
+
+    atualizarCardResultados(table);
+});
+/*$(document).ready(function() {
+    
     var table = $('#TabelaHome').DataTable({
         paging: false,
         ordering: true,
@@ -57,32 +185,7 @@ $(document).ready(function() {
             ]
         }
     });
-    $('#cptEquipe').change(function() {
-        atualizarCardResultados(table);
-        table.draw();
-    });
-    $('#iptFiltroMes').change(function() {
-        atualizarCardResultados(table);
-        table.draw();
-    });
-    $('#cptSolicitante').change(function() {
-        atualizarCardResultados(table);
-        table.draw();
-    });
-    $('#cptStatus').change(function() {
-        atualizarCardResultados(table);
-        table.draw();
-    });
-    $('#cptPriord').change(function() {
-        atualizarCardResultados(table);
-        table.draw();
-    });
-    $('#cptPeriodo').change(function() {
-        atualizarCardResultados(table);
-        table.draw();
-    });
-    atualizarCardResultados(table);
-});
+});*/
 
 function atualizarCardResultados(table) {
     var valorTotal = 0;

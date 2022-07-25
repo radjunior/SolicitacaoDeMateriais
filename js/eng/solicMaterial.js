@@ -20,82 +20,6 @@ $(document).ready(function() {
 });
 
 /*
- * Tarefa que permite o acesso ao explorer do Windows para fazer upload de um arquivo qualquer
- */
-
-document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
-    const dropZoneElement = inputElement.closest(".drop-zone");
-
-    dropZoneElement.addEventListener("click", (e) => {
-        inputElement.click();
-    });
-
-    inputElement.addEventListener("change", (e) => {
-        if (inputElement.files.length) {
-            updateThumbnail(dropZoneElement, inputElement.files[0]);
-        }
-    });
-
-    dropZoneElement.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropZoneElement.classList.add("drop-zone--over");
-    });
-
-    ["dragleave", "dragend"].forEach((type) => {
-        dropZoneElement.addEventListener(type, (e) => {
-            dropZoneElement.classList.remove("drop-zone--over");
-        });
-    });
-
-    dropZoneElement.addEventListener("drop", (e) => {
-        e.preventDefault();
-
-        if (e.dataTransfer.files.length) {
-            inputElement.files = e.dataTransfer.files;
-            updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-        }
-
-        dropZoneElement.classList.remove("drop-zone--over");
-    });
-});
-
-/**
- * Atualiza a miniatura em um elemento de zona para soltar.
- *
- * @param {HTMLElement} dropZoneElement
- * @param {File} file
- */
-function updateThumbnail(dropZoneElement, file) {
-    let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
-
-    // Primeira vez - remova o prompt
-    if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-        dropZoneElement.querySelector(".drop-zone__prompt").remove();
-    }
-
-    // Primeira vez - não há elemento de miniatura, então vamos criá-lo
-    if (!thumbnailElement) {
-        thumbnailElement = document.createElement("div");
-        thumbnailElement.classList.add("drop-zone__thumb");
-        dropZoneElement.appendChild(thumbnailElement);
-    }
-
-    thumbnailElement.dataset.label = file.name;
-
-    // Exibir imagem do arquivo
-    if (file.type.startsWith("image/")) {
-        const reader = new FileReader();
-
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
-        };
-    } else {
-        thumbnailElement.style.backgroundImage = null;
-    }
-}
-
-/*
  * Tarefa que altera a da navbar para 'Active' a fim de recolher e exibir a navbar
  */
 
@@ -326,4 +250,51 @@ function alterarRbEntreSafra() {
     document.getElementById('rbPeriodoEntreSafra').checked = true;
     document.getElementById('rbPeriodoSafra').checked = false;
     document.getElementById('divEquipe').style.display = '';
+}
+
+/*
+ * Lógica de validação de campos do formulário
+ */
+
+function validaCampo() {
+    $("#form").on('submit', (function(e) {
+        e.preventDefault()
+        let msg = '';
+
+        if (dados.txtCodigoMaterial == '') {
+            msg += 'Informe o código do Material\n';
+        }
+
+        if (dados.txtQtdeMaterial == '') {
+            msg += 'Informe a qtde de Material\n';
+        }
+
+        if (dados.txtCodigoServico == '') {
+            msg += 'Informe o código do Serviço\n';
+        }
+
+        if (dados.txtCodigoCCusto == '') {
+            msg += 'Informe o código do Centro de Custo\n';
+        }
+
+        if (dados.txtDefeitoObs == '') {
+            msg += 'Informe o Defeito/obs\n';
+        }
+
+        if (dados.txtAplicacao == '') {
+            msg += 'Informe a Aplicação\n';
+        }
+
+        if (dados.txtFornecedor == '') {
+            msg += 'Informe o Fornecedor\n';
+        }
+
+        if (msg != '') {
+            alert(msg);
+            return false;
+        }
+
+        return true;
+    }));
+
 }
