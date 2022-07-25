@@ -331,7 +331,7 @@ $("#formCadastroManutEx").on('submit', (function(e) {
     }
 
     if (msg != '') {
-        //alert(msg);
-        //e.preventDefault();
+        alert(msg);
+        e.preventDefault();
     }
 }));
