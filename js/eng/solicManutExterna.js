@@ -287,6 +287,51 @@ function calcularMatrizGut() {
     document.getElementById('lblUrgencia').innerText = u;
     document.getElementById('lblTendencia').innerText = t;
 
-    document.getElementById('txtPrioridade').innerText = (g * u * t);
+    var res = (g * u * t);
+
+    document.getElementById('spnPrioridade').innerText = res;
+    document.getElementById('txtPrioridade').value = res;
 
 }
+
+/*
+ * Lógica de validação de campos do formulário
+ */
+
+
+$("#formCadastroManutEx").on('submit', (function(e) {
+    let msg = '';
+
+    if (document.getElementById('txtCodigoMaterial').value == '') {
+        msg += 'Informe o código do Material\n';
+    }
+
+    if (document.getElementById('txtQtdeMaterial').value == '') {
+        msg += 'Informe a qtde de Material\n';
+    }
+
+    if (document.getElementById('txtCodigoServico').value == '') {
+        msg += 'Informe o código do Serviço\n';
+    }
+
+    if (document.getElementById('txtCodigoCCusto').value == '') {
+        msg += 'Informe o código do Centro de Custo\n';
+    }
+
+    if (document.getElementById('txtDefeitoObs').value == '') {
+        msg += 'Informe o Defeito/obs\n';
+    }
+
+    if (document.getElementById('txtAplicacao').value == '') {
+        msg += 'Informe a Aplicação\n';
+    }
+
+    if (document.getElementById('txtFornecedor').value == '') {
+        msg += 'Informe o Fornecedor\n';
+    }
+
+    if (msg != '') {
+        //alert(msg);
+        //e.preventDefault();
+    }
+}));

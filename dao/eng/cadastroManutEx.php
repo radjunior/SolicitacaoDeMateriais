@@ -50,21 +50,23 @@ $txtDataNfEnvio = filter_input(INPUT_POST, 'txtDataNfEnvio');
 $txtNumNfRetorno = filter_input(INPUT_POST, 'txtNumNfRetorno');
 $txtDataNfRetorno = filter_input(INPUT_POST, 'txtDataNfRetorno');
 
-if ($arqOrcamento['error']) {
+if ($arqOrcamento['error'] != 4) { 
     die("Falha ao enviar o arquivo");
 } 
 
-$pasta = "C:/xampp/htdocs/Temp/solicitacao-materiais/anexos/";
-$nomeArquivo = $arqOrcamento['name'];
-$novoNome = uniqid();
-$extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
-
-if ($extensao != 'jpg' && $extensao != 'png' && $extensao != 'pdf' && $extensao != 'zip' && $extensao != 'rar') {
-    die("Tipo de arquivo não aceito!");
+if($arqOrcamento['error'] == 0 && $arqOrcamento['size'] > 0) {
+    $pasta = "C:/xampp/htdocs/Temp/solicitacao-materiais/anexos/";
+    $nomeArquivo = $arqOrcamento['name'];
+    $novoNome = uniqid();
+    $extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
+    
+    if ($extensao != '' && $extensao != 'jpg' && $extensao != 'png' && $extensao != 'pdf' && $extensao != 'zip' && $extensao != 'rar') {
+        die("Tipo de arquivo não aceito!");
+    }
+    
+    $statusEnvioArquivo = move_uploaded_file($arqOrcamento['tmp_name'], $pasta . $novoNome . "." . $extensao);
+    $path = $pasta . $novoNome . "." . $extensao;
 }
-
-$statusEnvioArquivo = move_uploaded_file($arqOrcamento['tmp_name'], $pasta . $novoNome . "." . $extensao);
-$path = $pasta . $novoNome . "." . $extensao;
 
 try {
     $conn = ConexaoLocal::getConnection();
@@ -224,12 +226,12 @@ echo $txtSolicitante . "<br>";
 echo $txtProposta . "<br>";
 echo $txtItemProposta . "<br>";
 echo $txtCustoTotal . "<br>";
-*/
 echo var_dump($arqOrcamento) . "<br>";
-/*
+
 echo $rgGravidade . "<br>";
 echo $rgUrgencia . "<br>";
 echo $rgTendencia . "<br>";
+
 echo $txtPrioridade . "<br>";
 
 echo $txtNumNfEnvio . "<br>";

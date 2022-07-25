@@ -120,7 +120,7 @@ require_once "../../dao/app/session.php";
                 <div class="nameModel">Quantidade</div>
             </div>
         </div>
-        <form action="../../dao/eng/cadastroManutEx.php" method="post" id="form" enctype="multipart/form-data">
+        <form action="../../dao/eng/cadastroManutEx.php" method="post" id="formCadastroManutEx" enctype="multipart/form-data">
             <div class="cardBox">
                 <div class="cardMaterial">
                     <div class="titleMaterial">
@@ -240,7 +240,8 @@ require_once "../../dao/app/session.php";
                     </div>
                     <div class="inputBottonGut">
                         <label>Prioridade: </label>
-                        <span id="txtPrioridade" name="txtPrioridade"></span>
+                        <span id="spnPrioridade" name="spnPrioridade"></span>
+                        <input type="hidden" id="txtPrioridade" name="txtPrioridade">
                     </div>
                 </div>
                 <div class="cardNfs">
