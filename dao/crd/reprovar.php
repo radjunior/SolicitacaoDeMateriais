@@ -6,6 +6,9 @@ $data = $_POST['data'] ?? NULL;
 $mesAprov = $_POST['mesApr'] ?? NULL;
 $qtde = $_POST['qtde'] ?? NULL;
 
+echo "código: ".$cod;
+
+
 $status = 'APROVAR';
 $qtdeOriginal;
 

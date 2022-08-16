@@ -206,9 +206,11 @@ function reprovar() {
     }
     mesAprov = splitMesAprov.join(","); //vetor -> String
     mesAprov = mesAprov.replace(",", "-"); //trocar , por -
-    //console.log("Depois: " + mesAprov); 2022-03
+    //console.log("Depois: " + mesAprov); //2022-03
 
-
+    console.log(solicId);
+    console.log(materialQtde);
+    console.log(mesAprov);
     $.ajax({
         url: '../../dao/crd/reprovar.php',
         type: 'POST',

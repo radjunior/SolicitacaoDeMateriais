@@ -1,59 +1,4 @@
-<?php
-require_once "../../dao/app/conexao.php";
-require_once "../../dao/app/session.php";
-?>
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automação</title>
-    <link rel="shortcut icon" href="../../images/favicon-original.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../../css/crd/acompPedidos.css">
-
-</head>
-
-<body>
-    <div class="container">
-        <div class="navigation">
-            <ul>
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="code-working-outline"></ion-icon>
-                        </span>
-                        <span class="title">Olá, <?php echo $_SESSION['nomeUsuario']; ?></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="./home.php">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
-                        <span class="title">Início</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="./acompPedidos.php">
-                        <span class="icon">
-                            <ion-icon name="bar-chart-outline"></ion-icon>
-                        </span>
-                        <span class="title"><s>Acompanhamento</s>[Em Breve]</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="?logout=1">
-                        <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                        </span>
-                        <span class="title">Sair</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+<?php require_once "../base-top.php"; ?>
     <!-- main -->
     <div class="main">
         <div class="topbar">
@@ -79,6 +24,7 @@ require_once "../../dao/app/session.php";
 
     </div>
     <script type="text/javascript" src="../../js/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="../../js/eng/acompPedidos.js"></script>
     <script type="text/javascript">
         //Gráfico de solicitação de mateirais por ano
         var graficoSolic = echarts.init(document.getElementById('graficoSolic'));
@@ -215,10 +161,6 @@ require_once "../../dao/app/session.php";
         };
         statusOption && myGraficoStatus.setOption(statusOption);
     </script>
+    
 
-    <script type="text/javascript" src="../../js/eng/acompPedidos.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</body>
-
-</html>
+<?php require_once "../base-bot.php"; ?>
