@@ -1,7 +1,16 @@
 <?php
+# file:///C:/xampp/htdocs/Temp/solicitacao-materiais/anexos/
+# http://localhost:8000/Temp/solicitacao-materiais/anexos/
+$path = 'C:/xampp/htdocs/Temp/solicitacao-materiais/anexos/62fd218860728.pdf';
+
+$file = str_replace('file:///C:/xampp/htdocs', 'http://localhost:8000', $path);
+
+$file = file_get_contents($pdf);
+var_dump($file);
+
+
+exit();
 Class Teste {
-
-
     public string $nome;
     public int $idade;
 

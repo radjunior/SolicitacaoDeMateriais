@@ -1,10 +1,10 @@
 <?php
-require_once "../dao/app/conexao.php";
+require_once "../repository/app/conexao.php";
 require_once "../../framework/ExceptionErros.php";
 
-Class ManutencaoExternaDAO
+Class ManutencaoExternaRepository
 {
-    public static function cadastrarDAO(object $arrManutExterna):bool
+    public static function cadastrarRepository(object $arrManutExterna):bool
     {
         try {
             $conn = ConexaoLocal::getConnection();

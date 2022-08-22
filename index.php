@@ -1,5 +1,5 @@
 <?php
-require_once "./src/repository/app/session.php";
+require_once "./src/repository/session.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

@@ -54,14 +54,6 @@
 
             </form>
         </div>
-        <div class="containerRequisicao">
-            <div>
-                <input type="number" placeholder="Requisição" id="requisicao" name="requisicao">
-            </div>
-            <div>
-                <input type="number" placeholder="Item da Requisição" id="itemRequisicao" name="itemRequisicao">
-            </div>
-        </div>
     </div>
 </div>
 <script type="text/javascript" src="../../js/eng/cadastroGeral.js"></script>

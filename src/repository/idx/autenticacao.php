@@ -1,6 +1,6 @@
 <?php
-require_once "../app/conexao.php";
-require_once "../app/session.php";
+require_once "../conexao.php";
+require_once "../session.php";
 
 $usuario = $_POST['user'] ?? NULL;
 $senha = $_POST['pass'] ?? NULL;

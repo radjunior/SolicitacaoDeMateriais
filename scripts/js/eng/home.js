@@ -14,6 +14,22 @@ $.fn.dataTable.ext.search.push(
     }
 );
 $(document).ready(function() {
+    var limateriais = document.querySelector('.limateriais');
+    var liservicos = document.querySelector('.liservicos');
+
+    document.getElementById("tab-table1").addEventListener("click", function(){
+        document.getElementById('table1').style.display = 'flex'; // Materiais
+        document.getElementById('table2').style.display = 'none'; // Servicos
+        limateriais.classList.add('active');
+        liservicos.classList.remove('active');
+    })
+
+    document.getElementById("tab-table2").addEventListener("click", function(){
+        document.getElementById('table1').style.display = 'none'; // Materiais
+        document.getElementById('table2').style.display = 'flex'; // Servicos
+        limateriais.classList.remove('active');
+        liservicos.classList.add('active');
+    })
     $('.numbersComprasTotal').mask('#.##0,00', { reverse: true });
 
     $('#TableServicos').DataTable({

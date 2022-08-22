@@ -13,5 +13,6 @@ Class ExceptionErros
         fwrite($fs, $erro.PHP_EOL);
         fclose($fs);
         header('Location: ../../framework/pagErro.php');
+        exit();
     }
 }

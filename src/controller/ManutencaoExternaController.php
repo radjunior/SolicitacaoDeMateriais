@@ -29,7 +29,7 @@ try {
             break;
             case 8:
                 $msgErro = "[8] - Uma extensão do PHP interrompeu o upload do arquivo.";
-            break;  
+            break;
         }
         ExceptionErros::gerarLog(realpath(__FILE__), $msgErro);
     }
@@ -39,11 +39,11 @@ try {
         $nomeArquivo = $arqOrcamento['name'];
         $novoNome = uniqid();
         $extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
-        
+
         if ($extensao != '' && $extensao != 'jpg' && $extensao != 'png' && $extensao != 'pdf' && $extensao != 'zip' && $extensao != 'rar') {
             ExceptionErros::gerarLog(realpath(__FILE__), "Tipo de arquivo não aceito!");
         }
-        
+
         $statusEnvioArquivo = move_uploaded_file($arqOrcamento['tmp_name'], $pasta . $novoNome . "." . $extensao);
         $pathAnexo = $pasta . $novoNome . "." . $extensao;
     }
@@ -84,7 +84,7 @@ try {
         'anx_orcamento' =>              $pathAnexo,
     ];
     $objManutExterna = new ManutencaoExterna($arrManutExterna);
-    $retorno = ManutencaoExternaDAO::cadastrarDAO($objManutExterna);
+    $retorno = ManutencaoExternaRepository::cadastrarRepository($objManutExterna);
     if ($retorno)
         header('Location: ../view/front/solicManutExterna.php');
 

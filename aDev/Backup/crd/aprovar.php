@@ -20,13 +20,13 @@ if ($cod != NULL && $data != NULL && $qtde != NULL) {
             $qtdeOriginal = $item['QUANTIDADE'];
         }
         if ($qtdeOriginal != $qtde) {
-            //echo "<br><br><br>Quantidade alterada";
+            // Quantidade alterada
             $query = "UPDATE MATERIAIS_SOLICITADOS SET STATUS_SOLIC = '$status', DATA_APROVACAO = '$data', QUANTIDADE = '$qtde' WHERE ID = '$cod'";
             $stmt = $conn->query($query);
             header("Location: ../../pgs/crd/home.php");
             exit;
         } else {
-            //echo "<br><br><br>Quantidade não alterada";
+            // Quantidade não alterada
             $query = "UPDATE MATERIAIS_SOLICITADOS SET STATUS_SOLIC = '$status', DATA_APROVACAO = '$data' WHERE ID = '$cod'";
             $stmt = $conn->query($query);
             header("Location: ../../pgs/crd/home.php");

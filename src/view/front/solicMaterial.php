@@ -1,4 +1,6 @@
-<?php require_once "../resources/base-top.php"; ?>
+<?php
+require_once "../resources/base-top.php";
+?>
 <link rel="stylesheet" type="text/css" href="../../../css/solicMaterial.css">
 <link rel="stylesheet" type="text/css" href="../../../scripts/datatables/datatables.css">
 <link rel="stylesheet" type="text/css" href="../../../css/css.bootstrap/bootstrap.css">
@@ -36,7 +38,7 @@
             <div class="nameModel">Quantidade</div>
         </div>
     </div>
-    <form action="../../controller/SolicitacaoMateriaisController.php" method="post" id="formSolicMateriais">
+    <form action="../../controller/SolicitacaoMateriaisController.php?formsolic=1" method="post" id="formSolicMateriais">
         <div class="cardRbMaterial">
             <div class="rbButtonsDestinoMaterial">
                 <h2>Período</h2>
@@ -160,9 +162,9 @@
         <div class="recentOrders">
             <div class="cardHeader">
                 <h2>Materiais a Serem Solicitados</h2>
-                <button type="button" id="btnEnviarSolicitacaoBD" onclick="itemSolic.enviarBD()">Solicitar Materiais</button>
+                <a href="solicMaterial.php?enviarformulario=true">Solicitar Materiais</a>
             </div>
-            <table id="tabelaPrincipall" class="table table-striped">
+            <table id="tabelaPrincipal" class="table table-striped">
                 <thead>
                     <tr>
                         <td scope="col">Id</td>
@@ -177,9 +179,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach($_SESSION['arrSolicitacoes'] as $key => $value) {?>
-                    <?php echo $value->codigo_material; ?>
-                <?php }?>
+                    <?php foreach ($_SESSION['arrSolicitacoes'] as $key => $value) { ?>
+                        <tr>
+                            <td scope="col"><?php echo $value['id'] ?></td>
+                            <td scope="col"><?php echo $value['codigo_material'] ?></td>
+                            <td scope="col"><?php echo $value['descricao_material'] ?></td>
+                            <td scope="col"><?php echo $value['quantidade'] ?></td>
+                            <td scope="col"><?php echo $value['rs_unitario'] ?></td>
+                            <td scope="col"><?php echo $value['rs_total'] ?></td>
+                            <td scope="col"><?php echo $value['aplicacao'] ?></td>
+                            <td scope="col"><?php echo $value['solicitante'] ?></td>
+                            <td scope="col"><?php echo $value['equipe'] ?></td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
